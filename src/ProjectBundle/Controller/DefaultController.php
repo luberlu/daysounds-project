@@ -16,6 +16,14 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/daysound")
+     */
+    public function daysoundAction()
+    {
+        return $this->render('ProjectBundle:Default:layout.html.twig');
+    }
+
+    /**
      * @Route("/playlists")
      */
     public function playlistsAction()
