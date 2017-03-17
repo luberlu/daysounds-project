@@ -1,3 +1,6 @@
-<div class="all-playlists">
-    Toutes les playlists
-</div>
+<ul class="all-playlists">
+    {% for sound in listePlaylist %}
+        <li>{{ sound.id }}</li>
+        <li>{{ sound.name }}</li>
+    {% endfor %}
+</ul>

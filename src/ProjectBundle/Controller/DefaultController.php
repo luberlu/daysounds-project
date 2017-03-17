@@ -20,7 +20,11 @@ class DefaultController extends Controller
      */
     public function playlistsAction()
     {
-        return $this->render('ProjectBundle:Playlists:playlists-list.html.twig');
+        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
+
+        $listePlaylist = $repository->findAll();
+
+        return $this->render('ProjectBundle:Playlists:playlists-list.html.twig',  ["listePlaylist" => $listePlaylist]);
     }
 
     /**
