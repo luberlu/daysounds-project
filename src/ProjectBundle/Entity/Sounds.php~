@@ -1,0 +1,231 @@
+<?php
+
+namespace ProjectBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Sounds
+ *
+ * @ORM\Table(name="sounds")
+ * @ORM\Entity(repositoryClass="ProjectBundle\Repository\SoundsRepository")
+ */
+class Sounds
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="artist_name", type="string", length=255)
+     */
+    private $artistName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="link", type="string", length=255)
+     */
+    private $link;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="player_id", type="integer")
+     */
+    private $playerId;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Genres")
+     * @ORM\JoinTable(name="sounds_genres",
+     *                 joinColumns={@ORM\JoinColumn(name="sound_id", referencedColumnName="id")},
+     *                  inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="id")}
+     *     )
+     */
+
+    protected $genres;
+
+    public function __construct()
+    {
+        $this->genres = new ArrayCollection();
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Sounds
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set artistName
+     *
+     * @param string $artistName
+     *
+     * @return Sounds
+     */
+    public function setArtistName($artistName)
+    {
+        $this->artistName = $artistName;
+
+        return $this;
+    }
+
+    /**
+     * Get artistName
+     *
+     * @return string
+     */
+    public function getArtistName()
+    {
+        return $this->artistName;
+    }
+
+    /**
+     * Set genreId
+     *
+     * @param integer $genreId
+     *
+     * @return Sounds
+     */
+    public function setGenreId($genreId)
+    {
+        $this->genreId = $genreId;
+
+        return $this;
+    }
+
+    /**
+     * Get genreId
+     *
+     * @return int
+     */
+    public function getGenreId()
+    {
+        return $this->genreId;
+    }
+
+    /**
+     * Set link
+     *
+     * @param string $link
+     *
+     * @return Sounds
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * Get link
+     *
+     * @return string
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * Set playerId
+     *
+     * @param integer $playerId
+     *
+     * @return Sounds
+     */
+    public function setPlayerId($playerId)
+    {
+        $this->playerId = $playerId;
+
+        return $this;
+    }
+
+    /**
+     * Get playerId
+     *
+     * @return int
+     */
+    public function getPlayerId()
+    {
+        return $this->playerId;
+    }
+
+    /**
+     * Add genre
+     *
+     * @param \ProjectBundle\Entity\Genres $genre
+     *
+     * @return Sounds
+     */
+    public function addGenre(\ProjectBundle\Entity\Genres $genre)
+    {
+        $this->genres[] = $genre;
+
+        return $this;
+    }
+
+    /**
+     * Remove genre
+     *
+     * @param \ProjectBundle\Entity\Genres $genre
+     */
+    public function removeGenre(\ProjectBundle\Entity\Genres $genre)
+    {
+        $this->genres->removeElement($genre);
+    }
+
+    /**
+     * Get genres
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGenres()
+    {
+        return $this->genres;
+    }
+}

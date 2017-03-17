@@ -1,0 +1,220 @@
+<?php
+
+namespace ProjectBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Playlists
+ *
+ * @ORM\Table(name="playlists")
+ * @ORM\Entity(repositoryClass="ProjectBundle\Repository\PlaylistsRepository")
+ */
+class Playlists
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="user_id", type="integer")
+     */
+    private $userId;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="genre_id", type="integer")
+     */
+    private $genreId;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="isDayli", type="boolean")
+     */
+    private $isDayli;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="wallpaper_id", type="integer")
+     */
+    private $wallpaperId;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Playlists
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param integer $userId
+     *
+     * @return Playlists
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set genreId
+     *
+     * @param integer $genreId
+     *
+     * @return Playlists
+     */
+    public function setGenreId($genreId)
+    {
+        $this->genreId = $genreId;
+
+        return $this;
+    }
+
+    /**
+     * Get genreId
+     *
+     * @return int
+     */
+    public function getGenreId()
+    {
+        return $this->genreId;
+    }
+
+    /**
+     * Set isDayli
+     *
+     * @param boolean $isDayli
+     *
+     * @return Playlists
+     */
+    public function setIsDayli($isDayli)
+    {
+        $this->isDayli = $isDayli;
+
+        return $this;
+    }
+
+    /**
+     * Get isDayli
+     *
+     * @return bool
+     */
+    public function getIsDayli()
+    {
+        return $this->isDayli;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     *
+     * @return Playlists
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * Set wallpaperId
+     *
+     * @param integer $wallpaperId
+     *
+     * @return Playlists
+     */
+    public function setWallpaperId($wallpaperId)
+    {
+        $this->wallpaperId = $wallpaperId;
+
+        return $this;
+    }
+
+    /**
+     * Get wallpaperId
+     *
+     * @return int
+     */
+    public function getWallpaperId()
+    {
+        return $this->wallpaperId;
+    }
+}

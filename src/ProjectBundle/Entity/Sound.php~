@@ -1,0 +1,227 @@
+<?php
+
+namespace ProjectBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Sound
+ *
+ * @ORM\Table(name="sound")
+ * @ORM\Entity(repositoryClass="ProjectBundle\Repository\SoundRepository")
+ */
+class Sound
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="artiste", type="string", length=255)
+     */
+    private $artiste;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="link", type="string", length=255)
+     */
+    private $link;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Genre")
+     * @ORM\JoinTable(name="sound_genres",
+     *                 joinColumns={@ORM\JoinColumn(name="sound_id", referencedColumnName="id")},
+     *                  inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="id")}
+     *     )
+     */
+
+    protected $genres;
+
+    public function _constructgenres()
+    {
+        $this->genres = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Playlist", mappedBy="sound")
+     */
+    protected $playlists;
+
+    public function __constructplaylists()
+    {
+        $this->playlists = new ArrayCollection();
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Sound
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set artiste
+     *
+     * @param string $artiste
+     *
+     * @return Sound
+     */
+    public function setArtiste($artiste)
+    {
+        $this->artiste = $artiste;
+
+        return $this;
+    }
+
+    /**
+     * Get artiste
+     *
+     * @return string
+     */
+    public function getArtiste()
+    {
+        return $this->artiste;
+    }
+
+    /**
+     * Set link
+     *
+     * @param string $link
+     *
+     * @return Sound
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * Get link
+     *
+     * @return string
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->genres = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add genre
+     *
+     * @param \ProjectBundle\Entity\Genre $genre
+     *
+     * @return Sound
+     */
+    public function addGenre(\ProjectBundle\Entity\Genre $genre)
+    {
+        $this->genres[] = $genre;
+
+        return $this;
+    }
+
+    /**
+     * Remove genre
+     *
+     * @param \ProjectBundle\Entity\Genre $genre
+     */
+    public function removeGenre(\ProjectBundle\Entity\Genre $genre)
+    {
+        $this->genres->removeElement($genre);
+    }
+
+    /**
+     * Get genres
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGenres()
+    {
+        return $this->genres;
+    }
+
+    /**
+     * Add playlist
+     *
+     * @param \ProjectBundle\Entity\Playlist $playlist
+     *
+     * @return Sound
+     */
+    public function addPlaylist(\ProjectBundle\Entity\Playlist $playlist)
+    {
+        $this->playlists[] = $playlist;
+
+        return $this;
+    }
+
+    /**
+     * Remove playlist
+     *
+     * @param \ProjectBundle\Entity\Playlist $playlist
+     */
+    public function removePlaylist(\ProjectBundle\Entity\Playlist $playlist)
+    {
+        $this->playlists->removeElement($playlist);
+    }
+
+    /**
+     * Get playlists
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlaylists()
+    {
+        return $this->playlists;
+    }
+}

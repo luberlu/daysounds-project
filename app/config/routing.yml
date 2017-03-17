@@ -1,0 +1,16 @@
+fos_user:
+    resource: "@ProjectUserBundle/Resources/config/routing.yml"
+    type: yaml
+    prefix: /
+
+project_user:
+    resource: "@ProjectUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+project:
+    resource: "@ProjectBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
