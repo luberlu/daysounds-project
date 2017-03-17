@@ -32,4 +32,5 @@ class DefaultController extends Controller
     {
         return $this->render('ProjectBundle:Playlists:playlists-list.html.twig', ["id" => $id]);
     }
+
 }

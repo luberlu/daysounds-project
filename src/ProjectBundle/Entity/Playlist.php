@@ -3,6 +3,7 @@
 namespace ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Playlist
@@ -113,7 +114,7 @@ class Playlist
      */
     public function __construct()
     {
-        $this->sounds = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sounds = new ArrayCollection();
     }
 
     /**
