@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="home")
      */
     public function indexAction()
     {
@@ -24,11 +24,15 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/playlists")
+     * @Route("/playlists", name="playlists_list")
      */
     public function playlistsAction()
     {
-        return $this->render('ProjectBundle:Playlists:playlists-list.html.twig');
+        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
+
+        $listePlaylist = $repository->findAll();
+
+        return $this->render('ProjectBundle:Playlists:playlists-list.html.twig',  ["listePlaylist" => $listePlaylist]);
     }
 
     /**
@@ -40,4 +44,5 @@ class DefaultController extends Controller
     {
         return $this->render('ProjectBundle:Playlists:playlists-list.html.twig', ["id" => $id]);
     }
+
 }
