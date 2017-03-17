@@ -13,10 +13,18 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+use ProjectBundle\Controller\PlaylistController;
 
 class RegistrationController extends BaseController
 {
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function registerAction(Request $request)
     {
         /** @var $formFactory FactoryInterface */
@@ -36,7 +44,6 @@ class RegistrationController extends BaseController
             return $event->getResponse();
         }
 
-
         $form = $formFactory->createForm();
         $form->setData($user);
 
@@ -50,6 +57,9 @@ class RegistrationController extends BaseController
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
                 $userManager->updateUser($user);
+
+                $playlist = new PlaylistController();
+                $playlist->addDefaultPlaylist($user->getId());
 
                 if (null === $response = $event->getResponse()) {
                     $url = $this->generateUrl('fos_user_registration_confirmed');
@@ -73,4 +83,5 @@ class RegistrationController extends BaseController
             'form' => $form->createView(),
         ));
     }
+
 }

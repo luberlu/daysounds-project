@@ -23,9 +23,4 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
     }
-
-    public function getParent()
-    {
-        return 'FOSUserBundle';
-    }
 }

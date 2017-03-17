@@ -10,5 +10,4 @@ namespace ProjectBundle\Repository;
  */
 class PlaylistRepository extends \Doctrine\ORM\EntityRepository
 {
-
 }

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use ProjectUserBundle\Entity\User;
 
 /**
  * Playlist
@@ -52,9 +53,17 @@ class Playlist
 
     protected $sounds;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User")
+     */
+    protected $user;
+
+
     public function _construct()
     {
         $this->sounds = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
 
@@ -155,5 +164,29 @@ class Playlist
     public function getSounds()
     {
         return $this->sounds;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \ProjectUserBundle\Entity\User $user
+     *
+     * @return Playlist
+     */
+    public function setUser(\ProjectUserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \ProjectUserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
