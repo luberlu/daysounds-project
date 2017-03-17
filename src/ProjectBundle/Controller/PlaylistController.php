@@ -35,7 +35,7 @@ class PlaylistController extends DefaultController
                     ->getFlashBag()
                     ->add('success', 'Your playlist has been saved!');
 
-                return $this->redirect($this->generateUrl('playlists'));
+                return $this->redirect($this->generateUrl('playlists_list'));
             }
         }
 
