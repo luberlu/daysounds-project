@@ -4,6 +4,8 @@ namespace ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Playlist
@@ -24,15 +26,19 @@ class Playlist
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 3,
+     *                minMessage="The name of playlist must be at least {{ limit }} characters."
+     * )
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string
+     * @var int
+     * @Assert\NotBlank()
+     * @ORM\Column(name="position", type="integer")
      *
-     * @ORM\Column(name="position", type="string", length=255)
      */
     private $position;
 
