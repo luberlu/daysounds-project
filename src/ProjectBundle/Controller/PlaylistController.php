@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use ProjectBundle\Entity\Playlist;
 use ProjectBundle\Model\AddPlaylistType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PlaylistController extends DefaultController
 {
@@ -42,5 +43,22 @@ class PlaylistController extends DefaultController
         return $this->render('ProjectBundle:Playlists:add.html.twig', ["form" => $form->createView()]);
 
     }
+    /**
+     * @Route("/playlists/delete/{id}", requirements={"id" = "\d+"}, name="delete_playlist")
+     * @return Response
+     */
+
+    public function deleteAction($id)
+    {
+        var_dump($id);
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
+        $delete = $repository->find($id);
+        $em->remove($delete);
+        $em->flush();
+        return $this->redirect($this->generateUrl('playlists_list'));
+    }
+
+
 
 }
