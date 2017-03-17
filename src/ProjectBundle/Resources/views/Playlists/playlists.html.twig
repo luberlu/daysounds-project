@@ -1,6 +1,6 @@
 <ul class="all-playlists">
     {% for sound in listePlaylist %}
-        <li>{{ sound.id }}><a href="{{ path('delete_playlist', {'id': sound.id }) }}">Delete</a></li>
+        <li>{{ sound.id }}><a href="{{ path('delete_playlist', {'id': sound.id }) }}">Delete</a><a href="{{ path('edit_playlist', {'id': sound.id }) }}">edit</a></li>
         <li>{{ sound.name }}</li>
     {% endfor %}
 </ul>

@@ -50,13 +50,49 @@ class PlaylistController extends DefaultController
 
     public function deleteAction($id)
     {
-        var_dump($id);
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
         $delete = $repository->find($id);
         $em->remove($delete);
         $em->flush();
         return $this->redirect($this->generateUrl('playlists_list'));
+    }
+
+    /**
+     * @Route("/playlists/edit/{id}", requirements={"id" = "\d+"}, name="edit_playlist")
+     * @return Response
+     */
+
+    public function editAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $playlist = $em->getRepository('ProjectBundle:Playlist')->find($id);
+        $form = $this->createForm(AddPlaylistType::class, $playlist);
+        if (!$playlist) {
+            throw $this->createNotFoundException(
+                'No playlist found for id '.$id
+            );
+        }else{
+            if ($request->getMethod() == 'POST') {
+                $form->handleRequest($request);
+
+                if ($form->isValid()) {
+
+                    // save the proposition
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($playlist);
+                    $em->flush();
+
+                    // add a flash message
+                    $this->get('session')
+                        ->getFlashBag()
+                        ->add('success', 'Your playlist has been saved!');
+
+                    return $this->redirect($this->generateUrl('playlists_list'));
+                }
+            }
+        }
+        return $this->render('ProjectBundle:Playlists:add.html.twig', ["form" => $form->createView()]);
     }
 
 
