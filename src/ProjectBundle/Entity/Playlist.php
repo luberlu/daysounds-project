@@ -4,6 +4,9 @@ namespace ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use ProjectUserBundle\Entity\User;
 
 /**
  * Playlist
@@ -24,15 +27,19 @@ class Playlist
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 3,
+     *                minMessage="The name of playlist must be at least {{ limit }} characters."
+     * )
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string
+     * @var int
+     * @Assert\NotBlank()
+     * @ORM\Column(name="position", type="integer")
      *
-     * @ORM\Column(name="position", type="string", length=255)
      */
     private $position;
 
@@ -46,9 +53,17 @@ class Playlist
 
     protected $sounds;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User")
+     */
+    protected $user;
+
+
     public function _construct()
     {
         $this->sounds = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
 
@@ -149,5 +164,29 @@ class Playlist
     public function getSounds()
     {
         return $this->sounds;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \ProjectUserBundle\Entity\User $user
+     *
+     * @return Playlist
+     */
+    public function setUser(\ProjectUserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \ProjectUserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
