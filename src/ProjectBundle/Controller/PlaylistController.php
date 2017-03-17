@@ -43,18 +43,4 @@ class PlaylistController extends DefaultController
 
     }
 
-    public function addDefaultPlaylist($id_user){
-
-        $em = $this->getDoctrine()->getManager();
-
-        $playlist = new Playlist();
-        $playlist->setName("Default playlist");
-        $playlist->setPosition(1);
-        $playlist->setUser($id_user);
-
-        $em->persist($playlist);
-        $em->flush();
-
-    }
-
 }
