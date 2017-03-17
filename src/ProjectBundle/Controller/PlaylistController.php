@@ -131,6 +131,20 @@ class PlaylistController extends DefaultController
         return $this->render('ProjectBundle:Playlists:add.html.twig', ["form" => $form->createView()]);
     }
 
+    /**
+     * @Route("/playlists/{id}/sound", requirements={"id" = "\d+"}, name="playlist_sounds")
+     * @return Response
+     */
+    public function playlistSoundAction($id,Request $request)
+    {
+
+        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->find($id);
+
+        $sounds = $repository->getSounds();
+
+        return $this->render('ProjectBundle:Sounds:sounds.html.twig', ["sounds" => $sounds]);
+
+    }
 
 
 }
