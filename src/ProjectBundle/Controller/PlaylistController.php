@@ -146,5 +146,10 @@ class PlaylistController extends DefaultController
 
     }
 
+    /**
+     * @Route("/playlists/{id}/sound/delete", requirements={"id" = "\d+"}, name="delete_sound_from_playlist")
+     * @return Response
+     */
+
 
 }
