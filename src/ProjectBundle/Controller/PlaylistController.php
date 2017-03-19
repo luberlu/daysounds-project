@@ -158,7 +158,7 @@ class PlaylistController extends DefaultController
         $soundToRemove = $this->getDoctrine()->getRepository('ProjectBundle:Sound')->find($id2);
         $repository->removeSound($soundToRemove);
         $em->flush();
-        return $this->redirect($this->generateUrl('playlists_list'));
+        return $this->redirect($this->generateUrl('playlist_sounds', array('id' => $id)));
     }
 
 
