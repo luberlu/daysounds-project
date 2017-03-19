@@ -17,7 +17,7 @@ class PlaylistController extends DefaultController
     /**
      * @Route("/playlists/add")
      */
-    public function addAction(Request $request)
+    public function addPlaylistAction(Request $request)
     {
         $playlist = new Playlist();
         $form = $this->createForm(AddPlaylistType::class, $playlist);
@@ -46,45 +46,11 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/playlists/{id}/sound/add", requirements={"id" = "\d+"}, name="add_sound_to_playlist")
-     * @return Response
-     */
-    public function addSoundAction($id,Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $sound = new Sound();
-        $form = $this->createForm(AddSoundType::class, $sound);
-        $playlist = $em->getRepository('ProjectBundle:Playlist')->find($id);
-        if ($request->getMethod() == 'POST') {
-            $form->handleRequest($request);
-
-            if ($form->isValid()) {
-
-                // save the proposition
-                $em = $this->getDoctrine()->getManager();
-                $playlist->addSound($sound);
-                $em->persist($sound);
-                $em->flush();
-
-                // add a flash message
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('success', 'Your playlist has been saved!');
-
-                return $this->redirect($this->generateUrl('playlists_list'));
-            }
-        }
-
-        return $this->render('ProjectBundle:Sounds:add.html.twig', ["form" => $form->createView()]);
-
-    }
-
-    /**
      * @Route("/playlists/delete/{id}", requirements={"id" = "\d+"}, name="delete_playlist")
      * @return Response
      */
 
-    public function deleteAction($id)
+    public function deletePlaylistAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
@@ -99,7 +65,7 @@ class PlaylistController extends DefaultController
      * @return Response
      */
 
-    public function editAction($id, Request $request)
+    public function editPlaylistAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $playlist = $em->getRepository('ProjectBundle:Playlist')->find($id);
@@ -143,6 +109,40 @@ class PlaylistController extends DefaultController
         $sounds = $repository->getSounds();
 
         return $this->render('ProjectBundle:Sounds:sounds.html.twig', ["sounds" => $sounds]);
+
+    }
+
+    /**
+     * @Route("/playlists/{id}/sound/add", requirements={"id" = "\d+"}, name="add_sound_to_playlist")
+     * @return Response
+     */
+    public function addSoundAction($id,Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $sound = new Sound();
+        $form = $this->createForm(AddSoundType::class, $sound);
+        $playlist = $em->getRepository('ProjectBundle:Playlist')->find($id);
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+
+                // save the proposition
+                $em = $this->getDoctrine()->getManager();
+                $playlist->addSound($sound);
+                $em->persist($sound);
+                $em->flush();
+
+                // add a flash message
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('success', 'Your playlist has been saved!');
+
+                return $this->redirect($this->generateUrl('playlists_list'));
+            }
+        }
+
+        return $this->render('ProjectBundle:Sounds:add.html.twig', ["form" => $form->createView()]);
 
     }
 
