@@ -165,4 +165,28 @@ class Playlist
     {
         return $this->sounds;
     }
+
+    /**
+     * Set user
+     *
+     * @param \ProjectUserBundle\Entity\User $user
+     *
+     * @return Playlist
+     */
+    public function setUser(\ProjectUserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \ProjectUserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

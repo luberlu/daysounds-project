@@ -46,7 +46,7 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/playlists/{id}/sound/add", requirements={"id" = "\d+"}, name="add_sound_to_playlist")
+     * @Route("/playlists/{id}/sounds/add", requirements={"id" = "\d+"}, name="add_sound_to_playlist")
      * @return Response
      */
     public function addSoundAction($id,Request $request)
@@ -132,7 +132,7 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/playlists/{id}/sound", requirements={"id" = "\d+"}, name="playlist_sounds")
+     * @Route("/playlists/{id}/sounds", requirements={"id" = "\d+"}, name="playlist_sounds")
      * @return Response
      */
     public function playlistSoundAction($id,Request $request)
