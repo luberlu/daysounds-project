@@ -3,6 +3,7 @@
 namespace ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Sound
@@ -154,7 +155,7 @@ class Sound
      */
     public function __construct()
     {
-        $this->genres = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->genres = new ArrayCollection();
     }
 
     /**
