@@ -108,7 +108,7 @@ class PlaylistController extends DefaultController
 
         $sounds = $repository->getSounds();
 
-        return $this->render('ProjectBundle:Sounds:sounds.html.twig', ["sounds" => $sounds]);
+        return $this->render('ProjectBundle:Sounds:sounds.html.twig', ["sounds" => $sounds,"idPlaylist"=>$id]);
 
     }
 
@@ -147,9 +147,19 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/playlists/{id}/sound/delete", requirements={"id" = "\d+"}, name="delete_sound_from_playlist")
+     * @Route("/playlists/{id}/sound/{id2}/delete", requirements={"id" = "\d+","id2"="\d+"}, name="delete_sound_from_playlist")
      * @return Response
      */
+
+    public function deleteSoundFromPlaylistAction($id,$id2)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->find($id);
+        $soundToRemove = $this->getDoctrine()->getRepository('ProjectBundle:Sound')->find($id2);
+        $repository->removeSound($soundToRemove);
+        $em->flush();
+        return $this->redirect($this->generateUrl('playlists_list'));
+    }
 
 
 }
