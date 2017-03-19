@@ -79,3 +79,10 @@ fos_user:
     from_email:
         address: phillipehubert@gmail.com
         sender_name: You
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        user_avatar:
+            uri_prefix: /images/avatars
+            upload_destination: '%kernel.root_dir%/../web/images/avatars'

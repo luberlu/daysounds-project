@@ -4,6 +4,8 @@ namespace ProjectUserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -18,9 +20,30 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\Column(name="avatarPath", type="string", length=255, nullable=true)
+     */
+    protected $avatarPath;
+
+    /**
+     * @Assert\File(
+     *     maxSize = "5M",
+     *     mimeTypes = {"image/jpeg", "image/gif", "image/png", "image/tiff"},
+     *     maxSizeMessage = "The maxmimum allowed file size is 5MB.",
+     *     mimeTypesMessage = "Only the filetypes image are allowed.")
+     */
+    protected $avatar;
+
+    protected $avatarTemp;
+
     public function __construct()
     {
         parent::__construct();
         // your own logic
+    }
+
+    public function getParent()
+    {
+        return 'FOSUserBundle';
     }
 }
