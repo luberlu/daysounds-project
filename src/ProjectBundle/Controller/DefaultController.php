@@ -24,7 +24,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/playlists", name="playlists_list")
+     * @Route("/profil", name="profil")
      */
     public function playlistsAction()
     {
@@ -32,7 +32,7 @@ class DefaultController extends Controller
 
         $listePlaylist = $repository->findAll();
 
-        return $this->render('ProjectBundle:Playlists:playlists-list.html.twig',  ["listePlaylist" => $listePlaylist]);
+        return $this->render('ProjectBundle:Default:profil.html.twig',  ["listePlaylist" => $listePlaylist]);
     }
 
     /**
@@ -42,7 +42,7 @@ class DefaultController extends Controller
      */
     public function seePlaylist($id)
     {
-        return $this->render('ProjectBundle:Playlists:playlists-list.html.twig', ["id" => $id]);
+        return $this->render('ProjectBundle:Default:profil.html.twig', ["id" => $id]);
     }
 
 }
