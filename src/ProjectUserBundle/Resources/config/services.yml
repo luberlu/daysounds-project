@@ -1,4 +1,5 @@
 services:
-#    project_user.example:
-#        class: ProjectUserBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    app.form.registration:
+            class: ProjectUserBundle\Form\Type\RegistrationFormType
+            tags:
+                - { name: form.type, alias: app_user_registration }
