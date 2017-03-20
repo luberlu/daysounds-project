@@ -59,17 +59,6 @@ class Sound
     }
 
     /**
-     * @ORM\OneToMany(targetEntity="Playlist", mappedBy="sound")
-     */
-    protected $playlists;
-
-    public function __constructplaylists()
-    {
-        $this->playlists = new ArrayCollection();
-    }
-
-
-    /**
      * Get id
      *
      * @return int
