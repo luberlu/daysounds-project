@@ -15,7 +15,7 @@ class PlaylistController extends DefaultController
 {
 
     /**
-     * @Route("/playlists/add")
+     * @Route("/profil/playlists/add", name="add_playlist")
      */
     public function addPlaylistAction(Request $request)
     {
@@ -37,7 +37,7 @@ class PlaylistController extends DefaultController
                     ->getFlashBag()
                     ->add('success', 'Your playlist has been saved!');
 
-                return $this->redirect($this->generateUrl('playlists_list'));
+                return $this->redirect($this->generateUrl('profil'));
             }
         }
 
@@ -46,7 +46,7 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/playlists/delete/{id}", requirements={"id" = "\d+"}, name="delete_playlist")
+     * @Route("/profil/playlists/delete/{id}", requirements={"id" = "\d+"}, name="delete_playlist")
      * @return Response
      */
 
@@ -57,11 +57,11 @@ class PlaylistController extends DefaultController
         $delete = $repository->find($id);
         $em->remove($delete);
         $em->flush();
-        return $this->redirect($this->generateUrl('playlists_list'));
+        return $this->redirect($this->generateUrl('profil'));
     }
 
     /**
-     * @Route("/playlists/edit/{id}", requirements={"id" = "\d+"}, name="edit_playlist")
+     * @Route("/profil/playlists/edit/{id}", requirements={"id" = "\d+"}, name="edit_playlist")
      * @return Response
      */
 
@@ -90,7 +90,7 @@ class PlaylistController extends DefaultController
                         ->getFlashBag()
                         ->add('success', 'Your playlist has been saved!');
 
-                    return $this->redirect($this->generateUrl('playlists_list'));
+                    return $this->redirect($this->generateUrl('profil'));
                 }
             }
         }
@@ -98,7 +98,7 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/playlists/{id}/sounds", requirements={"id" = "\d+"}, name="playlist_sounds")
+     * @Route("/profil/playlists/{id}/sounds", requirements={"id" = "\d+"}, name="playlist_sounds")
      * @return Response
      */
     public function playlistSoundAction($id,Request $request)
@@ -107,13 +107,16 @@ class PlaylistController extends DefaultController
         $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->find($id);
 
         $sounds = $repository->getSounds();
+        $repository2 = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
 
-        return $this->render('ProjectBundle:Sounds:sounds.html.twig', ["sounds" => $sounds,"idPlaylist"=>$id]);
+        $listePlaylist = $repository2->findAll();
+
+        return $this->render('ProjectBundle:Default:playlists.html.twig', ["listePlaylist"=>$listePlaylist,"sounds" => $sounds,"idPlaylist"=>$id]);
 
     }
 
     /**
-     * @Route("/playlists/{id}/sound/add", requirements={"id" = "\d+"}, name="add_sound_to_playlist")
+     * @Route("/profil/playlists/{id}/sound/add", requirements={"id" = "\d+"}, name="add_sound_to_playlist")
      * @return Response
      */
     public function addSoundAction($id,Request $request)
@@ -156,7 +159,7 @@ class PlaylistController extends DefaultController
                     ->getFlashBag()
                     ->add('success', 'Your playlist has been saved!');
 
-                return $this->redirect($this->generateUrl('playlists_list'));
+                return $this->redirect($this->generateUrl('playlist_sounds', array('id' => $id)));
             }
         }
 
@@ -165,7 +168,7 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/playlists/{id}/sound/{id2}/delete", requirements={"id" = "\d+","id2"="\d+"}, name="delete_sound_from_playlist")
+     * @Route("/profil/playlists/{id}/sound/{id2}/delete", requirements={"id" = "\d+","id2"="\d+"}, name="delete_sound_from_playlist")
      * @return Response
      */
 

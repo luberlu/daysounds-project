@@ -1,0 +1,13 @@
+{% extends "@ProjectBundle/Resources/views/Default/profil.html.twig" %}
+{% block playlist %}
+    <ul class="sounds-in-playlist">
+        {% for sound in sounds %}
+            <li>
+                <a  href="#">{{ sound.id }} {{ sound.name }}</a>
+                <ul class="action">
+                    <li><a href="{{ path('delete_sound_from_playlist', {'id':idPlaylist,'id2':sound.id }) }}">Delete</a></li>
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
