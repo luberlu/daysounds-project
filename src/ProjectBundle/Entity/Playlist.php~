@@ -44,11 +44,7 @@ class Playlist
     private $position;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Sound")
-     * @ORM\JoinTable(name="playlist_sounds",
-     *                 joinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id")},
-     *                  inverseJoinColumns={@ORM\JoinColumn(name="sound_id", referencedColumnName="id")}
-     *     )
+     *@ORM\ManyToMany(targetEntity="Sound", cascade={"persist"})
      */
 
     protected $sounds;

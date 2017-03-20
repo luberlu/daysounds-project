@@ -126,13 +126,31 @@ class PlaylistController extends DefaultController
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-
                 // save the proposition
-                $em = $this->getDoctrine()->getManager();
-                $playlist->addSound($sound);
-                $em->persist($sound);
-                $em->flush();
+                $soundTofind=$sound->getLink();
+                $soundIsFind=$this->getDoctrine()->getRepository('ProjectBundle:Sound')->findBy(array('link'=>$soundTofind));
+                $soundToReplace = $this->getDoctrine()->getRepository('ProjectBundle:Sound')->findoneBy(array('link'=>$soundTofind));
+                if(count($soundIsFind)){
+                    //sound Exist
+                    $em = $this->getDoctrine()->getManager();
+                    if($playlist->getSounds($soundIsFind)){
+                        $this->get('session')
+                            ->getFlashBag()
+                            ->add('success', 'You already have this sound in this playlist!');
+                    }else{
+                        $playlist->addSound($soundToReplace);
+                        var_dump($soundToReplace->getId());
+                        $em->flush();
+                    }
 
+                }
+                else{
+                    //sound do not exist
+                    $em = $this->getDoctrine()->getManager();
+                    $playlist->addSound($sound);
+                    $em->persist($sound);
+                    $em->flush();
+                }
                 // add a flash message
                 $this->get('session')
                     ->getFlashBag()
