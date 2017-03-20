@@ -31,7 +31,12 @@ class User extends BaseUser
      *
      * @Assert\Image(
      *      maxSize="2M",
-     *      mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     *      mimeTypes={"image/png", "image/jpeg", "image/pjpeg"},
+     *      minWidth = 200,
+     *      maxWidth = 1000,
+     *      minHeight = 200,
+     *      maxHeight = 1000,
+     *      minRatio = 1
      * )
      * @Vich\UploadableField(mapping="user_avatar", fileNameProperty="imageName")
      *
