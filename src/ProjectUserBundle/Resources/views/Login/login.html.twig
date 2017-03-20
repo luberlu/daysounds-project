@@ -4,6 +4,7 @@
         <a href="{{ path('fos_user_security_logout') }}">
             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
         </a><br />
+        <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" width="50" height="auto" />
         <a href="{{ path("fos_user_profile_show") }}">view profile</a>
     {% else %}
         <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
