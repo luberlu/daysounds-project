@@ -133,9 +133,16 @@ class PlaylistController extends DefaultController
                 if(count($soundIsFind)){
                     //sound Exist
                     $em = $this->getDoctrine()->getManager();
-                    $playlist->addSound($soundToReplace);
-                    var_dump($soundToReplace->getId());
-                    $em->flush();
+                    if($playlist->getSounds($soundIsFind)){
+                        $this->get('session')
+                            ->getFlashBag()
+                            ->add('success', 'You already have this sound in this playlist!');
+                    }else{
+                        $playlist->addSound($soundToReplace);
+                        var_dump($soundToReplace->getId());
+                        $em->flush();
+                    }
+
                 }
                 else{
                     //sound do not exist
