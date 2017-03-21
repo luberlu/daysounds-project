@@ -101,7 +101,7 @@ class PlaylistController extends DefaultController
      * @Route("/playlists/{id}/sounds", requirements={"id" = "\d+"}, name="playlist_sounds")
      * @return Response
      */
-    public function playlistSoundAction($id,Request $request)
+    public function playlistSoundAction($id)
     {
 
         $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->find($id);
@@ -116,28 +116,37 @@ class PlaylistController extends DefaultController
      * @Route("/playlists/{id}/sound/add", requirements={"id" = "\d+"}, name="add_sound_to_playlist")
      * @return Response
      */
-    public function addSoundAction($id,Request $request)
+    public function addSoundAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $sound = new Sound();
         $form = $this->createForm(AddSoundType::class, $sound);
         $playlist = $em->getRepository('ProjectBundle:Playlist')->find($id);
+
         if ($request->getMethod() == 'POST') {
+
             $form->handleRequest($request);
 
             if ($form->isValid()) {
+
                 // save the proposition
                 $soundTofind=$sound->getLink();
                 $soundIsFind=$this->getDoctrine()->getRepository('ProjectBundle:Sound')->findBy(array('link'=>$soundTofind));
                 $soundToReplace = $this->getDoctrine()->getRepository('ProjectBundle:Sound')->findoneBy(array('link'=>$soundTofind));
+
                 if(count($soundIsFind)){
+
                     //sound Exist
                     $em = $this->getDoctrine()->getManager();
+
                     if($playlist->getSounds($soundIsFind)){
+
                         $this->get('session')
                             ->getFlashBag()
                             ->add('success', 'You already have this sound in this playlist!');
-                    }else{
+
+                    } else {
+
                         $playlist->addSound($soundToReplace);
                         var_dump($soundToReplace->getId());
                         $em->flush();
@@ -156,7 +165,7 @@ class PlaylistController extends DefaultController
                     ->getFlashBag()
                     ->add('success', 'Your playlist has been saved!');
 
-                return $this->redirect($this->generateUrl('playlists_list'));
+                return $this->redirectToRoute('playlist_sounds', ['id' => $id]);
             }
         }
 
