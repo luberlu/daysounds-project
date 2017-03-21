@@ -6,6 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use ProjectBundle\Entity\Player;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 class PlayerController extends DefaultController
 {
@@ -46,6 +48,22 @@ class PlayerController extends DefaultController
             $response->send();
 
         }
+    }
+
+    // test Input
+
+    /**
+     * @Route("/test-link-sound")
+     */
+    public function testLinkAddSoundAction(Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
+
+            $variable = $request->request->get('link');
+            return new JsonResponse(array('type' => $variable));
+        }
+
+        return false;
     }
 
 }

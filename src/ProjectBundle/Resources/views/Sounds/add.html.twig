@@ -1,7 +1,38 @@
 {{ form_start(form) }}
 
     {{ form_widget(form) }}
-<p>
-    <input type="submit" value="Add sound">
-</p>
+    <p><input type="submit" value="Add sound"></p>
+
 {{ form_end(form) }}
+
+<!-- just to test -->
+
+<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+
+<script type="application/javascript">
+
+    $("#add_sound_link").on("keyup", function(){
+
+        $.ajax({
+            url: '/test-link-sound',
+            type: 'POST',
+            data: 'link=' + $(this).val(),
+            dataType: 'html',
+
+            success: function (code_html, statut) {
+                console.log(code_html);
+            },
+
+            error: function (resultat, statut, erreur) {
+
+            },
+
+            complete: function (resultat, statut) {
+
+            }
+        });
+
+    });
+
+
+</script>
