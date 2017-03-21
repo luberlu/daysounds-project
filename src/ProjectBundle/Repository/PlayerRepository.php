@@ -10,4 +10,14 @@ namespace ProjectBundle\Repository;
  */
 class PlayerRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function listAndTestLinkPlayers()
+	{
+		$listOfPlayers = $this->findAll();
+
+		foreach($listOfPlayers as $player){
+			var_dump($player->getlinkExample());
+		}
+
+		return $listOfPlayers;
+	}
 }

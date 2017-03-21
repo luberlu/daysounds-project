@@ -60,7 +60,11 @@ class PlayerController extends DefaultController
         if ($request->getMethod() == 'POST') {
 
             $variable = $request->request->get('link');
-            return new JsonResponse(array('type' => $variable));
+
+            $em = $this->getDoctrine()->getManager();
+            $players = $em->getRepository('ProjectBundle:Player');
+
+            return new JsonResponse(array('type' => $players->listAndTestLinkPlayers($variable)));
         }
 
         return false;
