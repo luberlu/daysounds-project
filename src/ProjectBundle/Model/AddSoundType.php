@@ -13,6 +13,12 @@ class AddSoundType extends AbstractType {
         $builder->add("name")
             ->add("artiste")
             ->add("link")
+            ->add('players', EntityType::class, array(
+                'class' => 'ProjectBundle:Player',
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expanded' => true
+            ))
             ->add('genres', EntityType::class, array(
                 'class' => 'ProjectBundle:Genre',
                 'choice_label' => 'name',

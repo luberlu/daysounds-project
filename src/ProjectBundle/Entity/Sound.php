@@ -53,9 +53,18 @@ class Sound
 
     protected $genres;
 
-    public function _constructgenres()
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player")
+     */
+    protected $players;
+
+
+
+    public function _construct()
     {
         $this->genres = new ArrayCollection();
+        $this->players = new ArrayCollection();
     }
 
     /**
@@ -213,5 +222,29 @@ class Sound
     public function getPlaylists()
     {
         return $this->playlists;
+    }
+
+    /**
+     * Set players
+     *
+     * @param \ProjectBundle\Entity\Player $players
+     *
+     * @return Sound
+     */
+    public function setPlayers(\ProjectBundle\Entity\Player $players = null)
+    {
+        $this->players = $players;
+
+        return $this;
+    }
+
+    /**
+     * Get players
+     *
+     * @return \ProjectBundle\Entity\Player
+     */
+    public function getPlayers()
+    {
+        return $this->players;
     }
 }
