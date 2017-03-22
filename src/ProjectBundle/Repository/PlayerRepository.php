@@ -12,6 +12,10 @@ class PlayerRepository extends \Doctrine\ORM\EntityRepository
 {
 	public function listAndTestLinkPlayers($entryInput)
 	{
+		if (filter_var($entryInput, FILTER_VALIDATE_URL) === FALSE) {
+			return null;
+		}
+
 		$listOfPlayers = $this->findAll();
 
 		foreach($listOfPlayers as $player){
