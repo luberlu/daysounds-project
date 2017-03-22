@@ -50,17 +50,15 @@ class Playlist
     protected $sounds;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User")
-     */
-    protected $user;
-
-
-
-    /**
      * @var boolean
      * @ORM\Column(name="isDayli", type="boolean", options={"default":false})
      */
     protected $isDayli;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User")
+     */
+    protected $user;
 
 
     public function _construct()
@@ -176,7 +174,7 @@ class Playlist
      *
      * @return Playlist
      */
-    public function setUser(\ProjectUserBundle\Entity\User $user = null)
+    public function setUser(\ProjectUserBundle\Entity\User $user)
     {
         $this->user = $user;
 

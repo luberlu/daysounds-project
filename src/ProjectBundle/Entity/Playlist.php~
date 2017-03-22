@@ -55,10 +55,16 @@ class Playlist
      */
     protected $isDayli;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User")
+     */
+    protected $user;
+
 
     public function _construct()
     {
         $this->sounds = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
 

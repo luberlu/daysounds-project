@@ -74,7 +74,6 @@ class DefaultController extends Controller
     public function renderProfilAction($slug_username)
     {
         $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findBySlug($slug_username);
-
         if(!count($user)){
             return $this->redirect($this->generateUrl('404'));
         }

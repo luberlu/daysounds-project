@@ -57,15 +57,11 @@ class User extends BaseUser
      * @var \DateTime
      */
     private $updatedAt;
+
     /**
      * @ORM\Column(type="string")
      */
     protected $slug;
-
-    public function _construct()
-    {
-        $this->user = new ArrayCollection();
-    }
 
     public function __construct()
     {
