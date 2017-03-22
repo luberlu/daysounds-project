@@ -51,20 +51,14 @@ class Playlist
 
     /**
      * @var boolean
-     * @ORM\Column(name="isDayli", type="boolean")
+     * @ORM\Column(name="isDayli", type="boolean", options={"default":false})
      */
     protected $isDayli;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User")
-     */
-    protected $user;
 
 
     public function _construct()
     {
         $this->sounds = new ArrayCollection();
-        $this->user = new ArrayCollection();
     }
 
 
@@ -189,5 +183,29 @@ class Playlist
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set isDayli
+     *
+     * @param boolean $isDayli
+     *
+     * @return Playlist
+     */
+    public function setIsDayli($isDayli)
+    {
+        $this->isDayli = $isDayli;
+
+        return $this;
+    }
+
+    /**
+     * Get isDayli
+     *
+     * @return boolean
+     */
+    public function getIsDayli()
+    {
+        return $this->isDayli;
     }
 }

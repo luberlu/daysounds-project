@@ -83,7 +83,7 @@ class DefaultController extends Controller
         $listePlaylist = $repository->findByUser($user);
 
         return $this->render('ProjectBundle:Default:profil.html.twig',
-            ["listePlaylist" => $listePlaylist, "id_user" => $user]);
+            ["listePlaylist" => $listePlaylist, "id_user" => $user, "slug_username"=>$slug_username]);
     }
 
 

@@ -6,7 +6,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -57,13 +57,15 @@ class User extends BaseUser
      * @var \DateTime
      */
     private $updatedAt;
-
-
     /**
      * @ORM\Column(type="string")
      */
     protected $slug;
 
+    public function _construct()
+    {
+        $this->user = new ArrayCollection();
+    }
 
     public function __construct()
     {
@@ -214,5 +216,29 @@ class User extends BaseUser
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set userPlaylist
+     *
+     * @param \ProjectBundle\Entity\Playlist $userPlaylist
+     *
+     * @return User
+     */
+    public function setUserPlaylist(\ProjectBundle\Entity\Playlist $userPlaylist = null)
+    {
+        $this->user_playlist = $userPlaylist;
+
+        return $this;
+    }
+
+    /**
+     * Get userPlaylist
+     *
+     * @return \ProjectBundle\Entity\Playlist
+     */
+    public function getUserPlaylist()
+    {
+        return $this->user_playlist;
     }
 }

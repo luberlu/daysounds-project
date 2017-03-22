@@ -15,9 +15,9 @@ class PlaylistController extends DefaultController
 {
 
     /**
-     * @Route("/profil/playlists/add", name="add_playlist")
+     * @Route("/users/{slug_username}/playlists/add", name="add_playlist")
      */
-    public function addPlaylistAction(Request $request)
+    public function addPlaylistAction(Request $request,$slug_username)
     {
         $playlist = new Playlist();
         $form = $this->createForm(AddPlaylistType::class, $playlist);
@@ -38,7 +38,7 @@ class PlaylistController extends DefaultController
                     ->getFlashBag()
                     ->add('success', 'Your playlist has been saved!');
 
-                return $this->redirect($this->generateUrl('profil'));
+                return $this->redirect($this->generateUrl('mon_profil',array('slug_username'=>$slug_username)));
             }
         }
 

@@ -6,12 +6,12 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ProjectUserBundle\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
  * @Vich\Uploadable
  */
@@ -57,13 +57,19 @@ class User extends BaseUser
      * @var \DateTime
      */
     private $updatedAt;
-
-
+    /**
+     * @ORM\ManyToOne(targetEntity="ProjectBundle\Entity\Playlist")
+     */
+    protected $user_playlist;
     /**
      * @ORM\Column(type="string")
      */
     protected $slug;
 
+    public function _construct()
+    {
+        $this->user = new ArrayCollection();
+    }
 
     public function __construct()
     {

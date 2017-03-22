@@ -50,15 +50,17 @@ class Playlist
     protected $sounds;
 
     /**
-     * @var boolean
-     * @ORM\Column(name="isDayli", type="boolean")
-     */
-    protected $isDayli;
-
-    /**
      * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User")
      */
     protected $user;
+
+
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="isDayli", type="boolean", options={"default":false})
+     */
+    protected $isDayli;
 
 
     public function _construct()
