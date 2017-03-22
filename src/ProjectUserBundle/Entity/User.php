@@ -36,7 +36,7 @@ class User extends BaseUser
      *      maxWidth = 1000,
      *      minHeight = 200,
      *      maxHeight = 1000,
-     *      minRatio = 1
+     *      maxRatio = 1
      * )
      * @Vich\UploadableField(mapping="user_avatar", fileNameProperty="imageName")
      *
