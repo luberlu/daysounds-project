@@ -60,7 +60,7 @@ class Sound
 
     /**
      * @ORM\ManyToOne(targetEntity="Player")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message = "Your sound url is not recognize by our system. Only soundcloud or youtube !")
      */
     protected $players;
 

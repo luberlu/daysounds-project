@@ -7,6 +7,8 @@
                 <ul class="action">
                     <li><a href="{{ path('delete_sound_from_playlist', {'id':idPlaylist,'id2':sound.id }) }}">Delete</a></li>
                 </ul>
+                <!-- iframe integration -->
+                {% include "@ProjectBundle/Resources/views/Playlists/sound-iframe.html.twig" %}
             </li>
         {% endfor %}
     </ul>

@@ -7,8 +7,6 @@
 
 {{ form_end(form) }}
 
-<!-- just to test -->
-
 <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
 
 <script type="application/javascript">
@@ -35,6 +33,12 @@
                         $("#add_sound_players").find("input").attr('checked', false);
                         $("#add_sound_players_" + obj.type).attr('checked', true);
 
+                        if(obj.name == "youtube") {
+                            var myId = getId(val);
+                            var constructUrlEmbed = "https://www.youtube.com/embed/" + myId;
+                            $("#add_sound_link").val(constructUrlEmbed);
+                        }
+
                     } else {
                         // testing
                         $("#add_sound_players").find("input").attr('checked', false);
@@ -58,8 +62,18 @@
         $(this).data('timer', wait);
 
 
+        function getId(url) {
+            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            var match = url.match(regExp);
+
+            if (match && match[2].length == 11) {
+                return match[2];
+            } else {
+                return 'error';
+            }
+        }
+
+
     });
-
-
-
+    
 </script>
