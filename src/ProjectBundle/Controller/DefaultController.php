@@ -45,4 +45,23 @@ class DefaultController extends Controller
         return $this->render('ProjectBundle:Default:profil.html.twig', ["id" => $id]);
     }
 
+
+    // Afficher le profil d'un utilisateur avec toutes ses playlists
+
+    /**
+     * @Route("/users/{id}")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+
+    public function renderProfilAction($id)
+    {
+        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
+
+        $listePlaylist = $repository->findByUser($id);
+
+        return $this->render('ProjectBundle:Default:profil.html.twig',
+            ["listePlaylist" => $listePlaylist, "id_user" => $id]);
+    }
+
 }
