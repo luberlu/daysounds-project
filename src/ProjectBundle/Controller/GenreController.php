@@ -20,26 +20,41 @@ class GenreController extends DefaultController
 		$genres = array("Rock", "Pop", "Alternative", "Electro", "Techno", "Funk" );
 
 		if ($request->getMethod() == 'GET') {
+
 			$em = $this->getDoctrine()->getManager();
 
-			foreach($genres as $genre){
+			// now if already exist
+			$actualGenres = $this->getDoctrine()->getRepository("ProjectBundle:Genre")->findAll();
 
-				$genreInst = new Genre();
-				$genreInst->setName($genre);
+			if(count($actualGenres) == 0) {
 
-				$em->persist($genreInst);
+				foreach ( $actualGenres as $genreToRemove ) {
+					$em->remove( $genreToRemove );
+				}
+
+				$em->flush();
+
+				// now add genres
+				foreach ( $genres as $genre ) {
+
+					$genreInst = new Genre();
+					$genreInst->setName( $genre );
+
+					$em->persist( $genreInst );
+				}
+
+				$em->flush();
+
+				$response = new Response(
+					'Push des genres fait avec succés !',
+					Response::HTTP_OK,
+					array( 'content-type' => 'text/html' )
+				);
+
+				$response->prepare( $request );
+				$response->send();
+
 			}
-
-			$em->flush();
-
-			$response = new Response(
-				'Push des genres fait avec succés !',
-				Response::HTTP_OK,
-				array('content-type' => 'text/html')
-			);
-
-			$response->prepare($request);
-			$response->send();
 
 		}
 	}

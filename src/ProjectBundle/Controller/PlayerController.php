@@ -27,25 +27,32 @@ class PlayerController extends DefaultController
         if ($request->getMethod() == 'GET') {
             $em = $this->getDoctrine()->getManager();
 
-            foreach($players as $player){
+            // now if already exist
+            $actualPlayers = $this->getDoctrine()->getRepository("ProjectBundle:Player")->findAll();
 
-                $playerInst = new Player();
-                $playerInst->setName($player[0]);
-                $playerInst->setLinkExample($player[1]);
+            if(count($actualPlayers) == 0) {
 
-                $em->persist($playerInst);
+                foreach ( $players as $player ) {
+
+                    $playerInst = new Player();
+                    $playerInst->setName( $player[0] );
+                    $playerInst->setLinkExample( $player[1] );
+
+                    $em->persist( $playerInst );
+                }
+
+                $em->flush();
+
+                $response = new Response(
+                    'Push des players fait avec succés !',
+                    Response::HTTP_OK,
+                    array( 'content-type' => 'text/html' )
+                );
+
+                $response->prepare( $request );
+                $response->send();
+
             }
-
-            $em->flush();
-
-            $response = new Response(
-                'Push des players fait avec succés !',
-                Response::HTTP_OK,
-                array('content-type' => 'text/html')
-            );
-
-            $response->prepare($request);
-            $response->send();
 
         }
     }
