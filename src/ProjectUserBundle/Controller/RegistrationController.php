@@ -65,6 +65,7 @@ class RegistrationController extends BaseController
                 $playlist = new Playlist();
                 $playlist->setName("Ma musique");
                 $playlist->setPosition(1);
+                $playlist->setIsDayli(true);
                 $playlist->setUser($user);
 
                 $em->persist($playlist);

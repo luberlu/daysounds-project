@@ -29,6 +29,7 @@ class PlaylistController extends DefaultController
 
                 // save the proposition
                 $em = $this->getDoctrine()->getManager();
+                $playlist->setIsDayli(false);
                 $em->persist($playlist);
                 $em->flush();
 

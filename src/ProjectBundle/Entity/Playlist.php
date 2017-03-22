@@ -49,6 +49,11 @@ class Playlist
 
     protected $sounds;
 
+    /**
+     * @var boolean
+     * @ORM\Column(name="isDayli", type="boolean")
+     */
+    protected $isDayli;
 
     /**
      * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User")
@@ -184,5 +189,29 @@ class Playlist
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set isDayli
+     *
+     * @param boolean $isDayli
+     *
+     * @return Playlist
+     */
+    public function setIsDayli($isDayli)
+    {
+        $this->isDayli = $isDayli;
+
+        return $this;
+    }
+
+    /**
+     * Get isDayli
+     *
+     * @return boolean
+     */
+    public function getIsDayli()
+    {
+        return $this->isDayli;
     }
 }

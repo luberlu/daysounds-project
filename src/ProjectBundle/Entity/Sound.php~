@@ -4,6 +4,7 @@ namespace ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sound
@@ -40,6 +41,9 @@ class Sound
      * @var string
      *
      * @ORM\Column(name="link", type="string", length=255)
+     * @Assert\Url(
+     *    message = "The url '{{ value }}' is not a valid url",
+     * )
      */
     private $link;
 
@@ -56,6 +60,7 @@ class Sound
 
     /**
      * @ORM\ManyToOne(targetEntity="Player")
+     * @Assert\NotBlank(message = "Your sound url is not recognize by our system. Only soundcloud or youtube !")
      */
     protected $players;
 
