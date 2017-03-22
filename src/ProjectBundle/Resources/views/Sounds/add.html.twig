@@ -13,26 +13,47 @@
 
     $("#add_sound_link").on("keyup", function(){
 
-        $.ajax({
-            url: '/test-link-sound',
-            type: 'POST',
-            data: 'link=' + $(this).val(),
-            dataType: 'html',
+        clearTimeout($.data(this, 'timer'));
 
-            success: function (code_html, statut) {
-                console.log(code_html);
-            },
+        var val = $(this).val();
 
-            error: function (resultat, statut, erreur) {
+        var wait = setTimeout(function(){
 
-            },
+            $.ajax({
+                url: '/test-link-sound',
+                type: 'POST',
+                data: 'link=' + val,
+                dataType: 'html',
 
-            complete: function (resultat, statut) {
+                success: function (code_html, statut) {
 
-            }
-        });
+                    if(code_html !== "{}"){
+                        // testing
+                        $("#add_sound").append(code_html)
+
+                    } else {
+                        // testing
+                        $("#add_sound").append(code_html)
+                    }
+                },
+
+                error: function (resultat, statut, erreur) {
+
+                },
+
+                complete: function (resultat, statut) {
+
+                }
+            });
+
+
+        }, 500);
+
+        $(this).data('timer', wait);
+
 
     });
+
 
 
 </script>

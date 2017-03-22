@@ -71,7 +71,9 @@ class PlayerController extends DefaultController
             $em = $this->getDoctrine()->getManager();
             $players = $em->getRepository('ProjectBundle:Player');
 
-            return new JsonResponse(array('type' => $players->listAndTestLinkPlayers($variable)));
+            $result = $players->listAndTestLinkPlayers($variable);
+
+            return new JsonResponse($result);
         }
 
         return false;
