@@ -1,6 +1,6 @@
 {% if sound.players.name == "youtube" %}
 
-    <iframe id="sound-{{ sound.id }}" width="560" height="315" src="{{ sound.link }}" frameborder="0" allowfullscreen></iframe>
+    <iframe id="sound-{{ sound.id }}" width="560" height="315" src="{{ sound.link }}?api=1" frameborder="0" allowfullscreen data-embedplayer-id="youtube_1"></iframe>
 
 
 {% elseif sound.players.name == "soundcloud" %}
