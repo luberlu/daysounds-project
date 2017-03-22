@@ -1,6 +1,8 @@
 <html>
 <head>
-    <title>Daysounds - {{ datas.title }}</title>
+    <!-- NOTICE LUBERLU - A TERME LES DONNEES DOIVENT ETRE ENVOYES DANS UN ARRAY DATAS GLOBAL -->
+    <!-- CE IF DATAS N'AURA PLUS D'INTERET UNE FOIS TOUT MIS AU CLAIR -->
+    <title>Daysounds - {% if datas %}{{ datas.title }}{% endif %}</title>
     {#<link rel="stylesheet" href="../../../../../web/assets/bootstrap/css/bootstrap.min.css" />#}
     <link rel="stylesheet" href="{{ asset('bundles/project/bootstrap/css/bootstrap.min.css') }}" />
 </head>

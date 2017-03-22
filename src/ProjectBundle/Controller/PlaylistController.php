@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PlaylistController extends DefaultController
 {
-
+    private $datas = [];
     /**
      * @Route("/profil/playlists/add", name="add_playlist")
      */

@@ -23,56 +23,11 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/profil", name="profil")
-     */
-    public function playlistsAction()
-    {
-        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
-
-        $listePlaylist = $repository->findAll();
-
-        return $this->render('ProjectBundle:Default:profil.html.twig',  ["listePlaylist" => $listePlaylist]);
-    }
-
-    /**
-     * @Route("/playlist/{id}")
-     * @param $id
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function seePlaylist($id)
-    {
-        return $this->render('ProjectBundle:Default:profil.html.twig', ["id" => $id]);
-    }
-
-    /**
-     * @Route("/users/{slug_username}", name="day_sounds")
+     * @Route("/users/{slug_username}", name="user-profil")
      * @param $slug_username
      * @return \Symfony\Component\HttpFoundation\Response
      */
-
     public function renderDayliAction($slug_username)
-    {
-        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findBySlug($slug_username);
-
-        if(!count($user)){
-            return $this->redirect($this->generateUrl('404'));
-        }
-
-        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
-        $listePlaylist = $repository->findByUser($user);
-
-        return $this->render('ProjectBundle:Default:daysoundPlaylist.html.twig');
-    }
-
-    // Afficher le profil d'un utilisateur avec toutes ses playlists
-
-    /**
-     * @Route("/users/{slug_username}/musiques", name="mon_profil")
-     * @param $slug_username
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-
-    public function renderProfilAction($slug_username)
     {
         $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
         $this->datas["title"] = $user->getUsername() . " profile";
@@ -86,6 +41,29 @@ class DefaultController extends Controller
 
         return $this->render('ProjectBundle:Default:profil.html.twig',
             ["datas" => $this->datas]);
+    }
+
+    // Afficher le profil d'un utilisateur avec toutes ses playlists
+
+    /**
+     * @Route("/users/{slug_username}/musiques", name="day_sounds")
+     * @param $slug_username
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+
+    public function renderProfilAction($slug_username)
+    {
+        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
+        $this->datas["title"] = $user->getUsername() . " profile";
+
+        if(!count($user)){
+            return $this->redirect($this->generateUrl('404'));
+        }
+
+        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
+        $listePlaylist = $repository->findByUser($user);
+
+        return $this->render('ProjectBundle:Default:daysoundPlaylist.html.twig');
     }
 
 
