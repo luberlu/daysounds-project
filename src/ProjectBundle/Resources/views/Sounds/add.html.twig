@@ -3,6 +3,8 @@
     {{ form_widget(form) }}
     <p><input type="submit" value="Add sound"></p>
 
+    <p class="player-type">Support Youtube and Soundcloud</p>
+
 {{ form_end(form) }}
 
 <!-- just to test -->
@@ -25,15 +27,15 @@
                 data: 'link=' + val,
                 dataType: 'html',
 
-                success: function (code_html, statut) {
+                success: function (response, statut) {
 
-                    if(code_html !== "{}"){
-                        // testing
-                        $("#add_sound").append(code_html)
+                    if(response !== "{}"){
+                        var obj = $.parseJSON(response);
+                        $(".player-type").html("Player " + obj.name);
 
                     } else {
                         // testing
-                        $("#add_sound").append(code_html)
+                        $(".player-type").html("Aucun player reconnu");
                     }
                 },
 
@@ -45,6 +47,7 @@
 
                 }
             });
+
 
 
         }, 500);

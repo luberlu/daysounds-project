@@ -20,8 +20,8 @@ class PlayerController extends DefaultController
     public function addPlayersAction(Request $request)
     {
         $players = array(
-            array("soundcloud", "https://soundcloud.com/functionally-faded/keep-up-vip-original"),
-            array("youtube", "https://www.youtube.com/watch?v=IloS4zK7hD0&t=883s"),
+            array("soundcloud", "soundcloud.com"),
+            array("youtube", "youtube.com")
         );
 
         if ($request->getMethod() == 'GET') {

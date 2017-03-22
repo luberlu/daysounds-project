@@ -28,13 +28,27 @@ class PlayerRepository extends \Doctrine\ORM\EntityRepository
 
 	private function testBetweenToLinks($databaseLink, $entryLink){
 
-		similar_text($databaseLink, $entryLink, $percent);
+		$entry = parse_url($entryLink);
+		$entry = preg_replace('#^www\.(.+\.)#i', '$1',  $entry["host"]);
 
-		if($percent > 30){
+		if($databaseLink == $entry){
 			return true;
 		}
 
 		return false;
 
 	}
+
+	// prefer domain name method
+//	private function testBetweenToLinks($databaseLink, $entryLink){
+//
+//		similar_text($databaseLink, $entryLink, $percent);
+//
+//		if($percent > 30){
+//			return true;
+//		}
+//
+//		return false;
+//
+//	}
 }
