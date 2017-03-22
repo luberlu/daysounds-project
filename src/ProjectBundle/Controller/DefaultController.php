@@ -12,7 +12,13 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('ProjectBundle:Default:index.html.twig');
+        // all datas to push on view
+        $datas = [];
+
+        // Block New Users
+        $datas["newUsers"] = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findNewUsers();
+
+        return $this->render('ProjectBundle:Default:index.html.twig', array("datas" => $datas));
     }
 
     /**

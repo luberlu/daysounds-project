@@ -1,5 +1,23 @@
 {% extends "@ProjectBundle/Resources/views/Default/layout.html.twig" %}
 
+{% block main %}
+
+    {% if datas.newUsers %}
+        <ul><h2>New users</h2>
+        {% block newUsers %}
+            {% for user in datas.newUsers %}
+                <li>
+                    <a href="/users/{{ user.slug }}">
+                        <img src="{{ vich_uploader_asset(user, 'imageFile') }}" width="50" height="auto" />
+                        <span>{{ user.username }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        {% endblock %}
+        </ul>
+    {% endif %}
+
+{% endblock %}
 
 
 
