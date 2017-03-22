@@ -7,18 +7,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class DefaultController extends Controller
 {
+    // datas to push to view
+    private $datas = [];
+
     /**
      * @Route("/", name="home")
      */
     public function indexAction()
     {
-        // all datas to push on view
-        $datas = [];
-
         // Block New Users
-        $datas["newUsers"] = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findNewUsers();
+        $this->datas["newUsers"] = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findNewUsers();
+        $this->datas["title"] = "Homepage";
 
-        return $this->render('ProjectBundle:Default:index.html.twig', array("datas" => $datas));
+        return $this->render('ProjectBundle:Default:index.html.twig', array("datas" => $this->datas));
     }
 
     /**
@@ -73,17 +74,18 @@ class DefaultController extends Controller
 
     public function renderProfilAction($slug_username)
     {
-        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findBySlug($slug_username);
+        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
+        $this->datas["title"] = $user->getUsername() . " profile";
 
         if(!count($user)){
             return $this->redirect($this->generateUrl('404'));
         }
 
-        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
-        $listePlaylist = $repository->findByUser($user);
+        $this->datas["listePlaylist"] = $this->getDoctrine()
+            ->getRepository('ProjectBundle:Playlist')->findByUser($user);
 
         return $this->render('ProjectBundle:Default:profil.html.twig',
-            ["listePlaylist" => $listePlaylist, "id_user" => $user]);
+            ["datas" => $this->datas]);
     }
 
 
