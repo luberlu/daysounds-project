@@ -49,7 +49,7 @@ class DefaultController extends Controller
     // Afficher le profil d'un utilisateur avec toutes ses playlists
 
     /**
-     * @Route("/{slug_username}")
+     * @Route("/users/{slug_username}")
      * @param $slug_username
      * @return \Symfony\Component\HttpFoundation\Response
      */
