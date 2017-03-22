@@ -58,6 +58,13 @@ class User extends BaseUser
      */
     private $updatedAt;
 
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $slug;
+
+
     public function __construct()
     {
         parent::__construct();
@@ -67,6 +74,15 @@ class User extends BaseUser
     public function getParent()
     {
         return 'FOSUserBundle';
+    }
+
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
+        $this->setSlug($this->username);
+
+        return $this;
     }
 
     /**
@@ -144,5 +160,59 @@ class User extends BaseUser
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+
+    public function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('#[^\\pL\d]+#u', '-', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // transliterate
+        if (function_exists('iconv'))
+        {
+            $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        }
+
+        // lowercase
+        $text = strtolower($text);
+
+        // remove unwanted characters
+        $text = preg_replace('#[^-\w]+#', '', $text);
+
+        if (empty($text))
+        {
+            return 'n-a';
+        }
+
+        return $text;
+    }
+
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return User
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $this->slugify($slug);
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
