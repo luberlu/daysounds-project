@@ -1,0 +1,13 @@
+<h2>New users</h2>
+<ul>
+    {% block newUsers %}
+        {% for user in datas.newUsers %}
+            <li>
+                <a href="{{ path('user-profil', {'slug_username': user.slug}) }}">
+                    <img src="{{ vich_uploader_asset(user, 'imageFile') }}" width="50" height="auto" />
+                    <span>{{ user.username }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    {% endblock %}
+</ul>

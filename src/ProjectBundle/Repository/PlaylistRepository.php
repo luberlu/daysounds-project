@@ -10,5 +10,9 @@ namespace ProjectBundle\Repository;
  */
 class PlaylistRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findLatestPlaylists(){
 
+        return $this->findBy(array(), array('dateAdd' => 'desc'), 5);
+
+    }
 }

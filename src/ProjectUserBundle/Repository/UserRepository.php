@@ -11,10 +11,6 @@ namespace ProjectUserBundle\Repository;
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
     public function findNewUsers(){
-
-        $allUsers = $this->findAll();
-        $newUsers = $allUsers;
-
-        return $newUsers;
+        return $this->findBy(array(), array('id' => 'desc'), 5);
     }
 }

@@ -47,6 +47,12 @@ class Playlist
      *@ORM\ManyToMany(targetEntity="Sound", cascade={"persist"})
      */
 
+    /**
+     * @ORM\Column(name="dateAdd", type="datetime")
+     * @var \DateTime
+     */
+    protected $dateAdd;
+
     protected $sounds;
 
     /**
@@ -189,5 +195,29 @@ class Playlist
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set isDayli
+     *
+     * @param boolean $isDayli
+     *
+     * @return Playlist
+     */
+    public function setIsDayli($isDayli)
+    {
+        $this->isDayli = $isDayli;
+
+        return $this;
+    }
+
+    /**
+     * Get isDayli
+     *
+     * @return boolean
+     */
+    public function getIsDayli()
+    {
+        return $this->isDayli;
     }
 }

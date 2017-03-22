@@ -52,6 +52,12 @@ class User extends BaseUser
     private $imageName;
 
     /**
+     * @ORM\Column(name="dateAdd", type="datetime")
+     * @var \DateTime
+     */
+    protected $dateAdd;
+
+    /**
      * @ORM\Column(type="datetime")
      *
      * @var \DateTime
@@ -214,5 +220,29 @@ class User extends BaseUser
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set dateAdd
+     *
+     * @param \DateTime $dateAdd
+     *
+     * @return User
+     */
+    public function setDateAdd($dateAdd)
+    {
+        $this->dateAdd = $dateAdd;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAdd
+     *
+     * @return \DateTime
+     */
+    public function getDateAdd()
+    {
+        return $this->dateAdd;
     }
 }

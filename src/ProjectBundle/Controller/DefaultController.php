@@ -19,6 +19,10 @@ class DefaultController extends Controller
         $this->datas["newUsers"] = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findNewUsers();
         $this->datas["title"] = "Homepage";
 
+        // List latest Playlists
+        $this->datas["latestPlaylists"] = $this->getDoctrine()
+            ->getRepository('ProjectBundle:Playlist')->findLatestPlaylists();
+
         return $this->render('ProjectBundle:Default:index.html.twig', array("datas" => $this->datas));
     }
 
