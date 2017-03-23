@@ -57,6 +57,12 @@ class Playlist
 
     /**
      * @var boolean
+     * @ORM\Column(name="isDefault", type="boolean", options={"default":false})
+     */
+    protected $isDefault;
+
+    /**
+     * @var boolean
      * @ORM\Column(name="isDayli", type="boolean", options={"default":false})
      */
     protected $isDayli;
@@ -243,5 +249,29 @@ class Playlist
     public function getDateAdd()
     {
         return $this->dateAdd;
+    }
+
+    /**
+     * Set isDefault
+     *
+     * @param boolean $isDefault
+     *
+     * @return Playlist
+     */
+    public function setIsDefault($isDefault)
+    {
+        $this->isDefault = $isDefault;
+
+        return $this;
+    }
+
+    /**
+     * Get isDefault
+     *
+     * @return boolean
+     */
+    public function getIsDefault()
+    {
+        return $this->isDefault;
     }
 }

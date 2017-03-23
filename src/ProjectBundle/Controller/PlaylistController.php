@@ -40,6 +40,8 @@ class PlaylistController extends DefaultController
                 $playlist->setIsDayli(false);
                 $playlist->setDateAdd(new \DateTime());
                 $playlist->setUser($userSet);
+                $playlist->setIsDefault(false);
+
                 $em->persist($playlist);
                 $em->flush();
 
