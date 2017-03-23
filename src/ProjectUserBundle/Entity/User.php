@@ -73,6 +73,11 @@ class User extends BaseUser
      */
     private $relation_user;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ProjectBundle\Entity\Playlist", cascade={"remove"}, mappedBy="user")
+     */
+    protected $playlists;
+
 
     public function _construct()
     {
@@ -285,5 +290,39 @@ class User extends BaseUser
     public function getRelationUser()
     {
         return $this->relation_user;
+    }
+
+    /**
+     * Add playlist
+     *
+     * @param \ProjectUserBundle\Entity\Playlist $playlist
+     *
+     * @return User
+     */
+    public function addPlaylist(\ProjectUserBundle\Entity\Playlist $playlist)
+    {
+        $this->playlists[] = $playlist;
+
+        return $this;
+    }
+
+    /**
+     * Remove playlist
+     *
+     * @param \ProjectUserBundle\Entity\Playlist $playlist
+     */
+    public function removePlaylist(\ProjectUserBundle\Entity\Playlist $playlist)
+    {
+        $this->playlists->removeElement($playlist);
+    }
+
+    /**
+     * Get playlists
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlaylists()
+    {
+        return $this->playlists;
     }
 }

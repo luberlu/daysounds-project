@@ -9,3 +9,7 @@ services:
         arguments: [~, ProjectUserBundle\Entity\User, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: User }
+        arguments:
+                    - null
+                    - ProjectUserBundle\Entity\User
+                    - ProjectUserBundle:CRUD

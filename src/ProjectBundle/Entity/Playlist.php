@@ -68,7 +68,7 @@ class Playlist
     protected $isDayli;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User", cascade={"remove"})
      */
     protected $user;
 
