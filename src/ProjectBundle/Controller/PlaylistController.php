@@ -57,18 +57,19 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/profil/playlists/delete/{id}", requirements={"id" = "\d+"}, name="delete_playlist")
-     * @return Response
+     * @Route("/users/{slug_username}/playlists/delete/{id}", requirements={"id" = "\d+"}, name="delete_playlist")
+     * @param $slug_username
+     * @return \Symfony\Component\HttpFoundation\Response
      */
 
-    public function deletePlaylistAction($id)
+    public function deletePlaylistAction($id,$slug_username)
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
         $delete = $repository->find($id);
         $em->remove($delete);
         $em->flush();
-        return $this->redirect($this->generateUrl('profil'));
+        return $this->redirect($this->generateUrl('user-profil',array('slug_username'=>$slug_username)));
     }
 
     /**
