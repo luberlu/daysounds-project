@@ -63,6 +63,21 @@ class User extends BaseUser
      */
     protected $slug;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="ProjectUserBundle\Entity\User",  inversedBy="following")
+     * @ORM\JoinTable(name="user_relations",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="follower_user_id", referencedColumnName="id")}
+     * )
+     */
+    private $relation_user;
+
+
+    public function _construct()
+    {
+        $this->relation_user=new ArrayCollection();
+    }
+
     public function __construct()
     {
         parent::__construct();
