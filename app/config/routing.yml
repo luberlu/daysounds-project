@@ -13,4 +13,9 @@ project:
     type:     annotation
     prefix:   /
 
+# app/config/routing.yml
+admin_area:
+    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+    prefix: /admin
+
 
