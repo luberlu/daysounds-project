@@ -1,19 +1,12 @@
-<div class="connected-block">
-
-
-
-
-
-</div>
-
-<div class="collapse navbar-collapse dark-blue" >
+<nav class="navbar navbar-inverse">
+<div class="collapse navbar-collapse " >
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <ul class="nav navbar-nav navbar-left">
                 <li>
                         <a href="#">Daysound</a>
                 </li>
                 <li>
-                        <a class="navbar-brand"><img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" width="25" height="25" /></a>
+                        <a class="navbar-brand"><img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" width="30" height="auto" /></a>
                 </li>
                 <li>
                         <p class="navbar-text">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</p>
@@ -52,3 +45,4 @@
         </form>
 
 </div>
+</nav>
