@@ -3,8 +3,9 @@
     <!-- NOTICE LUBERLU - A TERME LES DONNEES DOIVENT ETRE ENVOYES DANS UN ARRAY DATAS GLOBAL -->
     <!-- CE IF DATAS N'AURA PLUS D'INTERET UNE FOIS TOUT MIS AU CLAIR -->
     <title>Daysounds - {% if datas %}{{ datas.title }}{% endif %}</title>
-    {#<link rel="stylesheet" href="../../../../../web/assets/bootstrap/css/bootstrap.min.css" />#}
     <link rel="stylesheet" href="{{ asset('bundles/project/bootstrap/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/project/bootstrap/css/main.css') }}" />
+
 </head>
 
 <body>
@@ -14,7 +15,9 @@
 
     <!-- Player -->
     {% include "@ProjectBundle/Resources/views/Default/player.html.twig" %}
-<script type="text/javascript" src="{{ asset('bundles/project/bootstrap/js/main.js') }}"
+    <script type="text/javascript" src="{{ asset('bundles/project/bootstrap/js/jquery3.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/project/bootstrap/js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/project/bootstrap/js/main.js') }}"></script>
 </body>
 
 </html>
