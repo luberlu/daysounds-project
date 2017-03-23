@@ -1,6 +1,6 @@
 
 
-{% block user-block %}
+{% block userBlock %}
 
         <div>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -25,4 +25,4 @@
 
         {% block fos_user_content %}{% endblock fos_user_content %}
 
-{% endblock %}
+{% endblock userBlock %}
