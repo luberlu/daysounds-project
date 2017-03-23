@@ -90,3 +90,12 @@ vich_uploader:
             uri_prefix: /images/avatars
             upload_destination: '%kernel.root_dir%/../web/images/avatars'
             namer: vich_uploader.namer_uniqid
+
+# app/config/config.yml
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+        # ...
