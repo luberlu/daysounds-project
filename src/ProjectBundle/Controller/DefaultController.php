@@ -43,6 +43,8 @@ class DefaultController extends Controller
         $this->datas["listePlaylist"] = $this->getDoctrine()
             ->getRepository('ProjectBundle:Playlist')->findByUser($user);
 
+        $this->datas["slugUserName"]=$slug_username;
+
         return $this->render('ProjectBundle:Default:profil.html.twig',
             ["datas" => $this->datas]);
     }

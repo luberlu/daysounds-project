@@ -12,7 +12,7 @@ class PlaylistRepository extends \Doctrine\ORM\EntityRepository
 {
     public function findLatestPlaylists(){
 
-        return $this->findBy(array(), array('dateAdd' => 'desc'), 5);
+        return $this->findBy(array('isDayli'=> 'false', 'isDefault' => "false"), array('dateAdd' => 'desc'), 5);
 
     }
 }

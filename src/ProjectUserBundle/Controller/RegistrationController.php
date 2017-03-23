@@ -62,16 +62,27 @@ class RegistrationController extends BaseController
 
                 $em = $this->getDoctrine()->getManager();
 
-                $playlist = new Playlist();
-                $playlist->setName("Ma musique");
-                $playlist->setPosition(1);
-                $playlist->setDateAdd(new \DateTime());
-                $playlist->setIsDayli(true);
-                $playlist->setUser($user);
+                $Defaultplaylist = new Playlist();
+                $Defaultplaylist->setName("All sounds");
+                $Defaultplaylist->setPosition(1);
+                $Defaultplaylist->setDateAdd(new \DateTime());
+                $Defaultplaylist->setIsDefault(true);
+                $Defaultplaylist->setIsDayli(false);
+                $Defaultplaylist->setUser($user);
 
-                $em->persist($playlist);
+                $em->persist($Defaultplaylist);
+
+                $Dayliplaylist = new Playlist();
+                $Dayliplaylist->setName("Dayli sounds");
+                $Dayliplaylist->setPosition(2);
+                $Dayliplaylist->setDateAdd(new \DateTime());
+                $Dayliplaylist->setIsDayli(true);
+                $Dayliplaylist->setIsDefault(false);
+                $Dayliplaylist->setUser($user);
+
+                $em->persist($Dayliplaylist);
+
                 $em->flush();
-
 
                 if (null === $response = $event->getResponse()) {
                     $url = $this->generateUrl('fos_user_registration_confirmed');

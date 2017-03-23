@@ -252,4 +252,38 @@ class User extends BaseUser
     {
         return $this->dateAdd;
     }
+
+    /**
+     * Add relationUser
+     *
+     * @param \ProjectUserBundle\Entity\User $relationUser
+     *
+     * @return User
+     */
+    public function addRelationUser(\ProjectUserBundle\Entity\User $relationUser)
+    {
+        $this->relation_user[] = $relationUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove relationUser
+     *
+     * @param \ProjectUserBundle\Entity\User $relationUser
+     */
+    public function removeRelationUser(\ProjectUserBundle\Entity\User $relationUser)
+    {
+        $this->relation_user->removeElement($relationUser);
+    }
+
+    /**
+     * Get relationUser
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRelationUser()
+    {
+        return $this->relation_user;
+    }
 }
