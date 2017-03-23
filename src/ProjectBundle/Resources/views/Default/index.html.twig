@@ -5,7 +5,7 @@
     {% if datas.newUsers is defined %}
         {% include "@ProjectBundle/Resources/views/Users/new-users.html.twig" %}
     {% endif %}
-    {% if datas.listePlaylist %}
+    {% if datas.listePlaylist is defined %}
         {% include "@ProjectBundle/Resources/views/Playlists/latest-playlists.html.twig" %}
     {% endif %}
 
