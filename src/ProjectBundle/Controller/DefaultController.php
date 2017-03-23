@@ -23,6 +23,10 @@ class DefaultController extends Controller
         $this->datas["latestPlaylists"] = $this->getDoctrine()
             ->getRepository('ProjectBundle:Playlist')->findLatestPlaylists();
 
+        foreach($this->datas["latestPlaylists"] as $playlist){
+            //var_dump($playlist);
+        }
+
         return $this->render('ProjectBundle:Default:index.html.twig', array("datas" => $this->datas));
     }
 
