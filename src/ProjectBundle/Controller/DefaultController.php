@@ -10,22 +10,24 @@ class DefaultController extends Controller
     // datas to push to view
     private $datas = [];
 
+
+
     /**
-     * @Route("/", name="home")
+     * @Route("/users/{slug_username}/stream", name="home")
+     * @param $slug_username
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction($slug_username)
     {
         // Block New Users
         $this->datas["newUsers"] = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findNewUsers();
+        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
         $this->datas["title"] = "Homepage";
-
         // List latest Playlists
-        $this->datas["latestPlaylists"] = $this->getDoctrine()
-            ->getRepository('ProjectBundle:Playlist')->findLatestPlaylists();
 
-        foreach($this->datas["latestPlaylists"] as $playlist){
-            //var_dump($playlist);
-        }
+        $userPlaylist=$userPlaylist=$this->getDoctrine()
+            ->getRepository('ProjectBundle:Playlist')->findBy(array("user" => $user, "isDayli" => true));
+        $this->datas["listePlaylist"] = $userPlaylist;
 
         return $this->render('ProjectBundle:Default:index.html.twig', array("datas" => $this->datas));
     }
