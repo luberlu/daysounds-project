@@ -10,6 +10,8 @@ class DefaultController extends Controller
     // datas to push to view
     private $datas = [];
 
+
+
     /**
      * @Route("/users/{slug_username}/stream", name="home")
      * @param $slug_username
@@ -22,9 +24,10 @@ class DefaultController extends Controller
         $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
         $this->datas["title"] = "Homepage";
         // List latest Playlists
-        $userPlaylist=$this->getDoctrine()->getRepository('ProjectBundle:Playlist')->findByUser($user);
-        $this->datas["listePlaylist"] = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->findByUser($user);
-        $this->datas["slugUserName"]=$slug_username;
+
+        $userPlaylist=$userPlaylist=$this->getDoctrine()
+            ->getRepository('ProjectBundle:Playlist')->findBy(array("user" => $user, "isDayli" => true));
+        $this->datas["listePlaylist"] = $userPlaylist;
 
         return $this->render('ProjectBundle:Default:index.html.twig', array("datas" => $this->datas));
     }

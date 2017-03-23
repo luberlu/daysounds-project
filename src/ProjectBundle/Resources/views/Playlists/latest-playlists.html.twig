@@ -1,9 +1,9 @@
 <h2>Latest Playlists</h2>
 <ul>
-    {% block latestPlaylists %}
-        {% for playlist in datas.latestPlaylists %}
+    {% block listePlaylist %}
+        {% for playlist in datas.listePlaylist %}
             <li>
-                <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
+                <a  href="#">{{ playlist.id }} {{ playlist.name }}</a>
             </li>
         {% endfor %}
     {% endblock %}
