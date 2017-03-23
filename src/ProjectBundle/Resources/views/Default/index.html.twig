@@ -2,13 +2,15 @@
 
 {% block main %}
 
-    {% if datas.newUsers %}
+    {% if datas.newUsers is defined %}
         {% include "@ProjectBundle/Resources/views/Users/new-users.html.twig" %}
     {% endif %}
 
-    {% if datas.latestPlaylists %}
+    {% if datas.latestPlaylists is defined%}
         {% include "@ProjectBundle/Resources/views/Playlists/latest-playlists.html.twig" %}
     {% endif %}
+
+    {% block fos_user_content %}{% endblock %}
 
 {% endblock %}
 
