@@ -50,7 +50,7 @@ class PlaylistController extends DefaultController
                     ->getFlashBag()
                     ->add('success', 'Your playlist has been saved!');
 
-                return $this->redirect($this->generateUrl('mon_profil',array('slug_username'=>$slug_username)));
+                return $this->redirect($this->generateUrl('user-profil',array('slug_username'=>$slug_username)));
             }
         }
 
@@ -59,26 +59,29 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/profil/playlists/delete/{id}", requirements={"id" = "\d+"}, name="delete_playlist")
-     * @return Response
+     * @Route("/users/{slug_username}/playlists/delete/{id}", requirements={"id" = "\d+"}, name="delete_playlist")
+     * @param $slug_username
+     * @return \Symfony\Component\HttpFoundation\Response
      */
 
-    public function deletePlaylistAction($id)
+    public function deletePlaylistAction($id,$slug_username)
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
         $delete = $repository->find($id);
         $em->remove($delete);
         $em->flush();
-        return $this->redirect($this->generateUrl('profil'));
+        return $this->redirect($this->generateUrl('user-profil',array('slug_username'=>$slug_username)));
     }
 
     /**
-     * @Route("/profil/playlists/edit/{id}", requirements={"id" = "\d+"}, name="edit_playlist")
-     * @return Response
+     * @Route("/users/{slug_username}/playlists/edit/{id}", requirements={"id" = "\d+"}, name="edit_playlist")
+     * @param $slug_username
+     * @return \Symfony\Component\HttpFoundation\Response
      */
 
-    public function editPlaylistAction($id, Request $request)
+
+    public function editPlaylistAction($id, Request $request, $slug_username)
     {
         $em = $this->getDoctrine()->getManager();
         $playlist = $em->getRepository('ProjectBundle:Playlist')->find($id);
@@ -103,7 +106,7 @@ class PlaylistController extends DefaultController
                         ->getFlashBag()
                         ->add('success', 'Your playlist has been saved!');
 
-                    return $this->redirect($this->generateUrl('profil'));
+                    return $this->redirect($this->generateUrl('user-profil',array('slug_username'=>$slug_username)));
                 }
             }
         }
