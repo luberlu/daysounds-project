@@ -99,3 +99,8 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts: [admin]
         # ...
+
+# app/config/config.yml
+twig:
+    form:
+        resources: ['bootstrap_3_layout.html.twig']

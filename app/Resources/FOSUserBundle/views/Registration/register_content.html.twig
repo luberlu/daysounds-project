@@ -1,18 +1,32 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
+<h1 class="text-center">Register now !</h1>
+
+<div class="container">
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
     {{ form_widget(form) }}
 
 
-<form class="form-horizontal">
-    <fieldset>
         <a href="#" value="{{ 'registration.submit'|trans }}" class="btn btn-primary">Register</a>
 
-    </fieldset>
-</form>
+
+
 
 
 {{ form_end(form) }}
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
