@@ -73,11 +73,13 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/profil/playlists/edit/{id}", requirements={"id" = "\d+"}, name="edit_playlist")
-     * @return Response
+     * @Route("/users/{slug_username}/playlists/edit/{id}", requirements={"id" = "\d+"}, name="edit_playlist")
+     * @param $slug_username
+     * @return \Symfony\Component\HttpFoundation\Response
      */
 
-    public function editPlaylistAction($id, Request $request)
+
+    public function editPlaylistAction($id, Request $request, $slug_username)
     {
         $em = $this->getDoctrine()->getManager();
         $playlist = $em->getRepository('ProjectBundle:Playlist')->find($id);
@@ -102,7 +104,7 @@ class PlaylistController extends DefaultController
                         ->getFlashBag()
                         ->add('success', 'Your playlist has been saved!');
 
-                    return $this->redirect($this->generateUrl('profil'));
+                    return $this->redirect($this->generateUrl('user-profil',array('slug_username'=>$slug_username)));
                 }
             }
         }
