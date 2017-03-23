@@ -2,7 +2,17 @@
 
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
     {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'registration.submit'|trans }}" />
-    </div>
+
+
+<form class="form-horizontal">
+    <fieldset>
+        <a href="#" value="{{ 'registration.submit'|trans }}" class="btn btn-primary">Register</a>
+
+    </fieldset>
+</form>
+
+
 {{ form_end(form) }}
+
+
+

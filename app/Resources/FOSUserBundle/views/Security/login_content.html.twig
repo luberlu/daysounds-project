@@ -4,19 +4,43 @@
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
-<form action="{{ path("fos_user_security_check") }}" method="post">
+<form class="form-horizontal container" action="{{ path("fos_user_security_check") }}" method="post">
+
     {% if csrf_token %}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     {% endif %}
 
-    <label for="username">{{ 'security.login.username'|trans }}</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+    <fieldset>
+        <legend>Log in ! </legend>
+        <div class="form-group">
+            <label class="col-lg-2 control-label" for="username">{{ 'security.login.username'|trans }}</label>
+            <div class="col-lg-10">
+                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="username"/>
+            </div>
+        </div>
+        <div class="form-group">
 
-    <label for="password">{{ 'security.login.password'|trans }}</label>
-    <input type="password" id="password" name="_password" required="required" />
+            <label class="col-lg-2 control-label" for="password">{{ 'security.login.password'|trans }}</label>
+            <div class="col-lg-10">
+                <input class="form-control" type="password" id="password" name="_password" required="required"placeholder="Password" />
 
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+            </div>
 
-    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            <div class="col-lg-10">
+                <label class=" control-label"  for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                <input type="checkbox" class="form-control" id="remember_me" name="_remember_me" value="on" />
+            </div>
+
+            <div class="col-lg-10">
+                <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-primary" />
+            </div>
+
+
+        </div>
+
+
+
+
+
+    </fieldset>
 </form>
