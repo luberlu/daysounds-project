@@ -11,7 +11,7 @@ class DefaultController extends Controller
     private $datas = [];
 
     /**
-     * @Route("/", name="home")
+     * @Route("/stream", name="home")
      */
     public function indexAction()
     {
