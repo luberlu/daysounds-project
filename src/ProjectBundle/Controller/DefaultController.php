@@ -58,26 +58,17 @@ class DefaultController extends Controller
     // Afficher le profil d'un utilisateur avec toutes ses playlists
 
     /**
-     * @Route("/users/{slug_username}/daysounds", name="day_sounds")
-     * @param $slug_username
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/users", name="users")
      */
 
-    public function renderProfilAction($slug_username)
+    public function renderUersAction()
     {
 
-        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
-        $this->datas["title"] = $user->getUsername() . " profile";
+        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findall();
+        $this->datas["title"] = "daysounds users";
+        $this->datas["listeUsers"] =$user;
 
-
-        if(!count($user)){
-            return $this->redirect($this->generateUrl('404'));
-        }
-
-        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
-        $listePlaylist = $repository->findByUser($user);
-
-        return $this->render('ProjectBundle:Default:daysoundPlaylist.html.twig');
+        return $this->render('ProjectBundle:Default:users.html.twig', array("datas" => $this->datas));
 
     }
 

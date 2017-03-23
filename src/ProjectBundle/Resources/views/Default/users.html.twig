@@ -1,6 +1,14 @@
-{% extends "@ProjectBundle/Resources/views/Default/profil.html.twig" %}
-{% block user %}
-    <ul class="sounds-in-playlist">
+{% extends "@ProjectBundle/Resources/views/Default/layout.html.twig" %}
 
+{% block main %}
+    <ul class="users-list">
+        {% for user in datas.listeUsers %}
+            <li>
+                <ul>
+                    <li>{{ user.username }}</li>
+                    <li><a href=""></a></li>
+                </ul>
+            </li>
+        {% endfor %}
     </ul>
 {% endblock %}
