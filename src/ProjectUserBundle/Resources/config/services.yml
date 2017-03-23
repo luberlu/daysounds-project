@@ -1,5 +1,11 @@
 services:
     app.form.registration:
-            class: ProjectUserBundle\Form\Type\RegistrationFormType
-            tags:
-                - { name: form.type, alias: app_user_registration }
+        class: ProjectUserBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+
+    admin.user:
+        class: ProjectUserBundle\Admin\UserAdmin
+        arguments: [~, ProjectUserBundle\Entity\User, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: User }
