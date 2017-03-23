@@ -51,11 +51,6 @@ class User extends BaseUser
      */
     private $imageName;
 
-    /**
-     * @ORM\Column(name="dateAdd", type="datetime")
-     * @var \DateTime
-     */
-    protected $dateAdd;
 
     /**
      * @ORM\Column(type="datetime")
