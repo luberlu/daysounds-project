@@ -180,7 +180,7 @@ class Playlist
      *
      * @return Playlist
      */
-    public function setUser(\ProjectUserBundle\Entity\User $user = null)
+    public function setUser(\ProjectUserBundle\Entity\User $user)
     {
         $this->user = $user;
 
@@ -219,5 +219,29 @@ class Playlist
     public function getIsDayli()
     {
         return $this->isDayli;
+    }
+
+    /**
+     * Set dateAdd
+     *
+     * @param \DateTime $dateAdd
+     *
+     * @return Playlist
+     */
+    public function setDateAdd($dateAdd)
+    {
+        $this->dateAdd = $dateAdd;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAdd
+     *
+     * @return \DateTime
+     */
+    public function getDateAdd()
+    {
+        return $this->dateAdd;
     }
 }

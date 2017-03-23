@@ -51,11 +51,6 @@ class User extends BaseUser
      */
     private $imageName;
 
-    /**
-     * @ORM\Column(name="dateAdd", type="datetime")
-     * @var \DateTime
-     */
-    protected $dateAdd;
 
     /**
      * @ORM\Column(type="datetime")
@@ -63,18 +58,25 @@ class User extends BaseUser
      * @var \DateTime
      */
     private $updatedAt;
-    /**
-     * @ORM\ManyToOne(targetEntity="ProjectBundle\Entity\Playlist")
-     */
-    protected $user_playlist;
+
     /**
      * @ORM\Column(type="string")
      */
     protected $slug;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="ProjectUserBundle\Entity\User",  inversedBy="following")
+     * @ORM\JoinTable(name="user_relations",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="follower_user_id", referencedColumnName="id")}
+     * )
+     */
+    private $relation_user;
+
+
     public function _construct()
     {
-        $this->user = new ArrayCollection();
+        $this->relation_user=new ArrayCollection();
     }
 
     public function __construct()
@@ -226,5 +228,28 @@ class User extends BaseUser
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set dateAdd
+     *
+     * @param \DateTime $dateAdd
+     *
+     * @return User
+     */
+    public function setDateAdd($dateAdd)
+    {
+        $this->dateAdd = $dateAdd;
+        return $this;
+    }
+
+    /**
+     * Get dateAdd
+     *
+     * @return \DateTime
+     */
+    public function getDateAdd()
+    {
+        return $this->dateAdd;
     }
 }
