@@ -20,6 +20,8 @@
                         <li>
                             <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
                         </li>
+                        {% elseif playlist.isDayli %}
+
                         {% else %}
                             <li>
                                 <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>

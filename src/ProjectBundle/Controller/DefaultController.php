@@ -11,21 +11,20 @@ class DefaultController extends Controller
     private $datas = [];
 
     /**
-     * @Route("/stream", name="home")
+     * @Route("/users/{slug_username}/stream", name="home")
+     * @param $slug_username
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction($slug_username)
     {
         // Block New Users
         $this->datas["newUsers"] = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findNewUsers();
+        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
         $this->datas["title"] = "Homepage";
-
         // List latest Playlists
-        $this->datas["latestPlaylists"] = $this->getDoctrine()
-            ->getRepository('ProjectBundle:Playlist')->findLatestPlaylists();
-
-        foreach($this->datas["latestPlaylists"] as $playlist){
-            //var_dump($playlist);
-        }
+        $userPlaylist=$this->getDoctrine()->getRepository('ProjectBundle:Playlist')->findByUser($user);
+        $this->datas["listePlaylist"] = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->findByUser($user);
+        $this->datas["slugUserName"]=$slug_username;
 
         return $this->render('ProjectBundle:Default:index.html.twig', array("datas" => $this->datas));
     }
