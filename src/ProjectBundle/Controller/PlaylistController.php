@@ -6,6 +6,7 @@ use ProjectBundle\Controller\DefaultController;
 use ProjectBundle\Entity\Sound;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use ProjectBundle\Entity\Playlist;
+use ProjectUserBundle\Entity\User;
 use ProjectBundle\Model\AddPlaylistType;
 use ProjectBundle\Model\AddSoundType;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,22 +16,30 @@ class PlaylistController extends DefaultController
 {
     private $datas = [];
     /**
-     * @Route("/profil/playlists/add", name="add_playlist")
+     * @Route("/users/{slug_username}/playlists/add", name="add_playlist")
+     * @param $slug_username
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addPlaylistAction(Request $request)
+    public function addPlaylistAction(Request $request,$slug_username)
     {
         $playlist = new Playlist();
         $form = $this->createForm(AddPlaylistType::class, $playlist);
+        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findBySlug($slug_username);
+
+        if(!count($user)){
+            return $this->redirect($this->generateUrl('404'));
+        }
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-
+                $userSet = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBy(array('slug'=>$slug_username));
                 // save the proposition
                 $em = $this->getDoctrine()->getManager();
                 $playlist->setIsDayli(false);
                 $playlist->setDateAdd(new \DateTime());
+                $playlist->setUser($userSet);
                 $em->persist($playlist);
                 $em->flush();
 
@@ -39,7 +48,7 @@ class PlaylistController extends DefaultController
                     ->getFlashBag()
                     ->add('success', 'Your playlist has been saved!');
 
-                return $this->redirect($this->generateUrl('profil'));
+                return $this->redirect($this->generateUrl('mon_profil',array('slug_username'=>$slug_username)));
             }
         }
 

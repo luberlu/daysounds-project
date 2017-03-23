@@ -57,7 +57,7 @@ class Playlist
 
     /**
      * @var boolean
-     * @ORM\Column(name="isDayli", type="boolean")
+     * @ORM\Column(name="isDayli", type="boolean", options={"default":false})
      */
     protected $isDayli;
 
@@ -180,7 +180,7 @@ class Playlist
      *
      * @return Playlist
      */
-    public function setUser(\ProjectUserBundle\Entity\User $user = null)
+    public function setUser(\ProjectUserBundle\Entity\User $user)
     {
         $this->user = $user;
 

@@ -14,19 +14,17 @@
     <aside>
         <nav>
             <ul class="all-playlists">
-                <li><a href="{{ path('add_playlist') }}">create playlist</a></li>
-                {% if datas.listePlaylist %}
-                    {% for playlist in datas.listePlaylist %}
-                        <li>
-                            <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
-                            <ul class="action">
-                                <li><a href="{{ path('delete_playlist', {'id': playlist.id }) }}">Delete</a></li>
-                                <li><a href="{{ path('edit_playlist', {'id': playlist.id }) }}">edit</a></li>
-                                <li><a href="{{ path('add_sound_to_playlist', {'id': playlist.id }) }}">add sound</a></li>
-                            </ul>
-                        </li>
-                    {% endfor %}
-                {% endif %}
+                <li><a href="{{ path('add_playlist',{'slug_username':slug_username}) }}">create playlist</a></li>
+                {% for playlist in listePlaylist %}
+                    <li>
+                        <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
+                        <ul class="action">
+                            <li><a href="{{ path('delete_playlist', {'id': playlist.id }) }}">Delete</a></li>
+                            <li><a href="{{ path('edit_playlist', {'id': playlist.id }) }}">edit</a></li>
+                            <li><a href="{{ path('add_sound_to_playlist', {'id': playlist.id }) }}">add sound</a></li>
+                        </ul>
+                    </li>
+                {% endfor %}
             </ul>
         </nav>
     </aside>

@@ -6,7 +6,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -64,12 +64,25 @@ class User extends BaseUser
      */
     private $updatedAt;
 
-
     /**
      * @ORM\Column(type="string")
      */
     protected $slug;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="ProjectUserBundle\Entity\User",  inversedBy="following")
+     * @ORM\JoinTable(name="user_relations",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="follower_user_id", referencedColumnName="id")}
+     * )
+     */
+    private $relation_user;
+
+
+    public function _construct()
+    {
+        $this->relation_user=new ArrayCollection();
+    }
 
     public function __construct()
     {
@@ -232,7 +245,6 @@ class User extends BaseUser
     public function setDateAdd($dateAdd)
     {
         $this->dateAdd = $dateAdd;
-
         return $this;
     }
 

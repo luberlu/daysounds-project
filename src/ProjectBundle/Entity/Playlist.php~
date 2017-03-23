@@ -57,7 +57,7 @@ class Playlist
 
     /**
      * @var boolean
-     * @ORM\Column(name="isDayli", type="boolean")
+     * @ORM\Column(name="isDayli", type="boolean", options={"default":false})
      */
     protected $isDayli;
 
