@@ -16,7 +16,7 @@
             <ul class="all-playlists">
                 <li><a href="{{ path('add_playlist',{'slug_username':datas.slugUserName}) }}">create playlist</a></li>
                 {% for playlist in datas.listePlaylist %}
-                    {% if datas.listePlaylist.isDefault == true %}
+                    {% if playlist.isDefault %}
                         <li>
                             <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
                         </li>
