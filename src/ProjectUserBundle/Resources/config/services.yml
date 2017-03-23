@@ -12,4 +12,3 @@ services:
         arguments:
                     - null
                     - ProjectUserBundle\Entity\User
-                    - ProjectUserBundle:CRUD
