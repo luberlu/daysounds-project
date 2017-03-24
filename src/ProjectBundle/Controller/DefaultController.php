@@ -10,26 +10,41 @@ class DefaultController extends Controller
     // datas to push to view
     private $datas = [];
 
-
-
     /**
-     * @Route("/users/{slug_username}/stream", name="home")
-     * @param $slug_username
+     * @Route("/", name="home")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction($slug_username)
+    public function indexAction(){
+
+        if($this->getUser()){
+            return $this->redirect($this->generateUrl('stream'));
+        }
+        return $this->render('ProjectBundle:Default:index.html.twig');
+    }
+
+    /**
+     * @Route("/stream", name="stream")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function streamAction()
     {
-        // Block New Users
-        $this->datas["newUsers"] = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findNewUsers();
-        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
-        $this->datas["title"] = "Homepage";
-        // List latest Playlists
+        if($this->getUser()) {
+            $user = $this->getUser();
+            $this->datas["slugUserName"] = $user->getSlug();
 
-        $userPlaylist=$userPlaylist=$this->getDoctrine()
-            ->getRepository('ProjectBundle:Playlist')->findBy(array("user" => $user, "isDayli" => true));
-        $this->datas["listePlaylist"] = $userPlaylist;
+            // Block New Users
+            $this->datas["newUsers"] = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findNewUsers();
+            $this->datas["title"] = "Homepage";
+            // List latest Playlists
 
-        return $this->render('ProjectBundle:Default:index.html.twig', array("datas" => $this->datas));
+            $userPlaylist = $userPlaylist = $this->getDoctrine()
+                ->getRepository('ProjectBundle:Playlist')->findBy(array("user" => $user, "isDayli" => true));
+            $this->datas["listePlaylist"] = $userPlaylist;
+
+            return $this->render('ProjectBundle:Default:index.html.twig', array("datas" => $this->datas));
+        }
+
+        else return $this->redirect($this->generateUrl('home'));
     }
 
     /**

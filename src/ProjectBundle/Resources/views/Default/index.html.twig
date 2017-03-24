@@ -2,11 +2,15 @@
 
 {% block main %}
 
-    {% if datas.newUsers is defined %}
-        {% include "@ProjectBundle/Resources/views/Users/new-users.html.twig" %}
-    {% endif %}
-    {% if datas.listePlaylist is defined %}
-        {% include "@ProjectBundle/Resources/views/Playlists/latest-playlists.html.twig" %}
+    {% if datas is defined %}
+
+        {% if datas.newUsers is defined %}
+            {% include "@ProjectBundle/Resources/views/Users/new-users.html.twig" %}
+        {% endif %}
+        {% if datas.listePlaylist is defined %}
+            {% include "@ProjectBundle/Resources/views/Playlists/latest-playlists.html.twig" %}
+        {% endif %}
+
     {% endif %}
 
     {% block fos_user_content %}{% endblock %}
