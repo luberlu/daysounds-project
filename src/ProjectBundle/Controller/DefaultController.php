@@ -64,6 +64,7 @@ class DefaultController extends Controller
         
         $this->datas["title"] = $user->getUsername() . " profile";
         $this->datas["slugUserName"] = $this->getUser()->getSlug();
+        $this->datas["user"] = $user;
 
         if(!count($user)){
             return $this->redirect($this->generateUrl('404'));
