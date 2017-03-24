@@ -1,12 +1,10 @@
+/*
+** ALL
+ */
+
+
 .navbar {
     font-size: 18px;
-}
-
-.actions-profil a{
-    display: block;
-    width: 100%;
-    background: black;
-    text-align: center;
 }
 
 
@@ -18,9 +16,21 @@
     margin-bottom: 20px;
 }
 
-.profil ul{
+ul{
     list-style-type: none;
 
+}
+
+
+/*
+** PROFIL PAGE
+ */
+
+.profil a{
+    display: block;
+    width: 100%;
+    background: black;
+    text-align: center;
 }
 
 .profil .profil-img{
@@ -30,3 +40,24 @@
 .profil .profil-search{
     width: 100%;
 }
+
+
+/*
+** HOME PAGE
+ */
+
+.home .music-home{
+    height: 110px;
+}
+
+.home a{
+    display: block;
+    width: 100%;
+    background: black;
+    text-align: center;
+}
+
+.home .home-search{
+    width: 100%;
+}
+
