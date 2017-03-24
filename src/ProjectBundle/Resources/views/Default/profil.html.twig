@@ -14,7 +14,13 @@
     <aside>
         <nav>
             <ul class="all-playlists">
-                <li><a href="{{ path('add_playlist',{'slug_username':datas.slugUserName}) }}">create playlist</a></li>
+
+            {% if datas.actions %}
+                <li>
+                    <a href="{{ path('add_playlist',{'slug_username':datas.slugUserName}) }}">create playlist</a>
+                </li>
+            {% endif %}
+
                 {% for playlist in datas.listePlaylist %}
                     {% if playlist.isDefault %}
                         <li>
@@ -25,11 +31,13 @@
                         {% else %}
                             <li>
                                 <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
-                                <ul class="action">
-                                    <li><a href="{{ path('delete_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">Delete</a></li>
-                                    <li><a href="{{ path('edit_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">edit</a></li>
-                                    <li><a href="{{ path('add_sound_to_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">add sound</a></li>
-                                </ul>
+                                {% if datas.actions %}
+                                    <ul class="action">
+                                        <li><a href="{{ path('delete_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">Delete</a></li>
+                                        <li><a href="{{ path('edit_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">edit</a></li>
+                                        <li><a href="{{ path('add_sound_to_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">add sound</a></li>
+                                    </ul>
+                                {% endif %}
                             </li>
                     {% endif %}
 
@@ -41,19 +49,7 @@
     <aside>{% block filter %}{% endblock %}</aside>
     </main>
 
-    <!-- <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <a href="#">About</a>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <img src="image.png" />
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <a href="#myModal1" data-toggle="modal">SHARE</a>
-            </div>
-        </div>
-    </div> -->
+    {% if datas.actions %}
     <div class="container actions-profil">
         <div class="row">
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -85,6 +81,7 @@
             </section>
         </div>
     </div>
+        {% endif %}
 
 
 

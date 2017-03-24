@@ -54,6 +54,8 @@ class DefaultController extends Controller
      */
     public function renderDayliAction($slug_username)
     {
+        $this->datas["actions"] = false;
+
         $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
 
         if($this->getUser() === $user){
@@ -61,6 +63,7 @@ class DefaultController extends Controller
         }
         
         $this->datas["title"] = $user->getUsername() . " profile";
+        $this->datas["slugUserName"] = $this->getUser()->getSlug();
 
         if(!count($user)){
             return $this->redirect($this->generateUrl('404'));
@@ -68,8 +71,6 @@ class DefaultController extends Controller
 
         $this->datas["listePlaylist"] = $this->getDoctrine()
             ->getRepository('ProjectBundle:Playlist')->findByUser($user);
-
-        $this->datas["slugUserName"]=$slug_username;
 
         return $this->render('ProjectBundle:Default:profil.html.twig',
             ["datas" => $this->datas]);
