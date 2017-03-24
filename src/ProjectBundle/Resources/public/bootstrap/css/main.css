@@ -18,7 +18,15 @@
     margin-bottom: 20px;
 }
 
-.actions-profil ul{
+.profil ul{
     list-style-type: none;
 
+}
+
+.profil .profil-img{
+    width: 120px;
+}
+
+.profil .profil-search{
+    width: 100%;
 }

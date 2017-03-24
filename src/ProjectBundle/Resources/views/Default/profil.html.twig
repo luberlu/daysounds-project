@@ -49,8 +49,10 @@
     <aside>{% block filter %}{% endblock %}</aside>
     </main>
 
-    {% if datas.actions %}
-    <div class="container actions-profil">
+    <div class="container profil">
+
+        {% if datas.actions %}
+
         <div class="row">
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <a href="/">Edit the profil</a>
@@ -59,11 +61,14 @@
                 <a href="/">Add music</a>
             </div>
         </div>
+
+        {%  endif %}
+
         <div class="row">
             <section class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Profil
                 <div class="row">
                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-lg-offset-1">
-                        <img src="{{ vich_uploader_asset(datas.user, 'imageFile') }}" alt="#">
+                        <img class="profil-img" src="{{ vich_uploader_asset(datas.user, 'imageFile') }}" alt="#">
                     </div>
                 </div>
                 <div class="row">
@@ -92,16 +97,22 @@
                     </h1>
                 </div>
                 <div class="row">
-                    <ul class="">
+                    <ul class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-lg-offset-1">
                         <li><a href="#">Artists</a></li>
-                        <li><a href="#">Artists</a></li>
-                        <li><a href="#">Artists</a></li>
+                        <li><a href="#">Kind</a></li>
+                        <li><a href="#">Owner</a></li>
+                        <li><a href="#">Most recent</a></li>
+                        <li><a href="#">Most listened</a></li>
                     </ul>
+                </div>
+                <div class="row">
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-lg-offset-1">
+                        <input class="profil-search" type="search" placeholder="Search ..." name="the_search">
+                    </div>
                 </div>
             </section>
         </div>
     </div>
-        {% endif %}
 
 
 
