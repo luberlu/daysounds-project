@@ -19,3 +19,4 @@ web/config.php
 /web/bundles/
 /web/images/
 .idea/
+composer.lock
