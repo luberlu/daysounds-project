@@ -4,7 +4,6 @@ services:
         arguments: [~, ProjectBundle\Entity\Playlist, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Playlist }
-        arguments:
-            - null
-            - ProjectBundle\Entity\Playlist
+
+
 

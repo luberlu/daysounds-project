@@ -295,11 +295,11 @@ class User extends BaseUser
     /**
      * Add playlist
      *
-     * @param \ProjectUserBundle\Entity\Playlist $playlist
+     * @param \ProjectBundle\Entity\Playlist $playlist
      *
      * @return User
      */
-    public function addPlaylist(\ProjectUserBundle\Entity\Playlist $playlist)
+    public function addPlaylist(\ProjectBundle\Entity\Playlist $playlist)
     {
         $this->playlists[] = $playlist;
 
@@ -309,9 +309,9 @@ class User extends BaseUser
     /**
      * Remove playlist
      *
-     * @param \ProjectUserBundle\Entity\Playlist $playlist
+     * @param \ProjectBundle\Entity\Playlist $playlist
      */
-    public function removePlaylist(\ProjectUserBundle\Entity\Playlist $playlist)
+    public function removePlaylist(\ProjectBundle\Entity\Playlist $playlist)
     {
         $this->playlists->removeElement($playlist);
     }
