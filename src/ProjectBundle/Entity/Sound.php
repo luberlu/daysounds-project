@@ -65,6 +65,15 @@ class Sound
     protected $players;
 
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Playlist")
+     * @ORM\JoinTable(name="playlist_sounds",
+     *                 joinColumns={@ORM\JoinColumn(name="sound_id", referencedColumnName="id")},
+     *                 inverseJoinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id")}
+     *     )
+     */
+
+    protected $playlists;
 
     public function _construct()
     {

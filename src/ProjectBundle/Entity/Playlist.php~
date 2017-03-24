@@ -68,7 +68,7 @@ class Playlist
     protected $isDayli;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User", cascade={"remove"})
      */
     protected $user;
 
@@ -249,5 +249,29 @@ class Playlist
     public function getDateAdd()
     {
         return $this->dateAdd;
+    }
+
+    /**
+     * Set isDefault
+     *
+     * @param boolean $isDefault
+     *
+     * @return Playlist
+     */
+    public function setIsDefault($isDefault)
+    {
+        $this->isDefault = $isDefault;
+
+        return $this;
+    }
+
+    /**
+     * Get isDefault
+     *
+     * @return boolean
+     */
+    public function getIsDefault()
+    {
+        return $this->isDefault;
     }
 }

@@ -3,7 +3,7 @@
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <ul class="nav navbar-nav navbar-left">
                 <li>
-                        <a href="#">Daysound</a>
+                        <a href="/">Daysound</a>
                 </li>
                 <li>
                         <a class="navbar-brand"><img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" width="30" height="auto" /></a>
@@ -16,7 +16,11 @@
                 <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Profil <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ path('user-profil',{'slug_username':datas.slugUserName}) }}">Mon profil</a></li>
+                                {% if datas is defined %}
+                                        <li>
+                                                <a href="{{ path('user-profil',{'slug_username':datas.slugUserName}) }}">Mon profil</a>
+                                        </li>
+                                {% endif %}
                                 <li><a href="{{ path("fos_user_profile_show") }}">settings</a></li>
                                 <li> <a href="{{ path('fos_user_security_logout') }}">
                                         {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
