@@ -15,11 +15,7 @@
         <nav>
             <ul class="all-playlists">
 
-            {% if datas.actions %}
-                <li>
-                    <a href="{{ path('add_playlist',{'slug_username':datas.slugUserName}) }}">create playlist</a>
-                </li>
-            {% endif %}
+
 
                 {% for playlist in datas.listePlaylist %}
                     {% if playlist.isDefault %}
@@ -79,6 +75,11 @@
                 </div>
                 <div class="row">
                     <ul class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-lg-offset-1">
+                        {% if datas.actions %}
+                            <li>
+                                <a href="{{ path('add_playlist',{'slug_username':datas.slugUserName}) }}">create playlist</a>
+                            </li>
+                        {% endif %}
                         <li><a href="#">My Music</a></li>
                         <li><a href="#">Playlist</a></li>
                         <li><a href="#">Daysounds</a></li>
