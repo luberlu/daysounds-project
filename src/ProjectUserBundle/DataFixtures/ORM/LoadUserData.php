@@ -3,12 +3,14 @@
 namespace ProjectUserBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use ProjectUserBundle\Entity\User;
 
-class LoadUserData implements FixtureInterface, ContainerAwareInterface
+class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
     /**
      * @var ContainerInterface
@@ -34,17 +36,29 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
             $user->setEmail('email'.$i.'@domain.com');
             $user->setPlainPassword('root');
             $user->setImageName("58cee7404d975.jpg");
-            //$user->setPassword('3NCRYPT3D-V3R51ON');
             $user->setEnabled(true);
-            $user->setRoles(array('ROLE_ADMIN'));
+
+            if($i == 1){
+                $user->setRoles(array('ROLE_ADMIN'));
+            } else {
+                $user->setRoles(array('ROLE_USER'));
+            }
+
             $user->setUpdatedAt(new \DateTime());
 
             // Update the user
             $userManager->updateUser($user, true);
+            $this->addReference('user-'.$i, $user);
 
             $i++;
 
         }
 
+    }
+
+    // order of fixtures
+    public function getOrder()
+    {
+        return 1;
     }
 }
