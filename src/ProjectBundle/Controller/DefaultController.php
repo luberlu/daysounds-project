@@ -55,6 +55,11 @@ class DefaultController extends Controller
     public function renderDayliAction($slug_username)
     {
         $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
+
+        if($this->getUser() === $user){
+            $this->datas["actions"] = true;
+        }
+        
         $this->datas["title"] = $user->getUsername() . " profile";
 
         if(!count($user)){
