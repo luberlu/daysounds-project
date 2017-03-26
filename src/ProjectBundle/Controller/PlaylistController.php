@@ -32,7 +32,7 @@ class PlaylistController extends DefaultController
             return $this->redirect($this->generateUrl('user-profil', array("slug_username" => $slug_username)));
         }
 
-        $this->datas["title"] = $user->getUsername() . " profile";
+        $this->datas["title"] = $user->getUsername() . " profile - Add playlist";
         $this->datas["slugUserName"] = $this->getUser()->getSlug();
         $this->datas["user"] = $user;
 
@@ -71,7 +71,15 @@ class PlaylistController extends DefaultController
                     ->getFlashBag()
                     ->add('success', 'Your playlist has been saved!');
 
-                return $this->redirect($this->generateUrl('user-profil',array('slug_username'=>$slug_username)));
+                //return $this->redirect($this->generateUrl('user-profil',array('slug_username'=>$slug_username)));
+                return $this->redirect(
+                    $this->generateUrl(
+                        'add_sound_to_playlist',
+                        array('slug_username' => $slug_username,
+                              'playlist_slug' => $playlist->getSlug()
+                        )
+                    )
+                );
             }
         }
 
@@ -155,15 +163,28 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/profil/playlists/{id}/sound/add", requirements={"id" = "\d+"}, name="add_sound_to_playlist")
+     * @Route("/{slug_username}/playlists/{playlist_slug}/sound/add", name="add_sound_to_playlist")
+     * @param $slug_username
+     * @param $playlist_slug
+     * @param Request $request
      * @return Response
      */
-    public function addSoundAction($id, Request $request)
+    public function addSoundAction($slug_username, $playlist_slug, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
         $sound = new Sound();
         $form = $this->createForm(AddSoundType::class, $sound);
-        $playlist = $em->getRepository('ProjectBundle:Playlist')->find($id);
+
+        $user = $em->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
+
+        if($this->getUser() === $user){
+            $this->datas["actions"] = true;
+        } else {
+            return $this->redirect($this->generateUrl('user-profil', array("slug_username" => $slug_username)));
+        }
+
+        $playlist = $em->getRepository('ProjectBundle:Playlist')->findOneBySlug($playlist_slug);
 
         if ($request->getMethod() == 'POST') {
 

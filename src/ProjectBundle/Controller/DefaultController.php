@@ -54,27 +54,31 @@ class DefaultController extends Controller
      */
     public function renderDayliAction($slug_username)
     {
-        $this->datas["actions"] = false;
+        if($this->getUser()) {
 
-        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
+            $this->datas["actions"] = false;
 
-        if($this->getUser() === $user){
-            $this->datas["actions"] = true;
+            $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
+
+            if ($this->getUser() === $user) {
+                $this->datas["actions"] = true;
+            }
+
+            $this->datas["title"] = $user->getUsername() . " profile";
+            $this->datas["slugUserName"] = $this->getUser()->getSlug();
+            $this->datas["user"] = $user;
+
+            if (!count($user)) {
+                return $this->redirect($this->generateUrl('404'));
+            }
+
+            $this->datas["listePlaylist"] = $this->getDoctrine()
+                ->getRepository('ProjectBundle:Playlist')->findByUser($user);
+
+            return $this->render('ProjectBundle:Default:profil.html.twig',
+                ["datas" => $this->datas]);
         }
-        
-        $this->datas["title"] = $user->getUsername() . " profile";
-        $this->datas["slugUserName"] = $this->getUser()->getSlug();
-        $this->datas["user"] = $user;
-
-        if(!count($user)){
-            return $this->redirect($this->generateUrl('404'));
-        }
-
-        $this->datas["listePlaylist"] = $this->getDoctrine()
-            ->getRepository('ProjectBundle:Playlist')->findByUser($user);
-
-        return $this->render('ProjectBundle:Default:profil.html.twig',
-            ["datas" => $this->datas]);
+        else return $this->redirect($this->generateUrl('home'));
     }
 
     // Afficher le profil d'un utilisateur avec toutes ses playlists

@@ -64,7 +64,7 @@
                                         <ul class="action">
                                             <li><a href="{{ path('delete_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">Delete</a></li>
                                             <li><a href="{{ path('edit_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">edit</a></li>
-                                            <li><a href="{{ path('add_sound_to_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">add sound</a></li>
+                                            <li><a href="{{ path('add_sound_to_playlist', {'slug_username':datas.slugUserName, 'playlist_slug': playlist.slug }) }}">add sound</a></li>
                                         </ul>
                                     {% endif %}
                                 </li>

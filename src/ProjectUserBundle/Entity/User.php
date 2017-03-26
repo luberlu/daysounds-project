@@ -181,7 +181,6 @@ class User extends BaseUser
         return $this->updatedAt;
     }
 
-
     public function slugify($text)
     {
         // replace non letter or digits by -
