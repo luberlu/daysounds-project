@@ -1,12 +1,15 @@
 {% extends "@ProjectBundle/Resources/views/Default/profil.html.twig" %}
-{% block content %}
+
+{% block playlist %}
     <ul class="sounds-in-playlist">
-        {% for sound in sounds %}
+        {% for sound in datas.sounds %}
             <li>
-                <a  href="#">{{ sound.id }} {{ sound.name }}</a>
-                <ul class="action">
-                    <li><a href="{{ path('delete_sound_from_playlist' ) }}">Delete</a></li>
-                </ul>{'id':idPlaylist,'id2':sound.id }
+                <a  href="#">{{ sound.name }}</a>
+                {% if datas.actions %}
+                    <ul class="action">
+
+                    </ul>
+                {% endif %}
                 <!-- iframe integration -->
                 {% include "@ProjectBundle/Resources/views/Playlists/sound-iframe.html.twig" %}
             </li>

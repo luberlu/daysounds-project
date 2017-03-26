@@ -4,7 +4,6 @@
 
     {% if datas is defined %}
 
-
         <div class="container home">
             <div class="row">
                 <h1 class="col-lg-4 col-lg-offset-4">Dayli Playlist</h1>
@@ -16,7 +15,7 @@
                         {% include "@ProjectBundle/Resources/views/Users/new-users.html.twig" %}
                     {% endif %}
                     {% if datas.listePlaylist is defined %}
-                        {% include "@ProjectBundle/Resources/views/Playlists/latest-playlists.html.twig" %}
+                        {% include "@ProjectBundle/Resources/views/Playlists/latest-playlist.html.twig" %}
                     {% endif %}
                 </section>
                 <section class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-lg-offset-1">

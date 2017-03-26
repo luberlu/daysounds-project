@@ -53,13 +53,14 @@
                         {% for playlist in datas.listePlaylist %}
                             {% if playlist.isDefault %}
                                 <li>
-                                    <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.name }}</a>
+                                    <a  href="{{ path('playlist_sounds', {'slug_username': datas.user.slug, 'playlist_slug': playlist.slug }) }}">{{ playlist.name }}</a>
                                 </li>
                             {% elseif playlist.isDayli %}
 
                             {% else %}
                                 <li>
-                                    <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.name }}</a>
+                                    <a  href="{{ path('playlist_sounds', {'slug_username': datas.user.slug, 'playlist_slug': playlist.slug }) }}">{{ playlist.name }}</a>
+                                </li>
                                     {% if datas.actions %}
                                         <ul class="action">
                                             <li><a href="{{ path('delete_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">Delete</a></li>
@@ -67,7 +68,6 @@
                                             <li><a href="{{ path('add_sound_to_playlist', {'slug_username':datas.slugUserName, 'playlist_slug': playlist.slug }) }}">add sound</a></li>
                                         </ul>
                                     {% endif %}
-                                </li>
                             {% endif %}
 
                         {% endfor %}
@@ -76,6 +76,7 @@
             </section>
             <section class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-lg-offset-1 ">Music Space
                 {% block form %}{% endblock %}
+                {% block playlist %}{% endblock %}
             </section>
             <section class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-lg-offset-1">Filters
                 <div class="row">

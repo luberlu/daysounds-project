@@ -164,20 +164,21 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/profil/playlists/{id}/sounds", requirements={"id" = "\d+"}, name="playlist_sounds")
+     * @Route("/{slug_username}/playlists/{playlist_slug}", requirements={"id" = "\d+"}, name="playlist_sounds")
+     * @param $slug_username
+     * @param $playlist_slug
      * @return Response
      */
-    public function playlistSoundAction($id)
+    public function playlistSoundAction($slug_username, $playlist_slug)
     {
+        $this->loadDatas($slug_username);
 
-        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->find($id);
+        $this->datas["playlist"] = $this->getDoctrine()
+            ->getRepository('ProjectBundle:Playlist')->findOneBySlug($playlist_slug);
 
-        $sounds = $repository->getSounds();
-        $repository2 = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
+        $this->datas["sounds"] = $this->datas["playlist"]->getSounds();
 
-        $listePlaylist = $repository2->findAll();
-
-        return $this->render('ProjectBundle:Default:playlists.html.twig', ["listePlaylist"=>$listePlaylist,"sounds" => $sounds,"idPlaylist"=>$id]);
+        return $this->render('ProjectBundle:Default:playlist.html.twig', ["datas" => $this->datas]);
 
     }
 
