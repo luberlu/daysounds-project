@@ -11,36 +11,6 @@
         }
     </style>
     <main>
-    <aside>
-        <nav>
-            <ul class="all-playlists">
-
-
-
-                {% for playlist in datas.listePlaylist %}
-                    {% if playlist.isDefault %}
-                        <li>
-                            <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
-                        </li>
-                        {% elseif playlist.isDayli %}
-
-                        {% else %}
-                            <li>
-                                <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
-                                {% if datas.actions %}
-                                    <ul class="action">
-                                        <li><a href="{{ path('delete_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">Delete</a></li>
-                                        <li><a href="{{ path('edit_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">edit</a></li>
-                                        <li><a href="{{ path('add_sound_to_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">add sound</a></li>
-                                    </ul>
-                                {% endif %}
-                            </li>
-                    {% endif %}
-
-                {% endfor %}
-            </ul>
-        </nav>
-    </aside>
     <section>{% block content%}{% endblock %}</section>
     <aside>{% block filter %}{% endblock %}</aside>
     </main>
@@ -80,11 +50,27 @@
                                 <a href="{{ path('add_playlist',{'slug_username':datas.slugUserName}) }}">create playlist</a>
                             </li>
                         {% endif %}
-                        <li><a href="#">My Music</a></li>
-                        <li><a href="#">Playlist</a></li>
-                        <li><a href="#">Daysounds</a></li>
-                        <li><a href="#">Playlist 1</a></li>
-                        <li><a href="#">Playlist 2</a></li>
+                        {% for playlist in datas.listePlaylist %}
+                            {% if playlist.isDefault %}
+                                <li>
+                                    <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
+                                </li>
+                            {% elseif playlist.isDayli %}
+
+                            {% else %}
+                                <li>
+                                    <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
+                                    {% if datas.actions %}
+                                        <ul class="action">
+                                            <li><a href="{{ path('delete_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">Delete</a></li>
+                                            <li><a href="{{ path('edit_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">edit</a></li>
+                                            <li><a href="{{ path('add_sound_to_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">add sound</a></li>
+                                        </ul>
+                                    {% endif %}
+                                </li>
+                            {% endif %}
+
+                        {% endfor %}
                     </ul>
                 </div>
             </section>
