@@ -74,14 +74,14 @@ class User extends BaseUser
     private $relation_user;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProjectBundle\Entity\Playlist", cascade={"remove"}, mappedBy="user")
+     * @ORM\OneToMany(targetEntity="ProjectBundle\Entity\Playlist", cascade={"remove"}, mappedBy="user", orphanRemoval=true)
      */
     protected $playlists;
 
 
     public function _construct()
     {
-        $this->relation_user=new ArrayCollection();
+        $this->relation_user = new ArrayCollection();
     }
 
     public function __construct()

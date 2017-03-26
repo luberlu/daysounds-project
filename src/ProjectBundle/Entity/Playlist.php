@@ -44,15 +44,14 @@ class Playlist
     private $position;
 
     /**
-     *@ORM\ManyToMany(targetEntity="Sound", cascade={"persist"})
-     */
-
-    /**
      * @ORM\Column(name="dateAdd", type="datetime")
      * @var \DateTime
      */
     protected $dateAdd;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Sound", cascade={"remove"}, orphanRemoval=true)
+     */
     protected $sounds;
 
     /**
@@ -68,7 +67,7 @@ class Playlist
     protected $isDayli;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User")
      */
     protected $user;
 

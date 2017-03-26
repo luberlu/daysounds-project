@@ -22,6 +22,27 @@ class PlaylistController extends DefaultController
      */
     public function addPlaylistAction(Request $request,$slug_username)
     {
+        $this->datas["actions"] = false;
+
+        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
+
+        if($this->getUser() === $user){
+            $this->datas["actions"] = true;
+        } else {
+            return $this->redirect($this->generateUrl('user-profil', array("slug_username" => $slug_username)));
+        }
+
+        $this->datas["title"] = $user->getUsername() . " profile";
+        $this->datas["slugUserName"] = $this->getUser()->getSlug();
+        $this->datas["user"] = $user;
+
+        if(!count($user)){
+            return $this->redirect($this->generateUrl('404'));
+        }
+
+        $this->datas["listePlaylist"] = $this->getDoctrine()
+            ->getRepository('ProjectBundle:Playlist')->findByUser($user);
+
         $playlist = new Playlist();
         $form = $this->createForm(AddPlaylistType::class, $playlist);
         $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findBySlug($slug_username);
@@ -54,7 +75,9 @@ class PlaylistController extends DefaultController
             }
         }
 
-        return $this->render('ProjectBundle:Playlists:add.html.twig', ["form" => $form->createView()]);
+        $this->datas["form"] = $form->createView();
+
+        return $this->render('ProjectBundle:Playlists:add.html.twig', ["datas" => $this->datas]);
 
     }
 
