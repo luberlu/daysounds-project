@@ -54,7 +54,6 @@ class Sound
      *                  inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="id")}
      *     )
      */
-
     protected $genres;
 
 
