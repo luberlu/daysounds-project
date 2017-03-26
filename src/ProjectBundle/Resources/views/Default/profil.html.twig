@@ -53,13 +53,13 @@
                         {% for playlist in datas.listePlaylist %}
                             {% if playlist.isDefault %}
                                 <li>
-                                    <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
+                                    <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.name }}</a>
                                 </li>
                             {% elseif playlist.isDayli %}
 
                             {% else %}
                                 <li>
-                                    <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
+                                    <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.name }}</a>
                                     {% if datas.actions %}
                                         <ul class="action">
                                             <li><a href="{{ path('delete_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">Delete</a></li>

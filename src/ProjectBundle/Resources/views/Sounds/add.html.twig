@@ -1,79 +1,80 @@
-{{ form_start(form) }}
+{% extends "@ProjectBundle/Resources/views/Default/profil.html.twig" %}
 
-    {{ form_widget(form) }}
-    <p><input type="submit" value="Add sound"></p>
+{% block form %}
+    {{ form_start(datas.form) }}
+        {{ form_widget(datas.form) }}
+        <p><input type="submit" value="Add sound"></p>
+        <p class="player-type">Support Youtube and Soundcloud</p>
+    {{ form_end(datas.form) }}
 
-    <p class="player-type">Support Youtube and Soundcloud</p>
+    <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
 
-{{ form_end(form) }}
+    <script type="application/javascript">
 
-<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+        $("#add_sound_link").on("keyup", function(){
 
-<script type="application/javascript">
+            clearTimeout($.data(this, 'timer'));
 
-    $("#add_sound_link").on("keyup", function(){
+            var val = $(this).val();
 
-        clearTimeout($.data(this, 'timer'));
+            var wait = setTimeout(function(){
 
-        var val = $(this).val();
+                $.ajax({
+                    url: '/test-link-sound',
+                    type: 'POST',
+                    data: 'link=' + val,
+                    dataType: 'html',
 
-        var wait = setTimeout(function(){
+                    success: function (response, statut) {
 
-            $.ajax({
-                url: '/test-link-sound',
-                type: 'POST',
-                data: 'link=' + val,
-                dataType: 'html',
+                        if(response !== "{}"){
+                            var obj = $.parseJSON(response);
+                            $(".player-type").html("Player " + obj.name);
+                            $("#add_sound_players").find("input").attr('checked', false);
+                            $("#add_sound_players_" + obj.type).attr('checked', true);
 
-                success: function (response, statut) {
+                            if(obj.name == "youtube") {
+                                var myId = getId(val);
+                                var constructUrlEmbed = "https://www.youtube.com/embed/" + myId;
+                                $("#add_sound_link").val(constructUrlEmbed);
+                            }
 
-                    if(response !== "{}"){
-                        var obj = $.parseJSON(response);
-                        $(".player-type").html("Player " + obj.name);
-                        $("#add_sound_players").find("input").attr('checked', false);
-                        $("#add_sound_players_" + obj.type).attr('checked', true);
-
-                        if(obj.name == "youtube") {
-                            var myId = getId(val);
-                            var constructUrlEmbed = "https://www.youtube.com/embed/" + myId;
-                            $("#add_sound_link").val(constructUrlEmbed);
+                        } else {
+                            // testing
+                            $("#add_sound_players").find("input").attr('checked', false);
+                            $(".player-type").html("Aucun player reconnu");
                         }
+                    },
 
-                    } else {
-                        // testing
-                        $("#add_sound_players").find("input").attr('checked', false);
-                        $(".player-type").html("Aucun player reconnu");
+                    error: function (resultat, statut, erreur) {
+
+                    },
+
+                    complete: function (resultat, statut) {
+
                     }
-                },
+                });
 
-                error: function (resultat, statut, erreur) {
 
-                },
 
-                complete: function (resultat, statut) {
+            }, 500);
 
+            $(this).data('timer', wait);
+
+
+            function getId(url) {
+                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                var match = url.match(regExp);
+
+                if (match && match[2].length == 11) {
+                    return match[2];
+                } else {
+                    return 'error';
                 }
-            });
-
-
-
-        }, 500);
-
-        $(this).data('timer', wait);
-
-
-        function getId(url) {
-            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            var match = url.match(regExp);
-
-            if (match && match[2].length == 11) {
-                return match[2];
-            } else {
-                return 'error';
             }
-        }
 
 
-    });
-    
-</script>
+        });
+
+    </script>
+{% endblock %}
