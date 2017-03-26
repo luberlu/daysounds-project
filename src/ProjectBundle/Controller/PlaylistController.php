@@ -23,14 +23,12 @@ class PlaylistController extends DefaultController
     public function loadDatas($slug_username){
 
         if($this->getUser()) {
-            $this->datas["actions"] = false;
 
+            $this->datas["actions"] = false;
             $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
 
             if ($this->getUser() === $user) {
                 $this->datas["actions"] = true;
-            } else {
-                return $this->redirect($this->generateUrl('user-profil', array("slug_username" => $slug_username)));
             }
 
             $this->datas["title"] = $user->getUsername() . " profile - Add playlist";
@@ -58,6 +56,11 @@ class PlaylistController extends DefaultController
      */
     public function addPlaylistAction(Request $request,$slug_username)
     {
+        $this->loadDatas($slug_username);
+
+        if(!$this->datas["actions"])
+            return $this->redirect($this->generateUrl('user-profil', array("slug_username" => $slug_username)));
+
         $playlist = new Playlist();
         $form = $this->createForm(AddPlaylistType::class, $playlist);
 
@@ -121,8 +124,6 @@ class PlaylistController extends DefaultController
      * @param $slug_username
      * @return \Symfony\Component\HttpFoundation\Response
      */
-
-
     public function editPlaylistAction($id, Request $request, $slug_username)
     {
 
@@ -160,7 +161,7 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/{slug_username}/playlists/{playlist_slug}", requirements={"id" = "\d+"}, name="playlist_sounds")
+     * @Route("/users/{slug_username}/playlists/{playlist_slug}", name="playlist_sounds")
      * @param $slug_username
      * @param $playlist_slug
      * @return Response
@@ -187,6 +188,11 @@ class PlaylistController extends DefaultController
      */
     public function addSoundAction($slug_username, $playlist_slug, Request $request)
     {
+        $this->loadDatas($slug_username);
+
+        if(!$this->datas["actions"])
+            return $this->redirect($this->generateUrl('user-profil', array("slug_username" => $slug_username)));
+
         $em = $this->getDoctrine()->getManager();
         $sound = new Sound();
         $form = $this->createForm(AddSoundType::class, $sound);

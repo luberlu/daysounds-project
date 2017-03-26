@@ -18,7 +18,7 @@
                         <ul class="dropdown-menu" role="menu">
                                 {% if datas is defined %}
                                         <li>
-                                                <a href="{{ path('user-profil',{'slug_username':datas.slugUserName}) }}">Mon profil</a>
+                                                <a href="{{ path('user-profil',{'slug_username':app.user.slug}) }}">Mon profil</a>
                                         </li>
                                 {% endif %}
                                 <li><a href="{{ path("fos_user_profile_show") }}">settings</a></li>
