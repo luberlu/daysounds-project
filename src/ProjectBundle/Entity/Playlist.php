@@ -72,7 +72,7 @@ class Playlist
     protected $isDayli;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User", inversedBy="playlists")
      */
     protected $user;
 

@@ -35,11 +35,14 @@ class DefaultController extends Controller
             // Block New Users
             $this->datas["newUsers"] = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findNewUsers();
             $this->datas["title"] = "Homepage";
-            // List latest Playlists
 
-            $userPlaylist = $userPlaylist = $this->getDoctrine()
+            // Dayliplaylist
+            $this->datas["dayliPlaylist"] = $this->getDoctrine()
                 ->getRepository('ProjectBundle:Playlist')->findBy(array("user" => $user, "isDayli" => true));
-            $this->datas["listePlaylist"] = $userPlaylist;
+
+            // Latest Playlists added
+            $this->datas['latestPlaylists'] = $this->getDoctrine()
+                ->getRepository('ProjectBundle:Playlist')->findLatestPlaylists();
 
             return $this->render('ProjectBundle:Default:index.html.twig', array("datas" => $this->datas));
         }

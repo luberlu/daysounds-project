@@ -58,15 +58,8 @@ class PlaylistController extends DefaultController
      */
     public function addPlaylistAction(Request $request,$slug_username)
     {
-        $this->loadDatas($slug_username);
-
         $playlist = new Playlist();
         $form = $this->createForm(AddPlaylistType::class, $playlist);
-        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findBySlug($slug_username);
-
-        if(!count($user)){
-            return $this->redirect($this->generateUrl('404'));
-        }
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
@@ -100,6 +93,7 @@ class PlaylistController extends DefaultController
             }
         }
 
+        $this->loadDatas($slug_username);
         $this->datas["form"] = $form->createView();
 
         return $this->render('ProjectBundle:Playlists:add.html.twig', ["datas" => $this->datas]);
@@ -131,7 +125,6 @@ class PlaylistController extends DefaultController
 
     public function editPlaylistAction($id, Request $request, $slug_username)
     {
-        $this->loadDatas($slug_username);
 
         $em = $this->getDoctrine()->getManager();
         $playlist = $em->getRepository('ProjectBundle:Playlist')->find($id);
@@ -160,6 +153,9 @@ class PlaylistController extends DefaultController
                 }
             }
         }
+
+        $this->loadDatas($slug_username);
+
         return $this->render('ProjectBundle:Playlists:add.html.twig', ["form" => $form->createView()]);
     }
 
@@ -191,8 +187,6 @@ class PlaylistController extends DefaultController
      */
     public function addSoundAction($slug_username, $playlist_slug, Request $request)
     {
-        $this->loadDatas($slug_username);
-
         $em = $this->getDoctrine()->getManager();
         $sound = new Sound();
         $form = $this->createForm(AddSoundType::class, $sound);
@@ -247,6 +241,7 @@ class PlaylistController extends DefaultController
             }
         }
 
+        $this->loadDatas($slug_username);
         $this->datas["form"] = $form->createView();
 
         return $this->render('ProjectBundle:Sounds:add.html.twig', ["datas" => $this->datas]);

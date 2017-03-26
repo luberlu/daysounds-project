@@ -14,7 +14,7 @@
                     {% if datas.newUsers is defined %}
                         {% include "@ProjectBundle/Resources/views/Users/new-users.html.twig" %}
                     {% endif %}
-                    {% if datas.listePlaylist is defined %}
+                    {% if datas.latestPlaylists is defined %}
                         {% include "@ProjectBundle/Resources/views/Playlists/latest-playlist.html.twig" %}
                     {% endif %}
                 </section>
@@ -57,10 +57,6 @@
                 </section>
             </div>
         </div>
-
-
-
-
 
 
     {% endif %}
