@@ -34,7 +34,7 @@ class DefaultController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('list_followers',
+            return $this->redirect($this->generateUrl('list_follows',
                 array('slug_username'=> $this->getUser()->getSlug()
                 )
             ));

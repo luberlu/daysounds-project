@@ -44,16 +44,11 @@ class Playlist
     private $position;
 
     /**
-     *@ORM\ManyToMany(targetEntity="Sound", cascade={"persist"})
-     */
-
-    /**
      * @ORM\Column(name="dateAdd", type="datetime")
      * @var \DateTime
      */
     protected $dateAdd;
 
-    protected $sounds;
 
     /**
      * @var boolean
@@ -62,15 +57,30 @@ class Playlist
     protected $isDefault;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    protected $slug;
+
+    /**
      * @var boolean
      * @ORM\Column(name="isDayli", type="boolean", options={"default":false})
      */
     protected $isDayli;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User", inversedBy="playlists")
      */
     protected $user;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Sound", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="playlist_sounds",
+     *                 joinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id")},
+     *                 inverseJoinColumns={@ORM\JoinColumn(name="sound_id", referencedColumnName="id")}
+     *     )
+     */
+    protected $sounds;
 
 
     public function _construct()
@@ -100,6 +110,7 @@ class Playlist
     public function setName($name)
     {
         $this->name = $name;
+        $this->setSlug($this->slugify($name));
 
         return $this;
     }
@@ -273,5 +284,72 @@ class Playlist
     public function getIsDefault()
     {
         return $this->isDefault;
+    }
+
+    public function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('#[^\\pL\d]+#u', '-', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // transliterate
+        if (function_exists('iconv'))
+        {
+            $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        }
+
+        // lowercase
+        $text = strtolower($text);
+
+        // remove unwanted characters
+        $text = preg_replace('#[^-\w]+#', '', $text);
+
+        if (empty($text))
+        {
+            return 'n-a';
+        }
+
+        return $text;
+    }
+
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Playlist
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $this->slugify($slug);
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set sounds
+     *
+     * @param \ProjectBundle\Entity\Sound $sounds
+     *
+     * @return Playlist
+     */
+    public function setSounds(\ProjectBundle\Entity\Sound $sounds = null)
+    {
+        $this->sounds = $sounds;
+
+        return $this;
     }
 }

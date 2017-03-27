@@ -49,10 +49,6 @@ class Playlist
      */
     protected $dateAdd;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Sound", cascade={"remove"}, orphanRemoval=true)
-     */
-    protected $sounds;
 
     /**
      * @var boolean
@@ -75,6 +71,16 @@ class Playlist
      * @ORM\ManyToOne(targetEntity="ProjectUserBundle\Entity\User", inversedBy="playlists")
      */
     protected $user;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Sound", cascade={"remove"}, orphanRemoval=true)
+     * @ORM\JoinTable(name="playlist_sounds",
+     *                 joinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id")},
+     *                 inverseJoinColumns={@ORM\JoinColumn(name="sound_id", referencedColumnName="id")}
+     *     )
+     */
+    protected $sounds;
 
 
     public function _construct()
@@ -331,5 +337,19 @@ class Playlist
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set sounds
+     *
+     * @param \ProjectBundle\Entity\Sound $sounds
+     *
+     * @return Playlist
+     */
+    public function setSounds(\ProjectBundle\Entity\Sound $sounds = null)
+    {
+        $this->sounds = $sounds;
+
+        return $this;
     }
 }

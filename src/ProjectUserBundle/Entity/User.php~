@@ -331,4 +331,38 @@ class User extends BaseUser
     {
         return $this->playlists;
     }
+
+    /**
+     * Add relationUserOf
+     *
+     * @param \ProjectUserBundle\Entity\User $relationUserOf
+     *
+     * @return User
+     */
+    public function addRelationUserOf(\ProjectUserBundle\Entity\User $relationUserOf)
+    {
+        $this->relation_user_of[] = $relationUserOf;
+
+        return $this;
+    }
+
+    /**
+     * Remove relationUserOf
+     *
+     * @param \ProjectUserBundle\Entity\User $relationUserOf
+     */
+    public function removeRelationUserOf(\ProjectUserBundle\Entity\User $relationUserOf)
+    {
+        $this->relation_user_of->removeElement($relationUserOf);
+    }
+
+    /**
+     * Get relationUserOf
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRelationUserOf()
+    {
+        return $this->relation_user_of;
+    }
 }

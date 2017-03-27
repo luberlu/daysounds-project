@@ -32,14 +32,10 @@ class Genre
      */
     private $name;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Sound", mappedBy="genre")
-     */
-    protected $sounds;
 
     public function __construct()
     {
-        $this->sounds = new ArrayCollection();
+       
     }
 
     /**
