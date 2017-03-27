@@ -4,6 +4,7 @@ namespace ProjectUserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -22,6 +23,7 @@ class DefaultController extends Controller
     /**
      * @Route("/follow/{slug_username}", name="add_follow")
      * @param $slug_username
+
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function addFollowByTo($slug_username){

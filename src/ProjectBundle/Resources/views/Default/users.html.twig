@@ -6,7 +6,7 @@
             <li>
                 <ul>
                     <li>{{ user.username }}</li>
-                    <li><a href=""></a></li>
+                    <li><a href="{{ path('add_follow',{'slug_username':user.slug}) }}">follow</a></li>
                 </ul>
             </li>
         {% endfor %}
