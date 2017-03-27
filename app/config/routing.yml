@@ -4,12 +4,12 @@ fos_user:
     prefix: /
 
 project_user:
-    resource: "@ProjectUserBundle/Controller/"
+    resource: "@ProjectUserBundle/Controller"
     type:     annotation
     prefix:   /
 
 project:
-    resource: "@ProjectBundle/Controller/"
+    resource: "@ProjectBundle/Controller"
     type:     annotation
     prefix:   /
 

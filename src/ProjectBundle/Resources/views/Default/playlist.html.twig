@@ -14,11 +14,9 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             {% for list in datas.listPlaylists %}
-                                <li>
-                                    <a href="{{
-                                        path('add_sound_to_this_playlist',
-                                        {'playlist_slug': list.slug, 'sound_id':sound.id})
-                                    }}">{{ list.name }}</a>
+                                <li><span>{{ path('user-profil',{'slug_username':app.user.slug}) }}</span>
+                                    <a href="{{ path('add_sound_to_this_playlist',
+                                    {'playlist_id': list.id, 'sound_id':sound.id}) }}">{{ list.name }}</a>
                                 </li>
                             {% endfor %}
                         </ul>
