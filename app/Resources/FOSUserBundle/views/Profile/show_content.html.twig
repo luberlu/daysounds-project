@@ -1,6 +1,12 @@
-{% trans_default_domain 'FOSUserBundle' %}
+{% extends "ProjectBundle:Default:index.html.twig" %}
 
-<div class="fos_user_user_show">
-    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-</div>
+{% block settingsBlock %}
+<ul class="list-group fos_user_user_show">
+    <li class="list-group-item">
+        username : {{ user.username }}
+    </li>
+    <li class="list-group-item">
+       email :  {{ user.email }}
+    </li>
+</ul>
+{% endblock %}

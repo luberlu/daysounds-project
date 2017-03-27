@@ -4,7 +4,7 @@
 
     {% if datas is defined %}
 
-        <div class="container home">
+      {#  <div class="container home">
             <div class="row">
                 <h1 class="col-lg-4 col-lg-offset-4">Dayli Playlist</h1>
             </div>
@@ -56,12 +56,13 @@
                     </div>
                 </section>
             </div>
-        </div>
+        </div>#}
 
 
     {% endif %}
 
     {% block fos_user_content %}{% endblock %}
+    {% block settingsBlock %}{% endblock %}
 
 
 {% endblock %}
