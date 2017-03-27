@@ -79,6 +79,7 @@ class Playlist
      *                 joinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id")},
      *                 inverseJoinColumns={@ORM\JoinColumn(name="sound_id", referencedColumnName="id")}
      *     )
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $sounds;
 

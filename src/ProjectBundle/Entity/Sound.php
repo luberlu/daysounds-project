@@ -64,6 +64,11 @@ class Sound
     protected $players;
 
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Playlist", mappedBy="sounds")
+     */
+    protected $playlists;
+
 
     public function _construct()
     {
