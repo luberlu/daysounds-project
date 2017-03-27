@@ -175,6 +175,9 @@ class PlaylistController extends DefaultController
 
         $this->datas["sounds"] = $this->datas["playlist"]->getSounds();
 
+        $this->datas["listPlaylists"] = $this->getDoctrine()
+            ->getRepository('ProjectBundle:Playlist')->findByUser($this->datas["user"]);
+
         return $this->render('ProjectBundle:Default:playlist.html.twig', ["datas" => $this->datas]);
 
     }

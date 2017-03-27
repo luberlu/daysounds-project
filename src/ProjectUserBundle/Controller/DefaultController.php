@@ -22,6 +22,7 @@ class DefaultController extends Controller
     /**
      * @Route("/follow/{slug_username}", name="add_follow")
      * @param $slug_username
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function addFollowByTo($slug_username){
 
@@ -48,6 +49,7 @@ class DefaultController extends Controller
     /**
      * @Route("/users/{slug_username}/followers", name="list_followers")
      * @param $slug_username
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
 
     public function listFollowers($slug_username){
@@ -88,6 +90,7 @@ class DefaultController extends Controller
     /**
      * @Route("/users/{slug_username}/follows", name="list_follows")
      * @param $slug_username
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
 
     public function listFollows($slug_username){
@@ -122,6 +125,5 @@ class DefaultController extends Controller
         else return $this->redirect($this->generateUrl('home'));
 
     }
-
 
 }
