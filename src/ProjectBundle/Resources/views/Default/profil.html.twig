@@ -35,6 +35,10 @@
                 <div class="row">
                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-lg-offset-1">
                         <img class="profil-img" src="{{ vich_uploader_asset(datas.user, 'imageFile') }}" alt="#">
+                        <span>{{ datas.user.username }}</span>
+                        {% if datas.actions == false %}
+                            <a href="{{ path('add_follow',{'slug_username':datas.user.slug}) }}">Follow it >></a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="row">
