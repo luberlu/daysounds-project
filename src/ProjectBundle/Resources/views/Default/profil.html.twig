@@ -10,10 +10,13 @@
             align-items: flex-start;
         }
     </style>
+<<<<<<< HEAD
     <main>
     <section>{% block content%}{% endblock %}</section>
     <aside>{% block filter %}{% endblock %}</aside>
     </main>
+=======
+>>>>>>> e5a99a52874e7ba06a5988f9e1a24bcec059bac9
 
     <div class="container profil">
 
@@ -96,6 +99,43 @@
                 {% block form %}{% endblock %}
                 {% block playlist %}{% endblock %}
                 {% block follows %}{% endblock %}
+            <section class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-lg-offset-1 ">
+                <div class="row">
+                    <h1>Music Space</h1>
+                </div>
+                <div class="row">
+                    <aside>
+                        <nav class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-lg-offset1">
+                            <ul class="all-playlists">
+
+                                {% for playlist in datas.listePlaylist %}
+                                    {% if playlist.isDefault %}
+                                        <li>
+                                            <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
+                                        </li>
+                                    {% elseif playlist.isDayli %}
+
+                                    {% else %}
+                                        <li>
+                                            <a  href="{{ path('playlist_sounds', {'id': playlist.id }) }}">{{ playlist.id }} {{ playlist.name }}</a>
+                                            {% if datas.actions %}
+                                                <ul class="action">
+                                                    <li><a href="{{ path('delete_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">Delete</a></li>
+                                                    <li><a href="{{ path('edit_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">edit</a></li>
+                                                    <li><a href="{{ path('add_sound_to_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">add sound</a></li>
+                                                </ul>
+                                            {% endif %}
+                                        </li>
+                                    {% endif %}
+
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                    </aside>
+                </div>
+                <section>{% block content%}{% endblock %}</section>
+                <aside>{% block filter %}{% endblock %}</aside>
+
             </section>
             <section class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-lg-offset-1">Filters
                 <div class="row">

@@ -9,3 +9,15 @@ use ProjectBundle\Entity\Sound;
 use ProjectBundle\Model\AddSoundType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+class SoundController extends DefaultController {
+
+    protected $datas = [];
+
+
+    public function addSoundToPlaylist($slug_sound, $slug_playlist){
+
+    }
+
+
+}
