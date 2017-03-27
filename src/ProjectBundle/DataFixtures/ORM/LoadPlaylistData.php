@@ -48,7 +48,11 @@ class LoadPlaylistData extends AbstractFixture implements OrderedFixtureInterfac
 
                 $manager->persist($playlist);
 
-                $this->addReference('playlist-'.$i.'-'.$i_Playlist, $playlist);
+                if ($i_Playlist == 1)
+                    $this->addReference('allplaylist-'.$i, $playlist);
+                else
+                    $this->addReference('playlist-'.$i.'-'.$i_Playlist, $playlist);
+
                 $i_Playlist++;
 
             }

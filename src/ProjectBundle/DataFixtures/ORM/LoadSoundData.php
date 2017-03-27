@@ -26,7 +26,7 @@ class LoadSoundData extends AbstractFixture implements OrderedFixtureInterface
         // for all users saved before
         while ($i_Users < $numberProfiles) {
 
-            $i_Playlist = 1;
+            $i_Playlist = 2;
 
             while ($i_Playlist < $numberPlaylist) {
 
@@ -36,12 +36,15 @@ class LoadSoundData extends AbstractFixture implements OrderedFixtureInterface
 
                     $sound = new Sound();
                     $playlistRef = $this->getReference('playlist-'.$i_Users.'-'.$i_Playlist);
+                    $playlistAllRef = $this->getReference('allplaylist-'.$i_Users);
 
                     $playerRef = $this->getReference("youtube");
                     $genreRef = $this->getReference("Rock");
 
                     $sound->addPlaylist($playlistRef);
+
                     $playlistRef->addSound($sound);
+                    $playlistAllRef->addSound($sound);
 
                     $sound->addGenre($genreRef);
 

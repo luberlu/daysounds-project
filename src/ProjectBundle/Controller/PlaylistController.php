@@ -233,7 +233,15 @@ class PlaylistController extends DefaultController
                 else{
                     //sound do not exist
                     $em = $this->getDoctrine()->getManager();
+
                     $playlist->addSound($sound);
+
+
+                    // add sound to "All sounds" Playlist
+                    $allSounds = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->findOneBy(array('isDefault'=> true));
+                    $allSounds->addSound($sound);
+
+
                     $em->persist($sound);
                     $em->flush();
                 }
