@@ -84,6 +84,7 @@ class DefaultController extends Controller
         else return $this->redirect($this->generateUrl('home'));
     }
 
+
     // Afficher le profil d'un utilisateur avec toutes ses playlists
 
     /**

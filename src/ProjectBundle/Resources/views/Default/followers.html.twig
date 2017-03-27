@@ -1,0 +1,17 @@
+{% extends "@ProjectBundle/Resources/views/Default/profil.html.twig" %}
+
+{% block follows %}
+    <ul class="follows">
+        {% for follow in datas.list_follows %}
+            <li>
+                <a href="#">{{ follow.username }}</a>
+                {% if datas.actions %}
+                    <ul class="action">
+
+                    </ul>
+                {% endif %}
+                <!-- iframe integration -->
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
