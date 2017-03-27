@@ -4,7 +4,10 @@
     <ul class="follows">
         {% for follow in datas.list_follows %}
             <li>
-                <a href="#">{{ follow.username }}</a>
+                <a href="{{ path('user-profil', {'slug_username': follow.slug}) }}">
+                    <img class="profil-img" src="{{ vich_uploader_asset(follow, 'imageFile') }}" alt="#">
+                    {{ follow.username }}
+                </a>
                 {% if datas.actions %}
                     <ul class="action">
 
