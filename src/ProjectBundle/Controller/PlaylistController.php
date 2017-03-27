@@ -241,8 +241,9 @@ class PlaylistController extends DefaultController
                 $this->get('session')
                     ->getFlashBag()
                     ->add('success', 'Your playlist has been saved!');
-
-                return $this->redirectToRoute('playlist_sounds', ['id' => $id]);
+                
+                return $this->redirectToRoute('playlist_sounds',
+                    ['slug_username' => $slug_username, 'playlist_slug' => $playlist_slug]);
 
             }
         }
