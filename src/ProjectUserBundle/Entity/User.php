@@ -65,13 +65,20 @@ class User extends BaseUser
     protected $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ProjectUserBundle\Entity\User",  inversedBy="following")
+     * @ORM\ManyToMany(targetEntity="ProjectUserBundle\Entity\User", inversedBy="relation_user_of")
      * @ORM\JoinTable(name="user_relations",
      *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="follower_user_id", referencedColumnName="id")}
      * )
      */
-    private $relation_user;
+    protected $relation_user;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ProjectUserBundle\Entity\User",  mappedBy="relation_user")
+     */
+    protected $relation_user_of;
+
 
     /**
      * @ORM\OneToMany(targetEntity="ProjectBundle\Entity\Playlist", cascade={"remove"}, mappedBy="user", orphanRemoval=true)
@@ -323,5 +330,39 @@ class User extends BaseUser
     public function getPlaylists()
     {
         return $this->playlists;
+    }
+
+    /**
+     * Add relationUserOf
+     *
+     * @param \ProjectUserBundle\Entity\User $relationUserOf
+     *
+     * @return User
+     */
+    public function addRelationUserOf(\ProjectUserBundle\Entity\User $relationUserOf)
+    {
+        $this->relation_user_of[] = $relationUserOf;
+
+        return $this;
+    }
+
+    /**
+     * Remove relationUserOf
+     *
+     * @param \ProjectUserBundle\Entity\User $relationUserOf
+     */
+    public function removeRelationUserOf(\ProjectUserBundle\Entity\User $relationUserOf)
+    {
+        $this->relation_user_of->removeElement($relationUserOf);
+    }
+
+    /**
+     * Get relationUserOf
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRelationUserOf()
+    {
+        return $this->relation_user_of;
     }
 }

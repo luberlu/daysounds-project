@@ -67,7 +67,7 @@ class DefaultController extends Controller
             $this->datas["slugUserName"] = $this->getUser()->getSlug();
             $this->datas["user"] = $user;
 
-            $this->datas["list_follows"] = $user->getRelationUser();
+            $this->datas["list_followers"] = $user->getRelationUser();
 
             if (!count($user)) {
                 return $this->redirect($this->generateUrl('404'));
@@ -77,6 +77,46 @@ class DefaultController extends Controller
                                                  ->getRepository('ProjectBundle:Playlist')->findByUser($user);
 
             return $this->render('ProjectBundle:Default:followers.html.twig',
+                ["datas" => $this->datas]);
+        }
+        else return $this->redirect($this->generateUrl('home'));
+
+    }
+
+
+
+    /**
+     * @Route("/users/{slug_username}/follows", name="list_follows")
+     * @param $slug_username
+     */
+
+    public function listFollows($slug_username){
+
+
+        if($this->getUser()) {
+
+            $this->datas["actions"] = false;
+
+            $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
+
+            if ($this->getUser() === $user) {
+                $this->datas["actions"] = true;
+            }
+
+            $this->datas["title"] = $user->getUsername() . " - follows";
+            $this->datas["slugUserName"] = $this->getUser()->getSlug();
+            $this->datas["user"] = $user;
+
+            $this->datas["list_follows"] = $user->getRelationUserOf();
+
+            if (!count($user)) {
+                return $this->redirect($this->generateUrl('404'));
+            }
+
+            $this->datas["listePlaylist"] = $this->getDoctrine()
+                                                 ->getRepository('ProjectBundle:Playlist')->findByUser($user);
+
+            return $this->render('ProjectBundle:Default:follows.html.twig',
                 ["datas" => $this->datas]);
         }
         else return $this->redirect($this->generateUrl('home'));

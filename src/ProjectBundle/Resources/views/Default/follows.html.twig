@@ -2,7 +2,7 @@
 
 {% block follows %}
     <ul class="follows">
-        {% for follow in datas.list_followers %}
+        {% for follow in datas.list_follows %}
             <li>
                 <a href="#">{{ follow.username }}</a>
                 {% if datas.actions %}
