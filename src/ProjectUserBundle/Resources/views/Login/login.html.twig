@@ -6,13 +6,13 @@
                         <a href="/">Daysound</a>
                 </li>
                 <li>
-                        <a class="navbar-brand"><img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" width="30" height="auto" /></a>
-                </li>
-                <li>
                         <p class="navbar-text">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</p>
                 </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a class="navbar-brand"><img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" width="30" height="auto" /></a>
+            </li>
                 <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Profil <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">

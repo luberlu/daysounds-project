@@ -101,8 +101,7 @@ class DefaultController extends Controller
         return $this->render('ProjectBundle:Default:users.html.twig', array("datas" => $this->datas));
 
     }
-
-
+    
     /**
      * @Route("/page-not-found", name="404")
      * @return \Symfony\Component\HttpFoundation\Response
@@ -112,5 +111,6 @@ class DefaultController extends Controller
     {
         return $this->render('ProjectBundle:Default:404.html.twig');
     }
+
 
 }
