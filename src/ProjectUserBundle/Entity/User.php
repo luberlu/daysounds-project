@@ -191,10 +191,10 @@ class User extends BaseUser
     public function slugify($text)
     {
         // replace non letter or digits by -
-        $text = preg_replace('#[^\\pL\d]+#u', '-', $text);
+        //$text = preg_replace('#[^\\pL\d]+#u', '-', $text);
 
         // trim
-        $text = trim($text, '-');
+        //$text = trim($text, '-');
 
         // transliterate
         if (function_exists('iconv'))
