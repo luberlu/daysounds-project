@@ -49,8 +49,8 @@ class SoundController extends DefaultController {
             $em->persist($playlist);
             $em->flush();
 
-            $this->redirect($this->generateUrl("playlist_sounds",
-                array("slug_username" => $user, "playlist_slug" => $playlist->getSlug())
+            return $this->redirect($this->generateUrl("playlist_sounds",
+                array("slug_username" => $user->getSlug(), "playlist_slug" => $playlist->getSlug())
                 )
             );
         }

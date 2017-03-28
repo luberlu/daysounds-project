@@ -200,7 +200,7 @@ class PlaylistController extends DefaultController
 
         $this->datas["listPlaylists"] = $this->getDoctrine()
             ->getRepository('ProjectBundle:Playlist')->findBy(array(
-                "user" => $this->datas["user"], "isDayli" => false, "isDefault" => false));
+                "user" => $this->getUser(), "isDayli" => false, "isDefault" => false));
 
         return $this->render('ProjectBundle:Default:playlist.html.twig', ["datas" => $this->datas]);
 
