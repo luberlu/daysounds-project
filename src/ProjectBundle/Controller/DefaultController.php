@@ -136,9 +136,23 @@ class DefaultController extends Controller
         return $this->render('ProjectBundle:Default:404.html.twig');
     }
 
-    private function testIfAlreadyInAllSounds(){
+    private function findSoundToAdd($followUser){
+
+        $user = $this->getUser();
+        $allPlaylists = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")->findOneBy(array("user" => $followUser));
+        $allSoundsToPlaylists = $allPlaylists->getSounds();
+
+        foreach($allSoundsToPlaylists as $soundFound){
+
+            $id = $soundFound->getId();
+            $result = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")->foundSoundsToCron($user, $id);
+            if(count($result) == 0){
+                return $id;
+            }
+        }
 
         return false;
+
     }
 
     // retrieve 1 sound per follow to dayliPlaylist
@@ -154,21 +168,16 @@ class DefaultController extends Controller
 
         foreach($follows as $follow){
 
-            $playlist_all_sounds = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")
-                ->findOneBy(array("user" => $follow, "isDefault" => true));
+            $soundToAddToPlaylistId = $this->findSoundToAdd($follow);
 
-            $one_sound = $playlist_all_sounds->getSounds()->first();
-            $alreadyInPlaylistDefault = false;
+            // S'il y a au moins un son qui n'a pas été pushé encore dans Dayliplaylist
+            if($soundToAddToPlaylistId != false) {
 
-            // check is default playlist as already the sound to add
-            foreach($his_dayli_sound_playlist->getSounds() as $soundAlready){
-                if($soundAlready == $one_sound){
-                    $alreadyInPlaylistDefault = true;
-                }
-            }
+                $soundToAddToPlaylist = $this->getDoctrine()
+                    ->getRepository("ProjectBundle:Sound")->findOneById($soundToAddToPlaylistId);
 
-            if(!$alreadyInPlaylistDefault){
-                $his_dayli_sound_playlist->addSound($one_sound);
+
+                $his_dayli_sound_playlist->addSound($soundToAddToPlaylist);
                 $em->persist($his_dayli_sound_playlist);
             }
 

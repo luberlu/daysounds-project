@@ -225,7 +225,8 @@ class PlaylistController extends DefaultController
         $form = $this->createForm(AddSoundType::class, $sound);
 
 
-        $playlist = $em->getRepository('ProjectBundle:Playlist')->findOneBySlug($playlist_slug);
+        $playlist = $em->getRepository('ProjectBundle:Playlist')
+            ->findOneBy(array("slug" => $playlist_slug, "user" => $this->getUser()));
 
         if ($request->getMethod() == 'POST') {
 
@@ -234,51 +235,60 @@ class PlaylistController extends DefaultController
             if ($form->isValid()) {
 
                 // save the proposition
-                $soundTofind=$sound->getLink();
-                $soundIsFind=$this->getDoctrine()->getRepository('ProjectBundle:Sound')->findBy(array('link'=>$soundTofind));
-                $soundToReplace = $this->getDoctrine()->getRepository('ProjectBundle:Sound')->findoneBy(array('link'=>$soundTofind));
 
-                if(count($soundIsFind)){
+                $soundsList = [];
 
-                    //sound Exist
-                    $em = $this->getDoctrine()->getManager();
+                $linkSearch = $sound->getLink();
+                $listPlaylistsFromUser = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')
+                    ->findBy(array("user" => $this->getUser()));
 
-                    if($playlist->getSounds($soundIsFind)){
-
-                        $this->get('session')
-                            ->getFlashBag()
-                            ->add('success', 'You already have this sound in this playlist!');
-
-                    } else {
-
-                        $playlist->addSound($soundToReplace);
-                        var_dump($soundToReplace->getId());
-                        $em->flush();
-                    }
-
+                foreach ($listPlaylistsFromUser as $key => $playlistFound) {
+                    $soundsList[$key] = $playlistFound->getSounds();
                 }
-                else{
-                    //sound do not exist
-                    $em = $this->getDoctrine()->getManager();
 
+                $testIfExist = false;
+
+                foreach ($soundsList as $soundKeyList){
+                    foreach ($soundKeyList as $soundtest) {
+                        if ($soundtest->getLink() == $linkSearch) {
+                            $testIfExist = true;
+                        }
+                    }
+                }
+
+                // check if Already Exist
+                if($testIfExist){
+
+                    $this->get('session')
+                         ->getFlashBag()
+                         ->add('warning', 'You already have this sound in your sounds !');
+
+                    return $this->redirect($this->generateUrl("playlist_sounds",
+                        array("slug_username" => $slug_username, "playlist_slug" => $playlist_slug)
+                        )
+                    );
+
+                } else {
+
+                    // sound do not exist, add is possible
                     $playlist->addSound($sound);
-
-
                     // add sound to "All sounds" Playlist
                     $allSounds = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->findOneBy(array('isDefault'=> true));
                     $allSounds->addSound($sound);
 
-
                     $em->persist($sound);
+
                     $em->flush();
+
+                    // add a flash message
+                    $this->get('session')
+                        ->getFlashBag()
+                        ->add('success', 'Your sound has been saved in this playlist !');
+
+                    return $this->redirectToRoute('playlist_sounds',
+                        ['slug_username' => $slug_username, 'playlist_slug' => $playlist_slug]);
+
                 }
-                // add a flash message
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('success', 'Your playlist has been saved!');
-                
-                return $this->redirectToRoute('playlist_sounds',
-                    ['slug_username' => $slug_username, 'playlist_slug' => $playlist_slug]);
 
             }
         }

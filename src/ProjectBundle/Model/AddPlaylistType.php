@@ -13,4 +13,5 @@ class AddPlaylistType extends AbstractType {
                 ->add("position");
 
     }
+
 }
