@@ -1,11 +1,11 @@
-<h2>Latest Playlists</h2>
-<ul>
+<div class="list-group">
+    <h3 class="list-group-item active text-center">Latest Playlists :</h3>
     {% block latestPlaylists %}
         {% for playlist in datas.latestPlaylists %}
-            <li>
-                <a  href="{{ path('playlist_sounds',
-                {"slug_username": playlist.user.slug, "playlist_slug": playlist.slug}) }}">{{ playlist.id }} {{ playlist.name }}</a>
-            </li>
+            <div>
+                <a class="list-group-item btn-default" href="{{ path('playlist_sounds',
+                {"slug_username": playlist.user.slug, "playlist_slug": playlist.slug}) }}">{{ playlist.name }}<span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
         {% endfor %}
     {% endblock %}
-</ul>
+</div>

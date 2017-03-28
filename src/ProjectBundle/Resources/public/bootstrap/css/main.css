@@ -1,0 +1,71 @@
+/* LEO */
+
+ul.nav.navbar-nav.navbar-left li:nth-child(1) {
+    background: brown;
+}
+
+.list-group.users .list-group-item {
+    padding-right: 0;
+}
+
+.list-group.users .list-group-item img {
+    float: left;
+}
+
+.list-group.users .list-group-item span {
+    float: left;
+    width: 92px;
+    position: relative;
+    padding-left: 10px;
+}
+
+.list-group.users .list-group-item span icon {
+    position: absolute;
+    right: 0;
+    top: 6px;
+}
+
+.navbar-brand {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.navbar-brand img {
+    height: 100%;
+}
+
+.sound-name {
+    color: #ffffff;
+    background-color: #5cb85c;
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    padding-left: 19px;
+    padding-bottom: 10px;
+    border-color: transparent;
+}
+
+.actions-sound {
+    height: 64px;
+    padding-top: 18px;
+    background: beige;
+}
+
+.actions-sound .dropup > a, .actions-sound .dropdown > a{
+    margin-left: 10px;
+    position: relative;
+    padding: 10px;
+    background: brown;
+    color: white;
+    text-decoration: none;
+}
+
+.actions-sound .dropup div a, .actions-sound .dropdown div a {
+    padding: 5px;
+    margin-bottom: 10px;
+    height: 30px;
+    display: block;
+}
+
+
+ /* END LEO */
