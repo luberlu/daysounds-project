@@ -35,6 +35,8 @@ class PlaylistController extends DefaultController
             $this->datas["slugUserName"] = $this->getUser()->getSlug();
             $this->datas["user"] = $user;
 
+            $this->followOrNot($user);
+
             if (!count($user)) {
                 return $this->redirect($this->generateUrl('404'));
             }
@@ -49,6 +51,25 @@ class PlaylistController extends DefaultController
         return $this->redirect($this->generateUrl('home'));
 
     }
+
+    public function followOrNot($user){
+
+        $this->datas['tofollow'] = 1;
+
+        $follows = $user->getRelationUser();
+
+        if(count($follows)){
+            foreach ( $follows as $follow ) {
+                if ( $follow == $this->getUser() ) {
+                    $this->datas['tofollow'] = 0;
+                }
+            }
+        }
+
+        return true;
+    }
+
+
     /**
      * @Route("/users/{slug_username}/playlists/add", name="add_playlist")
      * @param $slug_username

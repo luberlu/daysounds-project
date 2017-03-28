@@ -85,7 +85,12 @@ class RegistrationController extends BaseController
                 $em->flush();
 
                 if (null === $response = $event->getResponse()) {
-                    $url = $this->generateUrl('fos_user_registration_confirmed');
+                    // before $url = $this->generateUrl('fos_user_registration_confirmed');
+
+                    $this->get('session')->getFlashBag()->set('success',
+                        'Welcome to our platform daysounds '. $user->getUsername());
+
+                    $url = $this->generateUrl("stream");
                     $response = new RedirectResponse($url);
                 }
 

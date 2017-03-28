@@ -50,6 +50,22 @@ class DefaultController extends Controller
         else return $this->redirect($this->generateUrl('home'));
     }
 
+    public function followOrNot($user){
+
+        $this->datas['tofollow'] = true;
+        $follows = $user->getRelationUser();
+
+        if(count($follows)){
+            foreach ( $follows as $follow ) {
+                if ( $follow == $this->getUser() ) {
+                    $this->datas['tofollow'] = false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     /**
      * @Route("/users/{slug_username}", name="user-profil")
      * @param $slug_username
@@ -70,6 +86,8 @@ class DefaultController extends Controller
             $this->datas["title"] = $user->getUsername() . " profile";
             $this->datas["slugUserName"] = $this->getUser()->getSlug();
             $this->datas["user"] = $user;
+
+            $this->followOrNot($user);
 
             if (!count($user)) {
                 return $this->redirect($this->generateUrl('404'));
