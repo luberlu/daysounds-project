@@ -1,0 +1,22 @@
+ <ul class="sounds-dayli">
+        {% for sound in datas.dayliSounds %}
+            <div style="margin-bottom: 29px;">
+                <a  href="#">{{ sound.name }}</a>
+                <!-- iframe integration -->
+                {% include "@ProjectBundle/Resources/views/Playlists/sound-iframe.html.twig" %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" style="background: #e4e4e4;"
+                       data-toggle="dropdown" role="button" aria-expanded="false">Add sound to playlist <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        {% for list in datas.listPlaylists %}
+                            <li>
+                                <a href="{{ path('add_sound_to_this_playlist',
+                                {'playlist_id': list.id, 'sound_id':sound.id}) }}">{{ list.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </div>
+        {% endfor %}
+ </ul>
