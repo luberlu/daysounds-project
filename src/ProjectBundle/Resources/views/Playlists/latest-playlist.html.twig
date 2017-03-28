@@ -3,7 +3,8 @@
     {% block latestPlaylists %}
         {% for playlist in datas.latestPlaylists %}
             <li>
-                <a  href="#">{{ playlist.id }} {{ playlist.name }}</a>
+                <a  href="{{ path('playlist_sounds',
+                {"slug_username": playlist.user.slug, "playlist_slug": playlist.slug}) }}">{{ playlist.id }} {{ playlist.name }}</a>
             </li>
         {% endfor %}
     {% endblock %}
