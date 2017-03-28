@@ -136,10 +136,33 @@ class DefaultController extends Controller
         return $this->render('ProjectBundle:Default:404.html.twig');
     }
 
-    private function testIfAlreadyInAllSounds(){
+    /*private function findSoundToAdd(){
+
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $maximum = 10;
+
+        $query = $em->createQueryBuilder('p')
+                    ->innerJoin ('p.description', 'pi')
+                    ->innerJoin('p.categories', 'pc')
+                    ->andWhere('pc.tag = :cat')
+                    ->andWhere('pi.langue = :lang')
+                    ->setParameters(array('lang'=> $lang,'cat'=> $cat, "random" => rand(0, $maximum)));
+
+        $resultQuery = $query->getResult();
+
+        $query = $em->createQuery(
+            'SELECT p
+            FROM ProjectBundle:Sounds p
+            WHERE p.id <= :random
+            WHERE p.user = :user
+            ORDER BY p.id ASC'
+        )->setParameter('rand' => rand(0, $max));
+
+        $products = $query->getResult();
 
         return false;
-    }
+    }*/
 
     // retrieve 1 sound per follow to dayliPlaylist
     private function cronToDayliPlaylist(){
@@ -160,8 +183,9 @@ class DefaultController extends Controller
             $one_sound = $playlist_all_sounds->getSounds()->first();
             $alreadyInPlaylistDefault = false;
 
+            $soundToAddToPlaylist = $this->findSoundToAdd();
             // check is default playlist as already the sound to add
-            foreach($his_dayli_sound_playlist->getSounds() as $soundAlready){
+            foreach($soundsPlaylist as $soundAlready){
                 if($soundAlready == $one_sound){
                     $alreadyInPlaylistDefault = true;
                 }
