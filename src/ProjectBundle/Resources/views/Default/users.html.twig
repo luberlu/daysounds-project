@@ -5,8 +5,13 @@
         {% for user in datas.listeUsers %}
             <li>
                 <ul>
-                    <li>{{ user.username }}</li>
-                    <li><a href="{{ path('add_follow',{'slug_username':user.slug}) }}">follow</a></li>
+                    <li>
+                        <a href="{{ path('user-profil',{'slug_username':user.slug}) }}">
+                            <img class="profil-img" src="{{ vich_uploader_asset(user, 'imageFile') }}" width="100" alt="#">
+                            <span>{{ user.username }}</span>
+                        </a>
+                        <a href="{{ path('add_follow',{'slug_username':user.slug}) }}">follow</a>
+                    </li>
                 </ul>
             </li>
         {% endfor %}
