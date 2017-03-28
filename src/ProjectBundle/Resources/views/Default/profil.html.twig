@@ -104,21 +104,7 @@
                     <a href="#" class="btn btn-success btn-lg">Follow</a>
                 </div>
 
-                <div class="panel panel-default">
 
-                        <a href="#" class="btn w100 btn-default dropdown-toggle" data-toggle="dropdown">
-                            playlist
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu w100">
-                           {# {% for list in datas.listPlaylists %}
-                                <li>
-                                    <a href="{{ path('add_sound_to_this_playlist',
-                                    {'playlist_id': list.id, 'sound_id':sound.id}) }}">{{ list.name }}</a>
-                                </li>
-                            {% endfor %}#}
-                        </ul>
-                    </div>
 
 
 
@@ -137,10 +123,30 @@
                 <div class="list-group nopadding ">
 
                     <a class="list-group-item active btn-warning text-center "><h3>PLaylist</h3></a>
-                    <a class="list-group-item warning text-center">All song</a>
-                    <a class="list-group-item ">Kind<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></a>
-                    <a class="list-group-item ">Kind<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></a>
-                    <a class="list-group-item ">Kind<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></a>
+
+                </div>
+                <div class="panel panel-default">
+
+                    <a href="#" class="btn w100 btn-default dropdown-toggle" data-toggle="dropdown">
+                        playlist
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu w100">
+                        {% for playlist in datas.listePlaylist %}
+                            {% if playlist.isDefault %}
+
+                            {% elseif playlist.isDayli %}
+
+                            {% else %}
+                                <li>
+                                    <a  href="{{ path('playlist_sounds', {'slug_username': datas.user.slug, 'playlist_slug': playlist.slug }) }}">{{ playlist.name }}</a>
+                                    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span>
+                                </li>
+
+                            {% endif %}
+
+                        {% endfor %}
+                    </ul>
                 </div>
 
             </section>
