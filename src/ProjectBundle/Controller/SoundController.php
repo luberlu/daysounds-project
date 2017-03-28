@@ -9,7 +9,7 @@ use ProjectBundle\Entity\Sound;
 use ProjectBundle\Model\AddSoundType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class SoundController extends DefaultController {
 
@@ -27,13 +27,31 @@ class SoundController extends DefaultController {
 
             $playlist = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")->findOneById($playlist_id);
             $sound = $this->getDoctrine()->getRepository("ProjectBundle:Sound")->findOneById($sound_id);
+
+            $list_playlists_for_this_sound = $sound->getPlaylists();
+
+            foreach($list_playlists_for_this_sound as $playlistFound){
+
+                if($playlist->getId() == $playlistFound->getId()){
+
+                    $this->get('session')->getFlashBag()->set('warning',
+                        'Sound already in playlist');
+
+                    return $this->redirect($this->generateUrl("playlist_sounds",
+                        array("slug_username" => $user->getSlug(), "playlist_slug" => $playlist->getSlug())
+                        )
+                    );
+
+                }
+            }
+
             $playlist->addSound($sound);
             $em->persist($playlist);
             $em->flush();
 
             $this->redirect($this->generateUrl("playlist_sounds",
                 array("slug_username" => $user, "playlist_slug" => $playlist->getSlug())
-            )
+                )
             );
         }
 
