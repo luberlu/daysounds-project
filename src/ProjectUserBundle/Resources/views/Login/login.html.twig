@@ -1,20 +1,16 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
 <div class="collapse navbar-collapse " >
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <ul class="nav navbar-nav navbar-left">
                 <li>
                         <a href="/">Daysound</a>
                 </li>
-                <li>
-                        <p class="navbar-text">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</p>
-                </li>
-        </ul>
+
+
         <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a class="navbar-brand"><img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" width="30" height="auto" /></a>
-            </li>
+
                 <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Profil <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">coucou<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                                 {% if datas is defined %}
                                         <li>

@@ -3,11 +3,15 @@
 
 {% block main %}
     <style>
-        main{
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: flex-start;
+        .nopadding {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .nohover{
+            color:inherit;
+        }
+        .w100{
+            width:100%;
         }
     </style>
     <main>
@@ -23,17 +27,16 @@
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <a href="/">Edit the profil</a>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-lg-offset-1">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
                 <a href="/">Add music</a>
             </div>
         </div>
 
         {%  endif %}
-
         <div class="row">
-            <section class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Profil
+            {#<section class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Profil
                 <div class="row">
-                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-lg-offset-1">
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">
                         <img class="profil-img" src="{{ vich_uploader_asset(datas.user, 'imageFile') }}" alt="#">
                         <span>{{ datas.user.username }}</span>
 
@@ -48,13 +51,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <ul class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-lg-offset-1">
+                    <ul class="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">
                         <li><a href="{{ path('list_followers',{'slug_username':datas.user.slug}) }}">Followers</a></li>
                         <li><a href="{{ path('list_follows',{'slug_username':datas.user.slug}) }}">Follows</a></li>
                     </ul>
                 </div>
                 <div class="row">
-                    <ul class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-lg-offset-1">
+                    <ul class="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">
                         {% if datas.actions %}
                             <li>
                                 <a href="{{ path('add_playlist',{'slug_username':datas.slugUserName}) }}">create playlist</a>
@@ -83,32 +86,62 @@
                         {% endfor %}
                     </ul>
                 </div>
+            </section>#}
+
+            <section class="col-xs-3 col-sm-3 col-md-3 col-lg-3 btn-default nopadding ">
+
+                <div class="list-group nopadding  ">
+                    <a class="list-group-item active btn-warning text-center "><h3>Profil</h3></a>
+                    <figure class="list-group">
+                        <img class="img-responsive" src="https://avatars3.githubusercontent.com/u/23716996?v=3&s=88">
+                    </figure>
+                    <a class="list-group"><figcaption class="text-center  nohover"><h5>username</h5></figcaption></a>
+
+                </div>
+
+                <div class="list-group  text-center">
+                    <a href="#" class="btn btn-success btn-lg">Follow</a>
+                </div>
+
+                <div class="panel panel-default">
+
+                        <a href="#" class="btn w100 btn-default dropdown-toggle" data-toggle="dropdown">
+                            playlist
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu w100">
+                           {# {% for list in datas.listPlaylists %}
+                                <li>
+                                    <a href="{{ path('add_sound_to_this_playlist',
+                                    {'playlist_id': list.id, 'sound_id':sound.id}) }}">{{ list.name }}</a>
+                                </li>
+                            {% endfor %}#}
+                        </ul>
+                    </div>
+
+
+
+
             </section>
-            <section class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-lg-offset-1 ">Music Space
+
+
+            <section class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                <h1 class="nopadding text-center btn-primary">Playlist name</h1>
                 {% block form %}{% endblock %}
                 {% block playlist %}{% endblock %}
                 {% block follows %}{% endblock %}
             </section>
-            <section class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-lg-offset-1">Filters
-                <div class="row">
-                    <h2 class="">
-                        Filters by :
-                    </h2>
+            <section class="col-xs-3 col-sm-3 col-md-3 col-lg-3 btn-default nopadding ">
+
+                <div class="list-group nopadding ">
+
+                    <a class="list-group-item active btn-warning text-center "><h3>PLaylist</h3></a>
+                    <a class="list-group-item warning text-center">All song</a>
+                    <a class="list-group-item ">Kind<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></a>
+                    <a class="list-group-item ">Kind<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></a>
+                    <a class="list-group-item ">Kind<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></a>
                 </div>
-                <div class="row">
-                    <ul class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-lg-offset-1">
-                        <li><a href="#">Artists</a></li>
-                        <li><a href="#">Kind</a></li>
-                        <li><a href="#">Owner</a></li>
-                        <li><a href="#">Most recent</a></li>
-                        <li><a href="#">Most listened</a></li>
-                    </ul>
-                </div>
-                <div class="row">
-                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-lg-offset-1">
-                        <input class="profil-search" type="search" placeholder="Search ..." name="the_search">
-                    </div>
-                </div>
+
             </section>
         </div>
     </div>
