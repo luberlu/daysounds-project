@@ -27,7 +27,7 @@ class SoundController extends DefaultController {
 
             $playlist = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")->findOneById($playlist_id);
             $playlist_default = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")
-                ->findBy(array("user" => $user, "isDefault" => true));
+                ->findOneBy(array("user" => $user, "isDefault" => true));
             $sound = $this->getDoctrine()->getRepository("ProjectBundle:Sound")->findOneById($sound_id);
 
             $list_playlists_for_this_sound = $sound->getPlaylists();
