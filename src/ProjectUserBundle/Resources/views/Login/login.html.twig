@@ -6,11 +6,14 @@
                         <a href="/">Daysound</a>
                 </li>
 
-
+        </ul>
         <ul class="nav navbar-nav navbar-right">
-
+            <li>
+                <a class="navbar-brand"><img src="{{ vich_uploader_asset(app.user, 'imageFile') }}"  /></a>
+            </li>
                 <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">coucou<span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ app.user.username }} <span class="caret"></span></a>
+
                         <ul class="dropdown-menu" role="menu">
                                 {% if datas is defined %}
                                         <li>

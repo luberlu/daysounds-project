@@ -15,13 +15,14 @@
         }
     </style>
     <main>
-    <section>{% block content%}{% endblock %}</section>
-    <aside>{% block filter %}{% endblock %}</aside>
+        <section>{% block content%}{% endblock %}</section>
+        <aside>{% block filter %}{% endblock %}</aside>
     </main>
 
     <div class="container profil">
 
         {% if datas.actions %}
+
 
         <div class="row">
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -74,13 +75,13 @@
                                 <li>
                                     <a  href="{{ path('playlist_sounds', {'slug_username': datas.user.slug, 'playlist_slug': playlist.slug }) }}">{{ playlist.name }}</a>
                                 </li>
-                                    {% if datas.actions %}
-                                        <ul class="action">
-                                            <li><a href="{{ path('delete_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">Delete</a></li>
-                                            <li><a href="{{ path('edit_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">edit</a></li>
-                                            <li><a href="{{ path('add_sound_to_playlist', {'slug_username':datas.slugUserName, 'playlist_slug': playlist.slug }) }}">add sound</a></li>
-                                        </ul>
-                                    {% endif %}
+                                {% if datas.actions %}
+                                    <ul class="action">
+                                        <li><a href="{{ path('delete_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">Delete</a></li>
+                                        <li><a href="{{ path('edit_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">edit</a></li>
+                                        <li><a href="{{ path('add_sound_to_playlist', {'slug_username':datas.slugUserName, 'playlist_slug': playlist.slug }) }}">add sound</a></li>
+                                    </ul>
+                                {% endif %}
                             {% endif %}
 
                         {% endfor %}

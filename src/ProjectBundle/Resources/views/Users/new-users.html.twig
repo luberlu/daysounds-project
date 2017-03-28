@@ -1,13 +1,17 @@
-<h2>New users</h2>
-<ul>
+
+<div class="list-group users">
+    <h3 class="list-group-item active text-center">New users :</h3>
     {% block newUsers %}
         {% for user in datas.newUsers %}
-            <li>
-                <a href="{{ path('user-profil', {'slug_username': user.slug}) }}">
+            <div>
+                <a class="list-group-item btn-default clearfix" href="{{ path('user-profil', {'slug_username': user.slug}) }}">
                     <img src="{{ vich_uploader_asset(user, 'imageFile') }}" width="50" height="auto" />
-                    <span>{{ user.username }}</span>
+                    <span>
+                        {{ user.username }}
+                        <icon class="glyphicon glyphicon-chevron-right"></icon>
+                    </span>
                 </a>
-            </li>
+            </div>
         {% endfor %}
     {% endblock %}
-</ul>
+</div>
