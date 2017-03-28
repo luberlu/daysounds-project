@@ -191,8 +191,10 @@ class PlaylistController extends DefaultController
     {
         $this->loadDatas($slug_username);
 
+        $this->datas["user"] = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
+
         $this->datas["playlist"] = $this->getDoctrine()
-            ->getRepository('ProjectBundle:Playlist')->findOneBySlug($playlist_slug);
+            ->getRepository('ProjectBundle:Playlist')->findOneBy(array("slug" =>$playlist_slug, "user" => $this->datas["user"]));
 
         $this->datas["sounds"] = $this->datas["playlist"]->getSounds();
 

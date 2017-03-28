@@ -7,7 +7,6 @@
                 <a  href="#">{{ sound.name }}</a>
                 <!-- iframe integration -->
                 {% include "@ProjectBundle/Resources/views/Playlists/sound-iframe.html.twig" %}
-                {% if datas.actions %}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" style="background: #e4e4e4;"
                            data-toggle="dropdown" role="button" aria-expanded="false">Add sound to playlist <span class="caret"></span>
@@ -21,7 +20,6 @@
                             {% endfor %}
                         </ul>
                     </li>
-                {% endif %}
             </div>
         {% endfor %}
     </ul>
