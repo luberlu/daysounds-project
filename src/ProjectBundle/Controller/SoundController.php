@@ -48,9 +48,22 @@ class SoundController extends DefaultController {
             }
 
             $playlist->addSound($sound);
-            $playlist_default->addSound($sound);
+
+            $alreadyInPlaylistDefault = false;
+
+            // check is default playlist as already the sound to add
+            foreach($playlist_default->getSounds() as $soundAlready){
+                if($soundAlready == $sound){
+                    $alreadyInPlaylistDefault = true;
+                }
+            }
+
+            if(!$alreadyInPlaylistDefault){
+                $playlist_default->addSound($sound);
+                $em->persist($playlist_default);
+            }
+
             $em->persist($playlist);
-            $em->persist($playlist_default);
             $em->flush();
 
             return $this->redirect($this->generateUrl("playlist_sounds",
