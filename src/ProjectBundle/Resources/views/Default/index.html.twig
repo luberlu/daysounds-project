@@ -6,10 +6,10 @@
 
         <div class="container home">
             <div class="row">
-                <h1 class="col-lg-4 col-lg-offset-4">Dayli Playlist</h1>
+                <h1 class="col-lg-12 text-center">Dayli Playlist</h1>
             </div>
             <div class="row">
-                <section class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <section class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     {% if datas.newUsers is defined %}
                         {% include "@ProjectBundle/Resources/views/Users/new-users.html.twig" %}
                     {% endif %}
@@ -17,48 +17,29 @@
                         {% include "@ProjectBundle/Resources/views/Playlists/latest-playlist.html.twig" %}
                     {% endif %}
                 </section>
-                <section class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-lg-offset-1">
 
-                    {% if datas.dayliSounds is defined %}
-                        {% include "@ProjectBundle/Resources/views/Playlists/daysounds.html.twig" %}
-                    {% endif %}
+                <section class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
 
-                    <div class="music-card">
-                        <div class="vignette">
-                            <article class="music-home">
-                                Article
-                            </article>
-                        </div>
-                        <div class="">
-                            <div class="delete">
-                                <a href="#">Add to the trash</a>
-                            </div>
-                            <div class="add">
-                                <a href="#">Add to music</a>
-                            </div>
-                        </div>
-                    </div>
+                        {% if datas.dayliSounds is defined %}
+                            {% include "@ProjectBundle/Resources/views/Playlists/daysounds.html.twig" %}
+                        {% endif %}
+
+
+
+
+
                 </section>
-                <section class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-lg-offset-1">
-                    <div class="row">
-                        <h2 class="">
-                            Filters by :
-                        </h2>
-                    </div>
-                    <div class="row">
-                        <ul class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-lg-offset-1">
-                            <li><a href="#">Artists</a></li>
-                            <li><a href="#">Kind</a></li>
-                            <li><a href="#">Owner</a></li>
-                            <li><a href="#">Most recent</a></li>
-                            <li><a href="#">Most listened</a></li>
-                        </ul>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-lg-offset-1">
-                            <input class="home-search" type="search" placeholder="Search ..." name="the_search">
+                <section class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+
+                        <div class="list-group col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                           <h3 class="list-group-item active text-center "> Filter by :</h3>
+                            <a class="list-group-item">Artists</a>
+                            <a class="list-group-item">Kind</a>
+                            <a class="list-group-item">Owner</a>
+                            <a class="list-group-item">Most recent</a>
+                            <a class="list-group-item">Most listened</a>
                         </div>
-                    </div>
+
                 </section>
             </div>
         </div>
