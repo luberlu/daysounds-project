@@ -37,20 +37,12 @@
                         <img class="profil-img" src="{{ vich_uploader_asset(datas.user, 'imageFile') }}" alt="#">
                         <span>{{ datas.user.username }}</span>
 
-                        {% if datas.actions == false %}
-
-                            {% if datas.user.relationuser is not empty %}
-                                {% for relation in datas.user.relationuser %}
-                                    {% if (relation.username != app.user.username) or (relation is empty) %}
-                                        <a href="{{ path('add_follow',{'slug_username':datas.user.slug}) }}">Follow it >></a>
-                                    {% else %}
-                                        <span>Followed by you</span>
-                                    {% endif %}
-                                {% endfor %}
-                            {% else %}
-                                <a href="{{ path('add_follow',{'slug_username':datas.user.slug}) }}">Follow it >></a>
+                        {% if app.user != datas.user %}
+                            {% if datas.tofollow == 0 %}
+                                 <span>Followed by you</span>
+                            {% elseif datas.tofollow == 1 %}
+                                 <a href="{{ path('add_follow',{'slug_username':datas.user.slug}) }}">Follow it >></a>
                             {% endif %}
-
                         {% endif %}
 
                     </div>

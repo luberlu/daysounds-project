@@ -36,9 +36,15 @@ class DefaultController extends Controller
             $this->datas["newUsers"] = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findNewUsers();
             $this->datas["title"] = "Homepage";
 
-            // Dayliplaylist
-            $this->datas["dayliPlaylist"] = $this->getDoctrine()
-                ->getRepository('ProjectBundle:Playlist')->findBy(array("user" => $user, "isDayli" => true));
+            // Dayliplaylist with cron example
+            $this->cronToDayliPlaylist();
+            $dayliPlaylist = $this->getDoctrine()
+                ->getRepository('ProjectBundle:Playlist')->findOneBy(array("user" => $user, "isDayli" => true));
+            $this->datas["dayliSounds"] = $dayliPlaylist->getSounds();
+
+            $this->datas["listPlaylists"] = $this->getDoctrine()
+                ->getRepository('ProjectBundle:Playlist')->findBy(array(
+                    "user" => $this->getUser(), "isDayli" => false, "isDefault" => false));
 
             // Latest Playlists added
             $this->datas['latestPlaylists'] = $this->getDoctrine()
@@ -48,6 +54,22 @@ class DefaultController extends Controller
         }
 
         else return $this->redirect($this->generateUrl('home'));
+    }
+
+    public function followOrNot($user){
+
+        $this->datas['tofollow'] = true;
+        $follows = $user->getRelationUser();
+
+        if(count($follows)){
+            foreach ( $follows as $follow ) {
+                if ( $follow == $this->getUser() ) {
+                    $this->datas['tofollow'] = false;
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -70,6 +92,8 @@ class DefaultController extends Controller
             $this->datas["title"] = $user->getUsername() . " profile";
             $this->datas["slugUserName"] = $this->getUser()->getSlug();
             $this->datas["user"] = $user;
+
+            $this->followOrNot($user);
 
             if (!count($user)) {
                 return $this->redirect($this->generateUrl('404'));
@@ -110,6 +134,48 @@ class DefaultController extends Controller
     public function render404Action()
     {
         return $this->render('ProjectBundle:Default:404.html.twig');
+    }
+
+    private function testIfAlreadyInAllSounds(){
+
+        return false;
+    }
+
+    // retrieve 1 sound per follow to dayliPlaylist
+    private function cronToDayliPlaylist(){
+
+        //$soundsPerFollows = [];
+        $em = $this->getDoctrine()->getManager();
+
+        $his_dayli_sound_playlist = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")
+            ->findOneBy(array("user" => $this->getUser(), "isDayli" => true));
+
+        $follows = $this->getUser()->getRelationUserOf();
+
+        foreach($follows as $follow){
+
+            $playlist_all_sounds = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")
+                ->findOneBy(array("user" => $follow, "isDefault" => true));
+
+            $one_sound = $playlist_all_sounds->getSounds()->first();
+            $alreadyInPlaylistDefault = false;
+
+            // check is default playlist as already the sound to add
+            foreach($his_dayli_sound_playlist->getSounds() as $soundAlready){
+                if($soundAlready == $one_sound){
+                    $alreadyInPlaylistDefault = true;
+                }
+            }
+
+            if(!$alreadyInPlaylistDefault){
+                $his_dayli_sound_playlist->addSound($one_sound);
+                $em->persist($his_dayli_sound_playlist);
+            }
+
+        }
+
+        $em->flush();
+
     }
 
 

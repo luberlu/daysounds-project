@@ -35,6 +35,8 @@ class PlaylistController extends DefaultController
             $this->datas["slugUserName"] = $this->getUser()->getSlug();
             $this->datas["user"] = $user;
 
+            $this->followOrNot($user);
+
             if (!count($user)) {
                 return $this->redirect($this->generateUrl('404'));
             }
@@ -49,6 +51,25 @@ class PlaylistController extends DefaultController
         return $this->redirect($this->generateUrl('home'));
 
     }
+
+    public function followOrNot($user){
+
+        $this->datas['tofollow'] = 1;
+
+        $follows = $user->getRelationUser();
+
+        if(count($follows)){
+            foreach ( $follows as $follow ) {
+                if ( $follow == $this->getUser() ) {
+                    $this->datas['tofollow'] = 0;
+                }
+            }
+        }
+
+        return true;
+    }
+
+
     /**
      * @Route("/users/{slug_username}/playlists/add", name="add_playlist")
      * @param $slug_username
@@ -170,13 +191,16 @@ class PlaylistController extends DefaultController
     {
         $this->loadDatas($slug_username);
 
+        $this->datas["user"] = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
+
         $this->datas["playlist"] = $this->getDoctrine()
-            ->getRepository('ProjectBundle:Playlist')->findOneBySlug($playlist_slug);
+            ->getRepository('ProjectBundle:Playlist')->findOneBy(array("slug" =>$playlist_slug, "user" => $this->datas["user"]));
 
         $this->datas["sounds"] = $this->datas["playlist"]->getSounds();
 
         $this->datas["listPlaylists"] = $this->getDoctrine()
-            ->getRepository('ProjectBundle:Playlist')->findByUser($this->datas["user"]);
+            ->getRepository('ProjectBundle:Playlist')->findBy(array(
+                "user" => $this->getUser(), "isDayli" => false, "isDefault" => false));
 
         return $this->render('ProjectBundle:Default:playlist.html.twig', ["datas" => $this->datas]);
 

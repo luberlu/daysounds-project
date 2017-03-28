@@ -20,6 +20,21 @@ class DefaultController extends Controller
     }
 
 
+    public function followOrNot($user){
+
+        $follows = $user->getRelationUser();
+
+        if(count($follows)){
+            foreach ( $follows as $follow ) {
+                if ( $follow == $this->getUser() ) {
+                    $this->datas['tofollow'] = 0;
+                }
+            }
+        }
+
+        return true;
+    }
+
     /**
      * @Route("/follow/{slug_username}", name="add_follow")
      * @param $slug_username
@@ -31,6 +46,7 @@ class DefaultController extends Controller
         if($this->getUser()){
 
             $user = $this->getDoctrine()->getRepository("ProjectUserBundle:User")->findOneBySlug($slug_username);
+
             $em = $this->getDoctrine()->getManager();
 
             $user->addRelationUser($this->getUser());
@@ -62,6 +78,7 @@ class DefaultController extends Controller
             $this->datas["actions"] = false;
 
             $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
+            $this->followOrNot($user);
 
             if ($this->getUser() === $user) {
                 $this->datas["actions"] = true;
@@ -103,6 +120,7 @@ class DefaultController extends Controller
             $this->datas["actions"] = false;
 
             $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findOneBySlug($slug_username);
+            $this->followOrNot($user);
 
             if ($this->getUser() === $user) {
                 $this->datas["actions"] = true;

@@ -9,7 +9,7 @@ use ProjectBundle\Entity\Sound;
 use ProjectBundle\Model\AddSoundType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class SoundController extends DefaultController {
@@ -27,14 +27,49 @@ class SoundController extends DefaultController {
             $em = $this->getDoctrine()->getManager();
 
             $playlist = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")->findOneById($playlist_id);
+            $playlist_default = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")
+                ->findOneBy(array("user" => $user, "isDefault" => true));
             $sound = $this->getDoctrine()->getRepository("ProjectBundle:Sound")->findOneById($sound_id);
+
+            $list_playlists_for_this_sound = $sound->getPlaylists();
+
+            foreach($list_playlists_for_this_sound as $playlistFound){
+
+                if($playlist->getId() == $playlistFound->getId()){
+
+                    $this->get('session')->getFlashBag()->set('warning',
+                        'Sound already in playlist');
+
+                    return $this->redirect($this->generateUrl("playlist_sounds",
+                        array("slug_username" => $user->getSlug(), "playlist_slug" => $playlist->getSlug())
+                        )
+                    );
+
+                }
+            }
+
             $playlist->addSound($sound);
+
+            $alreadyInPlaylistDefault = false;
+
+            // check is default playlist as already the sound to add
+            foreach($playlist_default->getSounds() as $soundAlready){
+                if($soundAlready == $sound){
+                    $alreadyInPlaylistDefault = true;
+                }
+            }
+
+            if(!$alreadyInPlaylistDefault){
+                $playlist_default->addSound($sound);
+                $em->persist($playlist_default);
+            }
+
             $em->persist($playlist);
             $em->flush();
 
-            $this->redirect($this->generateUrl("playlist_sounds",
-                array("slug_username" => $user, "playlist_slug" => $playlist->getSlug())
-            )
+            return $this->redirect($this->generateUrl("playlist_sounds",
+                array("slug_username" => $user->getSlug(), "playlist_slug" => $playlist->getSlug())
+                )
             );
         }
 
