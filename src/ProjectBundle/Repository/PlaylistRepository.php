@@ -15,4 +15,18 @@ class PlaylistRepository extends \Doctrine\ORM\EntityRepository
         return $this->findBy(array('isDayli'=> 'false', 'isDefault' => "false"), array('dateAdd' => 'desc'), 5);
 
     }
+
+    public function foundSoundsToCron($user, $maximum){
+
+        return $this->createQueryBuilder('p')
+            ->addSelect('p.id')
+            ->innerJoin ('p.sounds', 'sd')
+            ->andWhere('p.user = :user')
+            ->andWhere('sd.id = :random')
+            ->setParameters(array(
+                'user'=> $user,
+                "random" => $maximum))
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

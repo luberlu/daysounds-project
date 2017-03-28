@@ -136,33 +136,24 @@ class DefaultController extends Controller
         return $this->render('ProjectBundle:Default:404.html.twig');
     }
 
-    /*private function findSoundToAdd(){
+    private function findSoundToAdd($followUser){
 
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $maximum = 10;
+        $allPlaylists = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")->findOneBy(array("user" => $followUser));
+        $allSoundsToPlaylists = $allPlaylists->getSounds();
 
-        $query = $em->createQueryBuilder('p')
-                    ->innerJoin ('p.description', 'pi')
-                    ->innerJoin('p.categories', 'pc')
-                    ->andWhere('pc.tag = :cat')
-                    ->andWhere('pi.langue = :lang')
-                    ->setParameters(array('lang'=> $lang,'cat'=> $cat, "random" => rand(0, $maximum)));
+        foreach($allSoundsToPlaylists as $soundFound){
 
-        $resultQuery = $query->getResult();
-
-        $query = $em->createQuery(
-            'SELECT p
-            FROM ProjectBundle:Sounds p
-            WHERE p.id <= :random
-            WHERE p.user = :user
-            ORDER BY p.id ASC'
-        )->setParameter('rand' => rand(0, $max));
-
-        $products = $query->getResult();
+            $id = $soundFound->getId();
+            $result = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")->foundSoundsToCron($user, $id);
+            if(count($result) == 0){
+                return $id;
+            }
+        }
 
         return false;
-    }*/
+
+    }
 
     // retrieve 1 sound per follow to dayliPlaylist
     private function cronToDayliPlaylist(){
@@ -177,22 +168,16 @@ class DefaultController extends Controller
 
         foreach($follows as $follow){
 
-            $playlist_all_sounds = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")
-                ->findOneBy(array("user" => $follow, "isDefault" => true));
+            $soundToAddToPlaylistId = $this->findSoundToAdd($follow);
 
-            $one_sound = $playlist_all_sounds->getSounds()->first();
-            $alreadyInPlaylistDefault = false;
+            // S'il y a au moins un son qui n'a pas été pushé encore dans Dayliplaylist
+            if($soundToAddToPlaylistId != false) {
 
-            $soundToAddToPlaylist = $this->findSoundToAdd();
-            // check is default playlist as already the sound to add
-            foreach($soundsPlaylist as $soundAlready){
-                if($soundAlready == $one_sound){
-                    $alreadyInPlaylistDefault = true;
-                }
-            }
+                $soundToAddToPlaylist = $this->getDoctrine()
+                    ->getRepository("ProjectBundle:Sound")->findOneById($soundToAddToPlaylistId);
 
-            if(!$alreadyInPlaylistDefault){
-                $his_dayli_sound_playlist->addSound($one_sound);
+
+                $his_dayli_sound_playlist->addSound($soundToAddToPlaylist);
                 $em->persist($his_dayli_sound_playlist);
             }
 
