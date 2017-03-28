@@ -26,6 +26,8 @@ class SoundController extends DefaultController {
             $em = $this->getDoctrine()->getManager();
 
             $playlist = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")->findOneById($playlist_id);
+            $playlist_default = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")
+                ->findBy(array("user" => $user, "isDefault" => true));
             $sound = $this->getDoctrine()->getRepository("ProjectBundle:Sound")->findOneById($sound_id);
 
             $list_playlists_for_this_sound = $sound->getPlaylists();
@@ -46,7 +48,9 @@ class SoundController extends DefaultController {
             }
 
             $playlist->addSound($sound);
+            $playlist_default->addSound($sound);
             $em->persist($playlist);
+            $em->persist($playlist_default);
             $em->flush();
 
             return $this->redirect($this->generateUrl("playlist_sounds",
