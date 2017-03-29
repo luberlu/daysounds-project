@@ -301,7 +301,7 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/profil/playlists/{id_playlist}/sound/{id_sound}/delete", requirements={"id_playlist" = "\d+","id_sound"="\d+"}, name="delete_sound_from_playlist")
+     * @Route("/playlist/{id_playlist}/sound_to_delete/{id_sound}", requirements={"id_playlist" = "\d+","id_sound"="\d+"}, name="delete_sound_from_playlist")
      * @param $id_playlist
      * @param $id_sound
      *
@@ -312,8 +312,8 @@ class PlaylistController extends DefaultController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $playlist = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->find($id_playlist);
-        $soundToRemove = $this->getDoctrine()->getRepository('ProjectBundle:Sound')->find($id_sound);
+        $playlist = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->findOneById(intval($id_playlist));
+        $soundToRemove = $this->getDoctrine()->getRepository('ProjectBundle:Sound')->findOneById(intval($id_sound));
 
         if($playlist->getIsDefault()){
 
@@ -321,8 +321,6 @@ class PlaylistController extends DefaultController
                 ->getRepository('ProjectBundle:Playlist')->findOneBy(array("user" => $this->getUser()));
 
             foreach($allPlaylistsFromUser as $playlistFound){
-
-                var_dump($playlistFound->getId());
 
                 $listSounds = $playlistFound->getSounds();
 
@@ -343,7 +341,7 @@ class PlaylistController extends DefaultController
         $em->flush();
 
         return $this->redirect($this->generateUrl('playlist_sounds',
-            array('slug_username' => $this->getUser(), 'playlist_slug' => $playlist->getSlug())));
+            array('slug_username' => $this->getUser()->getSlug(), 'playlist_slug' => $playlist->getSlug())));
     }
 
 
