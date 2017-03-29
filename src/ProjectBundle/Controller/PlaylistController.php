@@ -103,7 +103,7 @@ class PlaylistController extends DefaultController
                 // add a flash message
                 $this->get('session')
                     ->getFlashBag()
-                    ->add('success', 'Your playlist has been saved!');
+                    ->add('success', 'New playlist has been saved!');
 
                 //return $this->redirect($this->generateUrl('user-profil',array('slug_username'=>$slug_username)));
                 return $this->redirect(
@@ -143,6 +143,12 @@ class PlaylistController extends DefaultController
         $delete = $repository->find($id);
         $em->remove($delete);
         $em->flush();
+
+        // add a flash message
+        $this->get('session')
+             ->getFlashBag()
+             ->add('success', 'Your playlist has been deleted !');
+
         return $this->redirect($this->generateUrl('user-profil',array('slug_username'=>$slug_username)));
     }
 
@@ -330,33 +336,52 @@ class PlaylistController extends DefaultController
         $playlist = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->findOneById(intval($id_playlist));
         $soundToRemove = $this->getDoctrine()->getRepository('ProjectBundle:Sound')->findOneById(intval($id_sound));
 
-        if($playlist->getIsDefault()){
+        if(count($playlist) && count($soundToRemove)) {
 
-            $allPlaylistsFromUser = $this->getDoctrine()
-                ->getRepository('ProjectBundle:Playlist')->findOneBy(array("user" => $this->getUser()));
+            if ( $playlist->getIsDefault() ) {
 
-            foreach($allPlaylistsFromUser as $playlistFound){
+                $allPlaylistsFromUser = $this->getDoctrine()
+                                             ->getRepository( 'ProjectBundle:Playlist' )
+                    ->findBy( array( "user" => $this->getUser() ) );
 
-                $listSounds = $playlistFound->getSounds();
+                foreach ( $allPlaylistsFromUser as $playlistFound ) {
 
-                foreach($listSounds as $sound){
+                    $listSounds = $playlistFound->getSounds();
 
-                    if($sound == $soundToRemove)
-                        $playlistFound->removeSound($soundToRemove);
+                    foreach ( $listSounds as $sound ) {
+
+                        if ( $sound == $soundToRemove ) {
+                            $playlistFound->removeSound( $soundToRemove );
+
+                        }
+
+                    }
 
                 }
 
+            } else {
+
+                $playlist->removeSound( $soundToRemove );
             }
 
-        } else {
+            $em->flush();
 
-            $playlist->removeSound($soundToRemove);
+            // add a flash message
+            $this->get('session')
+                 ->getFlashBag()
+                 ->add('success', 'Sound has been deleted to ' . $playlist->getName());
+
+            return $this->redirect($this->generateUrl('playlist_sounds',
+                array('slug_username' => $this->getUser()->getSlug(), 'playlist_slug' => $playlist->getSlug())));
+
         }
 
-        $em->flush();
+        $this->get('session')
+             ->getFlashBag()
+             ->add('warning', 'Operation not possible !');
 
-        return $this->redirect($this->generateUrl('playlist_sounds',
-            array('slug_username' => $this->getUser()->getSlug(), 'playlist_slug' => $playlist->getSlug())));
+        return $this->redirect($this->generateUrl("stream"));
+
     }
 
 

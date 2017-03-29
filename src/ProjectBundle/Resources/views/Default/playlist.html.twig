@@ -8,7 +8,14 @@
                 <h3 class="text-center"><a  href="#">{{ sound.name }}</a></h3>
                 <!-- iframe integration -->
                 {% include "@ProjectBundle/Resources/views/Playlists/sound-iframe.html.twig" %}
-                    <div class="dropdown panel-heading" style="border-bottom: 2px solid #df691a" >
+                    <div class="dropdown panel-heading actions-to-sound clearfix" style="border-bottom: 2px solid #df691a" >
+
+                        <a href="{{ path("delete_sound_from_playlist", {
+                            "id_playlist": datas.playlist.id, "id_sound": sound.id
+                        }) }}"
+
+                           class="btn btn-lg btn-warning">Add to trash</a>
+
                         <a href="#" class="dropdown-toggle btn btn-lg btn-success"
                            data-toggle="dropdown" role="button" aria-expanded="false">Add sound to playlist <span class="caret"></span>
                         </a>

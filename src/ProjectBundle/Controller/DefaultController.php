@@ -124,7 +124,7 @@ class DefaultController extends Controller
      * @Route("/users", name="users")
      */
 
-    public function renderUersAction()
+    public function renderUsersAction()
     {
 
         $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findall();
@@ -148,18 +148,21 @@ class DefaultController extends Controller
     private function findSoundToAdd($followUser){
 
         $user = $this->getUser();
-        $allPlaylists = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")->findOneBy(array("user" => $followUser));
-        $allSoundsToPlaylists = $allPlaylists->getSounds();
+        $PlaylistAllSounds = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")
+            ->findOneBy(array("user" => $followUser,
+                           "isDefault" => true));
 
-        foreach($allSoundsToPlaylists as $soundFound){
 
-            $id = $soundFound->getId();
-            $result = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")->foundSoundsToCron($user, $id);
-            if(count($result) == 0){
+        foreach($PlaylistAllSounds->getSounds() as $soundFound) {
+
+            $id     = $soundFound->getId();
+            $result = $this->getDoctrine()->getRepository( "ProjectBundle:Playlist" )->foundSoundsToCron( $user, $id );
+            if ( count( $result ) == 0 ) {
                 return $id;
                 break;
             }
         }
+
 
         return false;
 
