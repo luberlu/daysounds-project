@@ -23,26 +23,29 @@
 
 
 {% block follows %}
-<div class="panel panel-default">
+<div class="panel panel-default middle">
     <h3 class=" text-center btn-primary">Followers</h3>
         {% if datas.list_followers is empty  %}
             <h4 class="text-center btn-warning">No followers yet !</h4>
-        {% endif %}
-        {% for follow in datas.list_followers %}
-    <div class="panel-heading" style="border-bottom:2px solid #df691a;">
-                <a style ="width: 50px; height: auto; margin-right: 15px;" href="{{ path('user-profil', {'slug_username': follow.slug}) }}">
-                    <img class="profil-img" src="{{ vich_uploader_asset(follow, 'imageFile') }}" alt="#">
-                    {{ follow.username }}
-                </a>
-                {% if datas.actions %}
-                    <ul class="action">
 
-                    </ul>
-                {% endif %}
-                <!-- iframe integration -->
+        {% else %}
+        <div class="panel-heading" style="border-bottom:2px solid #df691a;">
+            <div class="row">
+                {% for follow in datas.list_followers %}
+                    <div class="follow-profil col-lg-4">
+                        <a style ="height: auto;" href="{{ path('user-profil', {'slug_username': follow.slug}) }}">
+                            <img class="profil-img" src="{{ vich_uploader_asset(follow, 'imageFile') }}" alt="#">
+                            <span>{{ follow.username }}</span>
+                        </a>
+                        {% if datas.actions %}
+                            <ul class="action"></ul>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
+        </div>
+        {% endif %}
+</div>
 {% endblock %}
 
 
