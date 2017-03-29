@@ -130,8 +130,14 @@ class PlaylistController extends DefaultController
      * @return \Symfony\Component\HttpFoundation\Response
      */
 
-    public function deletePlaylistAction($id,$slug_username)
+    public function deletePlaylistAction($id, $slug_username)
     {
+
+        $this->loadDatas($slug_username);
+
+        if(!$this->datas["actions"])
+            return $this->redirect($this->generateUrl('user-profil', array("slug_username" => $slug_username)));
+
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
         $delete = $repository->find($id);
@@ -141,15 +147,24 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/users/{slug_username}/playlists/edit/{id}", requirements={"id" = "\d+"}, name="edit_playlist")
+     * @Route("/users/{slug_username}/playlists/{playlist_slug}/edit", requirements={"id" = "\d+"}, name="edit_playlist")
+     * @param $playlist_slug
+     * @param Request $request
      * @param $slug_username
-     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @return Response
      */
-    public function editPlaylistAction($id, Request $request, $slug_username)
+    public function editPlaylistAction($playlist_slug, Request $request, $slug_username)
     {
+        $this->loadDatas($slug_username);
+
+        if(!$this->datas["actions"])
+            return $this->redirect($this->generateUrl('user-profil', array("slug_username" => $slug_username)));
 
         $em = $this->getDoctrine()->getManager();
-        $playlist = $em->getRepository('ProjectBundle:Playlist')->find($id);
+        $playlist = $em->getRepository('ProjectBundle:Playlist')
+            ->findOneBy(array("playlist_slug" => $playlist_slug, "slug_username" => $slug_username));
+
         $form = $this->createForm(AddPlaylistType::class, $playlist);
         if (!$playlist) {
             throw $this->createNotFoundException(
@@ -301,18 +316,47 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/profil/playlists/{id}/sound/{id2}/delete", requirements={"id" = "\d+","id2"="\d+"}, name="delete_sound_from_playlist")
+     * @Route("/playlist/{id_playlist}/sound_to_delete/{id_sound}", requirements={"id_playlist" = "\d+","id_sound"="\d+"}, name="delete_sound_from_playlist")
+     * @param $id_playlist
+     * @param $id_sound
+     *
      * @return Response
      */
 
-    public function deleteSoundFromPlaylistAction($id,$id2)
+    public function deleteSoundFromPlaylistAction($id_playlist, $id_sound)
     {
         $em = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->find($id);
-        $soundToRemove = $this->getDoctrine()->getRepository('ProjectBundle:Sound')->find($id2);
-        $repository->removeSound($soundToRemove);
+
+        $playlist = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->findOneById(intval($id_playlist));
+        $soundToRemove = $this->getDoctrine()->getRepository('ProjectBundle:Sound')->findOneById(intval($id_sound));
+
+        if($playlist->getIsDefault()){
+
+            $allPlaylistsFromUser = $this->getDoctrine()
+                ->getRepository('ProjectBundle:Playlist')->findOneBy(array("user" => $this->getUser()));
+
+            foreach($allPlaylistsFromUser as $playlistFound){
+
+                $listSounds = $playlistFound->getSounds();
+
+                foreach($listSounds as $sound){
+
+                    if($sound == $soundToRemove)
+                        $playlistFound->removeSound($soundToRemove);
+
+                }
+
+            }
+
+        } else {
+
+            $playlist->removeSound($soundToRemove);
+        }
+
         $em->flush();
-        return $this->redirect($this->generateUrl('playlist_sounds', array('id' => $id)));
+
+        return $this->redirect($this->generateUrl('playlist_sounds',
+            array('slug_username' => $this->getUser()->getSlug(), 'playlist_slug' => $playlist->getSlug())));
     }
 
 
