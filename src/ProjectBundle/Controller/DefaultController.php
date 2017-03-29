@@ -102,8 +102,17 @@ class DefaultController extends Controller
             $this->datas["listePlaylist"] = $this->getDoctrine()
                 ->getRepository('ProjectBundle:Playlist')->findByUser($user);
 
-            return $this->render('ProjectBundle:Default:profil.html.twig',
-                ["datas" => $this->datas]);
+            // redirection le temps que l'on trouve une utilité à faire une page profil (le contenu du milieu à definir)
+
+            $this->datas["playlistDefault"] = $this->getDoctrine()
+                                            ->getRepository('ProjectBundle:Playlist')
+                ->findOneBy(array("isDefault" => true, "user" => $this->datas["user"]));
+
+            return $this->redirect($this->generateUrl('playlist_sounds',
+                array("slug_username" => $user->getSlug(), "playlist_slug" =>  $this->datas["playlistDefault"]->getSlug())));
+
+            //return $this->render('ProjectBundle:Default:profil.html.twig',
+                //["datas" => $this->datas]);
         }
         else return $this->redirect($this->generateUrl('home'));
     }
