@@ -24,7 +24,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
     public function load(ObjectManager $manager)
     {
-        $numberProfiles = 20; $i = 1;
+        $numberProfiles = 5; $i = 1;
 
         while($i < $numberProfiles) {
             $userManager = $this->container->get('fos_user.user_manager');

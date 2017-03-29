@@ -12,8 +12,8 @@ class LoadPlaylistData extends AbstractFixture implements OrderedFixtureInterfac
 {
     public function load(ObjectManager $manager)
     {
-        $numberProfiles = 20;
-        $numberPlaylist = 6;
+        $numberProfiles = 5;
+        $numberPlaylist = 8;
 
         $i = 1;
 

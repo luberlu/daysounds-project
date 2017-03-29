@@ -1,7 +1,7 @@
 /* LEO */
 
-ul.nav.navbar-nav.navbar-left li:nth-child(1) {
-    background: brown;
+ul.nav.navbar-nav.navbar-left li:nth-child(1) a {
+    font-size: 17px;
 }
 
 .list-group.users .list-group-item {
@@ -67,5 +67,50 @@ ul.nav.navbar-nav.navbar-left li:nth-child(1) {
     display: block;
 }
 
-
  /* END LEO */
+
+
+/* LUCIEN */
+
+body {
+    background-color: #373e52;
+}
+
+nav {
+    font-size: 17px;
+}
+
+.panel.panel-default.middle {
+    background: none;
+}
+
+h3.text-center.btn-primary {
+    margin: 0;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+h4.text-center.btn-warning {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 17px;
+}
+
+.btn.btn-success.btn-lg {
+    width: 100%;
+}
+
+ul.dropdown-menu.w100.list-playlists-dropdown li {
+    padding: 10px;
+}
+
+ul.dropdown-menu.w100.list-playlists-dropdown li:hover {
+    color: #ebebeb;
+    background-color: #485563;
+}
+
+.list-playlists-dropdown>li>a {
+    font-size: 17px;
+}
+
+/* END LUCIEN */

@@ -17,8 +17,8 @@ class LoadSoundData extends AbstractFixture implements OrderedFixtureInterface
 
         // default values
         $numberSounds = 3;
-        $numberPlaylist = 3;
-        $numberProfiles = 20;
+        $numberPlaylist = 8;
+        $numberProfiles = 5;
 
         // incrementations values
         $i_Users = 1;
