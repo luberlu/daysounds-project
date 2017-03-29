@@ -113,8 +113,8 @@
                 </div>
                 {% endif %}
 
-                    <a class="list-group-item" href="{{ path('list_followers',{'slug_username':datas.user.slug}) }}">Who follow me <span class="glyphicon">&#xe258;</span></a>
-                    <a class="list-group-item" href="{{ path('list_follows',{'slug_username':datas.user.slug}) }}">who i follow <span class="glyphicon">&#xe258;</span></a>
+                    <a class="list-group-item" href="{{ path('list_followers',{'slug_username':datas.user.slug}) }}">Followers <span class="glyphicon">&#xe258;</span></a>
+                    <a class="list-group-item" href="{{ path('list_follows',{'slug_username':datas.user.slug}) }}">Follows <span class="glyphicon">&#xe258;</span></a>
 
 
 
@@ -133,28 +133,26 @@
 
                 <div class="list-group nopadding ">
 
-                    <a class="list-group-item active btn-warning text-center "><h3>PLaylist</h3></a>
+                    <a class="list-group-item active btn-warning text-center "><h3>Playlists</h3></a>
 
                 </div>
                 <div class="panel nopadding panel-default">
-                    <a class="btn w100 btn-default " href="{{ path('add_playlist',{'slug_username':datas.slugUserName}) }}">create playlist
-                        <span class="caret"></span></a>
-                    {#<a href="#" class="btn w100 btn-default " >
-                        All songs
-                        <span class="caret"></span>
-                    </a>#}
+
+                    <div class="list-group  text-center">
+                        <a class="btn btn-success btn-lg"
+                           href="{{ path('add_playlist',{'slug_username':datas.slugUserName}) }}">
+                            create playlist <span class="glyphicon"></span>
+                        </a>
+                    </div>
+
                     <a href="#" class="btn w100 btn-default dropdown-toggle" data-toggle="dropdown">
-                        playlist
+                        All
                         <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu w100" style="text-align: center">
+                    <ul class="dropdown-menu w100 list-playlists-dropdown" style="text-align: center">
                         {% for playlist in datas.listePlaylist %}
-                            {% if playlist.isDefault %}
-
-                            {% elseif playlist.isDayli %}
-
-                            {% else %}
-                                <li>
+                            {% if playlist.isDayli == false %}
+                                <li class="{% if playlist.isDefault %}default{% endif %}">
                                     <a style="display: inline-block" href="{{ path('playlist_sounds', {'slug_username': datas.user.slug, 'playlist_slug': playlist.slug }) }}">{{ playlist.name }}
 
                                     </a>
@@ -171,6 +169,7 @@
 
                         {% endfor %}
                     </ul>
+
                 </div>
 
             </section>

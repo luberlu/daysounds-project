@@ -22,6 +22,8 @@ class DefaultController extends Controller
 
     public function followOrNot($user){
 
+        $this->datas['tofollow'] = 1;
+
         $follows = $user->getRelationUser();
 
         if(count($follows)){
