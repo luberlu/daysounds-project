@@ -89,21 +89,22 @@
                 </div>
             </section>
 #}
-            <section class="col-xs-3 col-sm-3 col-md-3 col-lg-3 btn-default nopadding ">
+            <section class="col-xs-3 col-sm-3 col-md-3 col-lg-3 btn-default nopadding profil-section-left">
 
-                <div class="list-group nopadding  ">
-                    <figure class="list-group">
-                        <img class="img-responsive" src="{{ vich_uploader_asset(datas.user, 'imageFile') }}">
-                    </figure>
-                    <figcaption class="text-center  nohover"><h5>{{ datas.user.username }}</h5></figcaption>
 
-                </div>
+                    <a href="{{ path("user-profil", {"slug_username": datas.user.slug}) }}" class="list-group nopadding  ">
+                        <figure class="list-group">
+                            <img class="img-responsive" src="{{ vich_uploader_asset(datas.user, 'imageFile') }}">
+                        </figure>
+                        <figcaption class="text-center  nohover"><h5 class="username-profil">{{ datas.user.username }}</h5></figcaption>
+                    </a>
+
 
                 {% if app.user != datas.user %}
                 <div class="list-group-item text-center">
 
                         {% if datas.tofollow == 0 %}
-                            <span>Followed by you</span>
+                            <span class="already-follow">Followed by you</span>
                         {% elseif datas.tofollow == 1 %}
                             <div class="list-group  text-center">
                                 <a href="{{ path('add_follow',{'slug_username':datas.user.slug}) }}" class="btn btn-success btn-lg">Follow</a>
