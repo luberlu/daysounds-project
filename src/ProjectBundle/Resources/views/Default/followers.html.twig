@@ -24,9 +24,9 @@
 
 {% block follows %}
 <div class="panel panel-default">
-    <h1 class=" text-center btn-primary">Follower list</h1>
+    <h3 class=" text-center btn-primary">Follower list</h3>
         {% if datas.list_followers is empty  %}
-            <h3 class="text-center btn-warning"> you don't have any followers yet !</h3>
+            <h4 class="text-center btn-warning">No followers yet !</h4>
         {% endif %}
         {% for follow in datas.list_followers %}
     <div class="panel-heading" style="border-bottom:2px solid #df691a;">

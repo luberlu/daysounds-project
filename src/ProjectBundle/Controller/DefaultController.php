@@ -176,9 +176,7 @@ class DefaultController extends Controller
                 $soundToAddToPlaylist = $this->getDoctrine()
                     ->getRepository("ProjectBundle:Sound")->findOneById($soundToAddToPlaylistId);
 
-
                 $his_dayli_sound_playlist->addSound($soundToAddToPlaylist);
-                $em->persist($his_dayli_sound_playlist);
             }
 
         }

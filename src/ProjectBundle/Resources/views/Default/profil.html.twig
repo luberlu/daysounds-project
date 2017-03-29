@@ -139,12 +139,14 @@
                 </div>
                 <div class="panel nopadding panel-default">
 
-                    <div class="list-group  text-center">
-                        <a class="btn btn-success btn-lg"
-                           href="{{ path('add_playlist',{'slug_username':datas.slugUserName}) }}">
-                            create playlist <span class="glyphicon"></span>
-                        </a>
-                    </div>
+                    {% if datas.actions %}
+                        <div class="list-group  text-center">
+                            <a class="btn btn-success btn-lg"
+                               href="{{ path('add_playlist',{'slug_username':datas.slugUserName}) }}">
+                                create playlist <span class="glyphicon"></span>
+                            </a>
+                        </div>
+                    {% endif %}
 
                     <a href="#" class="btn w100 btn-default dropdown-toggle" data-toggle="dropdown">
                         All
