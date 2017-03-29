@@ -4,11 +4,11 @@
     <div class="sounds-in-playlist panel panel-default">
         <h3 class=" text-center btn-primary title-page-profil">{{ datas.playlist.name }}</h3>
         {% for sound in datas.sounds %}
-            <div style="margin-bottom: 29px;">
-                <h3 class="text-center"><a  href="#">{{ sound.name }}</a></h3>
+            <div style="margin-bottom: 29px;background-color: #546575;">
+                <h4 class="text-center">{{ sound.artiste }} - {{ sound.name }}</h4>
                 <!-- iframe integration -->
                 {% include "@ProjectBundle/Resources/views/Playlists/sound-iframe.html.twig" %}
-                    <div class="dropdown panel-heading actions-to-sound clearfix" style="border-bottom: 2px solid #df691a" >
+                    <div class="dropdown panel-heading actions-to-sound clearfix">
 
                         <a href="{{ path("delete_sound_from_playlist", {
                             "id_playlist": datas.playlist.id, "id_sound": sound.id
