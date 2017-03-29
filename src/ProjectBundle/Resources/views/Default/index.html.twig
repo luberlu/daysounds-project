@@ -6,7 +6,7 @@
 
         <div class="container home">
             <div class="row">
-                <section class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <section class="col-xs-3 col-sm-3 col-md-3 col-lg-3 nopadding profil-section-left">
                     {% if datas.newUsers is defined %}
                         {% include "@ProjectBundle/Resources/views/Users/new-users.html.twig" %}
                     {% endif %}
@@ -15,21 +15,17 @@
                     {% endif %}
                 </section>
 
-                <section class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-lg-offset-1">
+                <section class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
 
                         {% if datas.dayliSounds is defined %}
                             {% include "@ProjectBundle/Resources/views/Playlists/daysounds.html.twig" %}
                         {% endif %}
 
-
-
-
-
                 </section>
-                <section class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-lg-offset-1 ">
+                <section class="col-xs-3 col-sm-3 col-md-3 col-lg-3 nopadding">
 
                         <div class="list-group col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-                           <h3 class="list-group-item active text-center "> Filter by :</h3>
+                           <h3 class="list-group-item active text-center " style="margin: 0 !important;"> Filter by :</h3>
                             <a class="list-group-item" href="#">Artists<span class="glyphicon glyphicon-chevron-right"></span></a>
                             <a class="list-group-item" href="#">Kind<span class="glyphicon glyphicon-chevron-right"></span></a>
                             <a class="list-group-item" href="#">Owner<span class="glyphicon glyphicon-chevron-right"></span></a>

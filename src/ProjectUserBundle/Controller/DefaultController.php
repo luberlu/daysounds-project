@@ -57,7 +57,7 @@ class DefaultController extends Controller
 
             $this->get('session')
                  ->getFlashBag()
-                 ->add('success', 'User followed with success !');
+                 ->add('success', 'User follow with success !');
 
             return $this->redirect($this->generateUrl('list_follows',
                 array('slug_username'=> $this->getUser()->getSlug()
