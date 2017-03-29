@@ -14,16 +14,10 @@ ul.nav.navbar-nav.navbar-left li:nth-child(1) a {
 
 .list-group.users .list-group-item span {
     float: left;
-    width: 92px;
     position: relative;
     padding-left: 10px;
 }
 
-.list-group.users .list-group-item span icon {
-    position: absolute;
-    right: 0;
-    top: 6px;
-}
 
 .navbar-brand {
     padding-top: 0 !important;
@@ -34,16 +28,6 @@ ul.nav.navbar-nav.navbar-left li:nth-child(1) a {
     height: 100%;
 }
 
-.sound-name {
-    color: #ffffff;
-    background-color: #5cb85c;
-    margin: 0;
-    padding: 0;
-    padding-top: 10px;
-    padding-left: 19px;
-    padding-bottom: 10px;
-    border-color: transparent;
-}
 
 .actions-sound {
     height: 64px;
@@ -224,6 +208,11 @@ span.already-follow {
     font-size: 18px;
 }
 
+.profil-section-left a.list-group-item {
+    background-color: #4e5d6c;
+}
 
-
+.profil-section-left a.list-group-item:hover {
+    background-color: #485563;
+}
 /* END LUCIEN */
