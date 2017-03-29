@@ -163,6 +163,66 @@ h4.text-center {
     font-size: 18px;
 }
 
+nav ul.dropdown-menu li a {
+    font-size: 15px;
+}
+
+nav ul.dropdown-menu li {
+    padding-top: 10px;
+    padding-bottom: 12px;
+    border-bottom: solid 1px rgba(255, 255, 255, 0.18);
+}
+
+nav ul.dropdown-menu {
+    width: 212px;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.session-message {
+    text-align: center;
+    font-size: 18px;
+    color: white;
+}
+
+.session-message .success {
+    background: #5cb85c;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.session-message .warning {
+    background: brown;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.container.profil, .container.home {
+    margin-top: 32px;
+}
+
+.follow-profil.col-lg-4 {
+    height: 192px;
+}
+
+.follow-profil.col-lg-4 a img {
+    width: 100%;
+}
+
+.follow-profil.col-lg-4 a {
+    width: 100%;
+    display: block;
+    background: #424c5e;
+    color: white;
+    text-align: center;
+}
+
+span.already-follow {
+    color: chartreuse;
+    font-size: 18px;
+}
 
 
 
