@@ -301,18 +301,49 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/profil/playlists/{id}/sound/{id2}/delete", requirements={"id" = "\d+","id2"="\d+"}, name="delete_sound_from_playlist")
+     * @Route("/profil/playlists/{id_playlist}/sound/{id_sound}/delete", requirements={"id_playlist" = "\d+","id_sound"="\d+"}, name="delete_sound_from_playlist")
+     * @param $id_playlist
+     * @param $id_sound
+     *
      * @return Response
      */
 
-    public function deleteSoundFromPlaylistAction($id,$id2)
+    public function deleteSoundFromPlaylistAction($id_playlist, $id_sound)
     {
         $em = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->find($id);
-        $soundToRemove = $this->getDoctrine()->getRepository('ProjectBundle:Sound')->find($id2);
-        $repository->removeSound($soundToRemove);
+
+        $playlist = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->find($id_playlist);
+        $soundToRemove = $this->getDoctrine()->getRepository('ProjectBundle:Sound')->find($id_sound);
+
+        if($playlist->getIsDefault()){
+
+            $allPlaylistsFromUser = $this->getDoctrine()
+                ->getRepository('ProjectBundle:Playlist')->findOneBy(array("user" => $this->getUser()));
+
+            foreach($allPlaylistsFromUser as $playlistFound){
+
+                var_dump($playlistFound->getId());
+
+                $listSounds = $playlistFound->getSounds();
+
+                foreach($listSounds as $sound){
+
+                    if($sound == $soundToRemove)
+                        $playlistFound->removeSound($soundToRemove);
+
+                }
+
+            }
+
+        } else {
+
+            $playlist->removeSound($soundToRemove);
+        }
+
         $em->flush();
-        return $this->redirect($this->generateUrl('playlist_sounds', array('id' => $id)));
+
+        return $this->redirect($this->generateUrl('playlist_sounds',
+            array('slug_username' => $this->getUser(), 'playlist_slug' => $playlist->getSlug())));
     }
 
 
