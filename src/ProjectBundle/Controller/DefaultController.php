@@ -180,6 +180,18 @@ class DefaultController extends Controller
         $follows = $this->getUser()->getRelationUserOf();
 
         if(count($follows)) {
+            $maximumSoundToAdd = (count(count($follows)) > 10) ? count($follows) : 10;
+
+            if(count($his_dayli_sound_playlist->getSounds()) > $maximumSoundToAdd){
+
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('warning', 'Handle a bit of suggestions before new push !');
+
+                return $this->redirectToRoute('stream');
+
+            }
+
             foreach ($follows as $follow) {
 
                 $soundToAddToPlaylistId = $this->findSoundToAdd($follow);
