@@ -127,9 +127,9 @@ class DefaultController extends Controller
     public function renderUsersAction()
     {
 
-        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findall();
+        $user = $this->getDoctrine()->getRepository('ProjectUserBundle:User')->findAll();
         $this->datas["title"] = "daysounds users";
-        $this->datas["listeUsers"] =$user;
+        $this->datas["listeUsers"] = $user;
 
         return $this->render('ProjectBundle:Default:users.html.twig', array("datas" => $this->datas));
 

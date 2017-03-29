@@ -81,6 +81,11 @@ class User extends BaseUser
 
 
     /**
+     * @ORM\ManyToMany(targetEntity="ProjectBundle\Entity\Sound",  mappedBy="trashs")
+     */
+    protected $trashs;
+
+    /**
      * @ORM\OneToMany(targetEntity="ProjectBundle\Entity\Playlist", cascade={"remove"}, mappedBy="user", orphanRemoval=true)
      */
     protected $playlists;
@@ -191,10 +196,10 @@ class User extends BaseUser
     public function slugify($text)
     {
         // replace non letter or digits by -
-        $text = preg_replace('#[^\\pL\d]+#u', '-', $text);
+        //$text = preg_replace('#[^\\pL\d]+#u', '-', $text);
 
         // trim
-        $text = trim($text, '-');
+        //$text = trim($text, '-');
 
         // transliterate
         if (function_exists('iconv'))

@@ -81,6 +81,11 @@ class User extends BaseUser
 
 
     /**
+     * @ORM\ManyToMany(targetEntity="ProjectBundle\Entity\Sound",  mappedBy="trashs")
+     */
+    protected $trashs;
+
+    /**
      * @ORM\OneToMany(targetEntity="ProjectBundle\Entity\Playlist", cascade={"remove"}, mappedBy="user", orphanRemoval=true)
      */
     protected $playlists;
@@ -89,6 +94,7 @@ class User extends BaseUser
     public function _construct()
     {
         $this->relation_user = new ArrayCollection();
+        $this->trashs = new ArrayCollection();
     }
 
     public function __construct()
@@ -364,5 +370,39 @@ class User extends BaseUser
     public function getRelationUserOf()
     {
         return $this->relation_user_of;
+    }
+
+    /**
+     * Add trash
+     *
+     * @param \ProjectBundle\Entity\Sound $trash
+     *
+     * @return User
+     */
+    public function addTrash(\ProjectBundle\Entity\Sound $trash)
+    {
+        $this->trashs[] = $trash;
+
+        return $this;
+    }
+
+    /**
+     * Remove trash
+     *
+     * @param \ProjectBundle\Entity\Sound $trash
+     */
+    public function removeTrash(\ProjectBundle\Entity\Sound $trash)
+    {
+        $this->trashs->removeElement($trash);
+    }
+
+    /**
+     * Get trashs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTrashs()
+    {
+        return $this->trashs;
     }
 }

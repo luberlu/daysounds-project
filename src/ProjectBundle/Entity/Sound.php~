@@ -64,12 +64,28 @@ class Sound
     protected $players;
 
 
+    /**
+     * @ORM\ManyToMany(targetEntity="ProjectUserBundle\Entity\User", inversedBy="trashs")
+     * @ORM\JoinTable(name="sound_trashs",
+     *                 joinColumns={@ORM\JoinColumn(name="sound_id", referencedColumnName="id")},
+     *                  inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *     )
+     */
+    protected $trashs;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Playlist", mappedBy="sounds")
+     */
+    protected $playlists;
+
 
     public function _construct()
     {
         $this->playlists = new ArrayCollection();
         $this->genres = new ArrayCollection();
         $this->players = new ArrayCollection();
+        $this->genres = new ArrayCollection();
     }
 
     /**
@@ -251,5 +267,39 @@ class Sound
     public function getPlayers()
     {
         return $this->players;
+    }
+
+    /**
+     * Add trash
+     *
+     * @param \ProjectUserBundle\Entity\User $trash
+     *
+     * @return Sound
+     */
+    public function addTrash(\ProjectUserBundle\Entity\User $trash)
+    {
+        $this->trashs[] = $trash;
+
+        return $this;
+    }
+
+    /**
+     * Remove trash
+     *
+     * @param \ProjectUserBundle\Entity\User $trash
+     */
+    public function removeTrash(\ProjectUserBundle\Entity\User $trash)
+    {
+        $this->trashs->removeElement($trash);
+    }
+
+    /**
+     * Get trashs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTrashs()
+    {
+        return $this->trashs;
     }
 }
