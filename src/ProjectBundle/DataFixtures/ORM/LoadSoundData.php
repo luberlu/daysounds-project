@@ -26,7 +26,7 @@ class LoadSoundData extends AbstractFixture implements OrderedFixtureInterface
         // for all users saved before
         while ($i_Users < $numberProfiles) {
 
-            $i_Playlist = 2;
+            $i_Playlist = 3;
 
             while ($i_Playlist < $numberPlaylist) {
 

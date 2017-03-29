@@ -179,22 +179,25 @@ class DefaultController extends Controller
 
         $follows = $this->getUser()->getRelationUserOf();
 
-        foreach($follows as $follow){
+        if(count($follows)) {
+            foreach ($follows as $follow) {
 
-            $soundToAddToPlaylistId = $this->findSoundToAdd($follow);
+                $soundToAddToPlaylistId = $this->findSoundToAdd($follow);
 
-            // S'il y a au moins un son qui n'a pas été pushé encore dans Dayliplaylist
-            if($soundToAddToPlaylistId != false) {
+                // S'il y a au moins un son qui n'a pas été pushé encore dans Dayliplaylist
+                if ($soundToAddToPlaylistId != false) {
 
-                $soundToAddToPlaylist = $this->getDoctrine()
-                    ->getRepository("ProjectBundle:Sound")->findOneById($soundToAddToPlaylistId);
+                    $soundToAddToPlaylist = $this->getDoctrine()
+                        ->getRepository("ProjectBundle:Sound")->findOneById($soundToAddToPlaylistId);
 
-                $his_dayli_sound_playlist->addSound($soundToAddToPlaylist);
+                    $his_dayli_sound_playlist->addSound($soundToAddToPlaylist);
+                }
+
             }
 
-        }
+            $em->flush();
 
-        $em->flush();
+        }
 
     }
 
