@@ -21,7 +21,7 @@
 
 
 {% block follows %}
-<div class="panel panel-default middle">
+<div class="panel panel-default middle ">
     <h3 class=" text-center btn-primary">Follows</h3>
         {% if datas.list_follows is empty  %}
             <h4 class="text-center btn-warning"> No follows yet !</h4>
@@ -32,7 +32,7 @@
                 {% for follow in datas.list_follows %}
                     <div class="follow-profil col-lg-4">
                         <a href="{{ path('user-profil', {'slug_username': follow.slug}) }}">
-                            <img class="profil-img" style ="height: auto;" src="{{ vich_uploader_asset(follow, 'imageFile') }}" alt="#">
+                            <img class="profil-img" style ="height: 160px;" src="{{ vich_uploader_asset(follow, 'imageFile') }}" alt="#">
                             <span>{{ follow.username }}</span>
                         </a>
                         {% if datas.actions %}

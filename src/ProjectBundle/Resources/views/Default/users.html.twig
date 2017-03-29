@@ -1,19 +1,40 @@
 {% extends "@ProjectBundle/Resources/views/Default/layout.html.twig" %}
 
 {% block main %}
-    <ul class="users-list">
-        {% for user in datas.listeUsers %}
-            <li>
-                <ul>
-                    <li>
-                        <a href="{{ path('user-profil',{'slug_username':user.slug}) }}">
-                            <img class="profil-img" src="{{ vich_uploader_asset(user, 'imageFile') }}" width="100" alt="#">
-                            <span>{{ user.username }}</span>
-                        </a>
-                        <a href="{{ path('add_follow',{'slug_username':user.slug}) }}">follow</a>
-                    </li>
-                </ul>
-            </li>
-        {% endfor %}
-    </ul>
+    <h1 class="btn-primary text-center">Users List</h1>
+    {% for user in datas.listeUsers  %}
+        {% set actual = loop.index %}
+
+        {% if actual is odd %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+
+                  {#  <a  href="{{ path('user-profil',{'slug_username':user.slug}) }}">
+                        <img style="width:100px; height: auto"; class="profil-img" src="{{ vich_uploader_asset(user, 'imageFile') }}" width="100" alt="#">
+                        <span style="padding-left: 25px;">{{ user.username }}</span>
+                        {% if data.follows %}  si il est dejà follow
+                        <a class="btn btn-success" style="float: right; margin-top: 30px;" href="{{ path('add_follow',{'slug_username':user.slug}) }}">UnFollow</a>
+                        {% endif %}
+                        <a class="btn btn-success" style="float: right; margin-top: 30px;" href="{{ path('add_follow',{'slug_username':user.slug}) }}">follow</a>
+                    </a>#}
+                </div>
+
+            </div>
+        {% else %}
+
+            <div class="panel-body">
+                <a  href="{{ path('user-profil',{'slug_username':user.slug}) }}">
+                    <img class="profil-img" style="width:100px; height: auto";  src="{{ vich_uploader_asset(user, 'imageFile') }}" width="100" alt="#">
+                    <span style="padding-left: 25px;" >{{ user.username }}</span>
+                    <a class="btn btn-success" style="float: right;margin-top: 30px;" href="{{ path('add_follow',{'slug_username':user.slug}) }}">follow</a>
+                </a>
+            </div>
+        {% endif %}
+
+
+
+    {% endfor %}
+
 {% endblock %}
+
+
