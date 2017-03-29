@@ -130,8 +130,14 @@ class PlaylistController extends DefaultController
      * @return \Symfony\Component\HttpFoundation\Response
      */
 
-    public function deletePlaylistAction($id,$slug_username)
+    public function deletePlaylistAction($id, $slug_username)
     {
+
+        $this->loadDatas($slug_username);
+
+        if(!$this->datas["actions"])
+            return $this->redirect($this->generateUrl('user-profil', array("slug_username" => $slug_username)));
+
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
         $delete = $repository->find($id);
@@ -141,15 +147,24 @@ class PlaylistController extends DefaultController
     }
 
     /**
-     * @Route("/users/{slug_username}/playlists/edit/{id}", requirements={"id" = "\d+"}, name="edit_playlist")
+     * @Route("/users/{slug_username}/playlists/{playlist_slug}/edit", requirements={"id" = "\d+"}, name="edit_playlist")
+     * @param $playlist_slug
+     * @param Request $request
      * @param $slug_username
-     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @return Response
      */
-    public function editPlaylistAction($id, Request $request, $slug_username)
+    public function editPlaylistAction($playlist_slug, Request $request, $slug_username)
     {
+        $this->loadDatas($slug_username);
+
+        if(!$this->datas["actions"])
+            return $this->redirect($this->generateUrl('user-profil', array("slug_username" => $slug_username)));
 
         $em = $this->getDoctrine()->getManager();
-        $playlist = $em->getRepository('ProjectBundle:Playlist')->find($id);
+        $playlist = $em->getRepository('ProjectBundle:Playlist')
+            ->findOneBy(array("playlist_slug" => $playlist_slug, "slug_username" => $slug_username));
+
         $form = $this->createForm(AddPlaylistType::class, $playlist);
         if (!$playlist) {
             throw $this->createNotFoundException(
