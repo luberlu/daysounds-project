@@ -55,6 +55,10 @@ class DefaultController extends Controller
             $em->persist($user);
             $em->flush();
 
+            $this->get('session')
+                 ->getFlashBag()
+                 ->add('success', 'User followed with success !');
+
             return $this->redirect($this->generateUrl('list_follows',
                 array('slug_username'=> $this->getUser()->getSlug()
                 )
@@ -98,6 +102,7 @@ class DefaultController extends Controller
 
             $this->datas["listePlaylist"] = $this->getDoctrine()
                                                  ->getRepository('ProjectBundle:Playlist')->findByUser($user);
+
 
             return $this->render('ProjectBundle:Default:followers.html.twig',
                 ["datas" => $this->datas]);

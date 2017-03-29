@@ -157,6 +157,7 @@ class DefaultController extends Controller
             $result = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")->foundSoundsToCron($user, $id);
             if(count($result) == 0){
                 return $id;
+                break;
             }
         }
 
