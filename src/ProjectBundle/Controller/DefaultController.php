@@ -179,22 +179,37 @@ class DefaultController extends Controller
 
         $follows = $this->getUser()->getRelationUserOf();
 
-        foreach($follows as $follow){
+        if(count($follows)) {
+            $maximumSoundToAdd = (count(count($follows)) > 10) ? count($follows) : 10;
 
-            $soundToAddToPlaylistId = $this->findSoundToAdd($follow);
+            if(count($his_dayli_sound_playlist->getSounds()) > $maximumSoundToAdd){
 
-            // S'il y a au moins un son qui n'a pas été pushé encore dans Dayliplaylist
-            if($soundToAddToPlaylistId != false) {
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('warning', 'Handle a bit of suggestions before new push !');
 
-                $soundToAddToPlaylist = $this->getDoctrine()
-                    ->getRepository("ProjectBundle:Sound")->findOneById($soundToAddToPlaylistId);
+                return $this->redirectToRoute('stream');
 
-                $his_dayli_sound_playlist->addSound($soundToAddToPlaylist);
             }
 
-        }
+            foreach ($follows as $follow) {
 
-        $em->flush();
+                $soundToAddToPlaylistId = $this->findSoundToAdd($follow);
+
+                // S'il y a au moins un son qui n'a pas été pushé encore dans Dayliplaylist
+                if ($soundToAddToPlaylistId != false) {
+
+                    $soundToAddToPlaylist = $this->getDoctrine()
+                        ->getRepository("ProjectBundle:Sound")->findOneById($soundToAddToPlaylistId);
+
+                    $his_dayli_sound_playlist->addSound($soundToAddToPlaylist);
+                }
+
+            }
+
+            $em->flush();
+
+        }
 
     }
 
