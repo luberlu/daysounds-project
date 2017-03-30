@@ -94,7 +94,7 @@
 
                     <a href="{{ path("user-profil", {"slug_username": datas.user.slug}) }}" class="list-group nopadding  ">
                         <figure class="list-group">
-                            <img class="img-responsive" src="{{ vich_uploader_asset(datas.user, 'imageFile') }}">
+                            <img class="img-responsive" style="width: 100%" src="{{ vich_uploader_asset(datas.user, 'imageFile') }}">
                         </figure>
                         <figcaption class="text-center  nohover"><h5 class="username-profil">{{ datas.user.username }}</h5></figcaption>
                     </a>

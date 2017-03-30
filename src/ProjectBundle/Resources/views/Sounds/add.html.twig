@@ -1,6 +1,15 @@
 {% extends "@ProjectBundle/Resources/views/Default/profil.html.twig" %}
 
 {% block form %}
+    {% set formSound = datas.form %}
+    {% form_theme formSound 'bootstrap_3_layout.html.twig' %}
+    {% if isFirst is defined %}
+        <h1 class="btn-primary text-center" style="margin-top: 0 !important; padding: 5px">Add the first song</h1>
+    {% else %}
+        <h1 class="btn-primary text-center" style="margin-top: 0 !important; padding: 5px">Add a song</h1>
+    {% endif %}
+
+
     {{ form_start(datas.form) }}
         {{ form_widget(datas.form) }}
         <p><input type="submit" value="Add sound"></p>

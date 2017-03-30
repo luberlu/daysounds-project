@@ -9,14 +9,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
 
-                  {#  <a  href="{{ path('user-profil',{'slug_username':user.slug}) }}">
+                    <a  href="{{ path('user-profil',{'slug_username':user.slug}) }}">
                         <img style="width:100px; height: auto"; class="profil-img" src="{{ vich_uploader_asset(user, 'imageFile') }}" width="100" alt="#">
                         <span style="padding-left: 25px;">{{ user.username }}</span>
-                        {% if data.follows %}  si il est dejà follow
-                        <a class="btn btn-success" style="float: right; margin-top: 30px;" href="{{ path('add_follow',{'slug_username':user.slug}) }}">UnFollow</a>
-                        {% endif %}
+
                         <a class="btn btn-success" style="float: right; margin-top: 30px;" href="{{ path('add_follow',{'slug_username':user.slug}) }}">follow</a>
-                    </a>#}
+                    </a>
                 </div>
 
             </div>
