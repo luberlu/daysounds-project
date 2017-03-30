@@ -354,8 +354,6 @@ class PlaylistController extends DefaultController
                 }
             }
 
-            //die;
-
             if ( $playlist->getIsDefault() ) {
 
                 $allPlaylistsFromUser = $this->getDoctrine()
