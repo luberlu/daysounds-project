@@ -4,8 +4,13 @@
      {% else %}
         {% for sound in datas.dayliSounds %}
             <div class="list-group dayli-sounds-playlist">
-                <div class="list-group-item">
+                <div class="list-group-item" style="padding: 0; text-align: center;">
                     <h4 class="sound-name text-center">{{ sound.artiste }} - {{ sound.name }}</h4>
+                    <div class="genres">
+                        {% for genre in sound.genres %}
+                            <span>#{{ genre.name }}</span>
+                        {% endfor %}
+                    </div>
                 </div>
                 <!-- iframe integration -->
                 {% include "@ProjectBundle/Resources/views/Playlists/sound-iframe.html.twig" %}

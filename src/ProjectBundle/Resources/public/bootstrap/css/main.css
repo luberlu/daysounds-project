@@ -134,7 +134,14 @@ h4.text-center {
     padding-top: 13px;
     color: white;
     font-size: 17px;
-    padding-bottom: 13px;
+    padding-bottom: 0px;
+}
+
+.genres {
+    background: rgba(165, 42, 42, 0.43);
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .navbar-default .navbar-nav>li>a {

@@ -17,7 +17,15 @@
 
         {% for sound in datas.sounds %}
             <div style="margin-bottom: 29px;background-color: #546575;">
-                <h4 class="text-center">{{ sound.artiste }} - {{ sound.name }}</h4>
+                <h4 class="text-center">{{ sound.artiste }} - {{ sound.name }}
+
+                <div class="genres">
+                    {% for genre in sound.genres %}
+                        <span>#{{ genre.name }}</span>
+                    {% endfor %}
+                </div>
+
+                </h4>
                 <!-- iframe integration -->
                 {% include "@ProjectBundle/Resources/views/Playlists/sound-iframe.html.twig" %}
                     <div class="dropdown panel-heading actions-to-sound clearfix">
