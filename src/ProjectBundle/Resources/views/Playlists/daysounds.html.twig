@@ -5,12 +5,12 @@
         {% for sound in datas.dayliSounds %}
             <div class="list-group dayli-sounds-playlist">
                 <div class="list-group-item">
-                    <h4 class="sound-name text-center">{{ sound.name }}</h4>
+                    <h4 class="sound-name text-center">{{ sound.artiste }} - {{ sound.name }}</h4>
                 </div>
                 <!-- iframe integration -->
                 {% include "@ProjectBundle/Resources/views/Playlists/sound-iframe.html.twig" %}
                 <div class="actions-sound">
-                    <div class="dropdown clearfix">
+                    <div class="dropdown actions-to-sound-dayli clearfix">
 
                         <a href="{{ path("delete_sound_from_playlist", {
                             "id_playlist": datas.dayliPlaylist.id, "id_sound": sound.id
@@ -21,14 +21,14 @@
                         <a style="float:left;" href="#" class="dropdown-toggle btn btn-lg btn-success"
                            data-toggle="dropdown" role="button" aria-expanded="false">Add sound to playlist <span class="caret"></span>
                         </a>
-                        <div class="dropdown-menu" role="menu">
+                        <ul class="dropdown-menu" role="menu">
                             {% for list in datas.listPlaylists %}
-                                <div>
+                                <li>
                                     <a  href="{{ path('add_sound_to_this_playlist',
-                                    {'playlist_id': list.id, 'sound_id':sound.id, 'isDayli': true}) }}">{{ list.name }}</a>
-                                </div>
+                                    {'playlist_id': list.id, 'sound_id':sound.id, 'isDayli': true}) }}" class="btn btn-lg btn-danger">{{ list.name }}</a>
+                                </li>
                             {% endfor %}
-                        </div>
+                        </ul>
                     </div>
                 </div>
             </div>
