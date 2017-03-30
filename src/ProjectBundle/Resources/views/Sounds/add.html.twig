@@ -39,8 +39,8 @@
                         if(response !== "{}"){
                             var obj = $.parseJSON(response);
                             $(".player-type").html("Player " + obj.name);
-                            $("#add_sound_players").find("input").attr('checked', false);
-                            $("#add_sound_players_" + obj.type).attr('checked', true);
+                            $("#add_sound_players").find("input").prop('checked',false);
+                            $("#add_sound_players_" + obj.type).prop('checked',true);
 
                             if(obj.name == "youtube") {
                                 var myId = getId(val);
@@ -54,7 +54,8 @@
 
                         } else {
                             // testing
-                            $("#add_sound_players").find("input").attr('checked', false);
+                            $("#add_sound_players").find("input").prop('checked',false);
+
                             $(".player-type").html("Aucun player reconnu");
                         }
                     },
