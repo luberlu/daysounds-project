@@ -217,6 +217,8 @@ class PlaylistController extends DefaultController
         $this->datas["playlist"] = $this->getDoctrine()
             ->getRepository('ProjectBundle:Playlist')->findOneBy(array("slug" =>$playlist_slug, "user" => $this->datas["user"]));
 
+        $this->datas["block_add_sound"] = ($this->datas["playlist"]->getName() == "All sounds") ? true : false;
+
         $this->datas["sounds"] = $this->datas["playlist"]->getSounds();
 
         $this->datas["listPlaylists"] = $this->getDoctrine()
@@ -298,7 +300,6 @@ class PlaylistController extends DefaultController
                     $allSounds->addSound($sound);
 
                     $em->persist($sound);
-
                     $em->flush();
 
                     // add a flash message
@@ -338,6 +339,17 @@ class PlaylistController extends DefaultController
 
         if(count($playlist) && count($soundToRemove)) {
 
+            // mettre l'id du son dans la table sound_trashs si pas deja dedans
+            // toutes les sons à la poubelle de l'user
+
+            $thisSoundTrashsUser = $this->getUser()->getTrashs();
+
+            foreach ($thisSoundTrashsUser as $soundTrashed) {
+                if ($soundTrashed != $soundToRemove) {
+                    $soundToRemove->addTrash($this->getUser());
+                }
+            }
+
             if ( $playlist->getIsDefault() ) {
 
                 $allPlaylistsFromUser = $this->getDoctrine()
@@ -351,11 +363,6 @@ class PlaylistController extends DefaultController
                     foreach ( $listSounds as $sound ) {
 
                         if ( $sound == $soundToRemove ) {
-
-                            // mettre l'id du son dans la table sound_trashs si pas deja dedans
-
-                            //$soundToRemove->getTrashs
-                            //$soundToRemove->addTrash($this->getUser());
 
                             $playlistFound->removeSound( $soundToRemove );
 

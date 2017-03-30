@@ -65,7 +65,7 @@ class Sound
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="ProjectUserBundle\Entity\User", inversedBy="trashs")
+     * @ORM\ManyToMany(targetEntity="ProjectUserBundle\Entity\User", cascade={"persist"}, inversedBy="trashs")
      * @ORM\JoinTable(name="sound_trashs",
      *                 joinColumns={@ORM\JoinColumn(name="sound_id", referencedColumnName="id")},
      *                  inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}

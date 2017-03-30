@@ -4,14 +4,15 @@
     <div class="sounds-in-playlist panel panel-default middle">
         <h3 class=" text-center btn-primary title-page-profil">{{ datas.playlist.name }}</h3>
 
-        {% if datas.actions %}
-            <div class="list-group  text-center add-sound-this-playlist">
-                <a class="btn btn-success btn-lg"
-                   href="{{ path('add_sound_to_playlist', {'slug_username':datas.slugUserName, 'playlist_slug': datas.playlist.slug }) }}">
-                    Add sound to this playlist <span class="glyphicon"></span>
-                </a>
-            </div>
-
+        {% if (datas.block_add_sound is not defined) or (datas.block_add_sound == false) %}
+            {% if datas.actions %}
+                <div class="list-group  text-center add-sound-this-playlist">
+                    <a class="btn btn-success btn-lg"
+                       href="{{ path('add_sound_to_playlist', {'slug_username':datas.slugUserName, 'playlist_slug': datas.playlist.slug }) }}">
+                        Add sound to this playlist <span class="glyphicon"></span>
+                    </a>
+                </div>
+            {% endif %}
         {% endif %}
 
         {% for sound in datas.sounds %}
