@@ -3,8 +3,8 @@
 {% block main %}
     <style>
         #homeNotAuth{
-            width:50%;
-            margin:auto;
+            width:100%;
+            margin-top: 100px;
             height:200px;
             display: flex;
             flex-direction: column;
@@ -18,16 +18,19 @@
             justify-content: space-around;
             align-items: center;
         }
+        #homeNotAuth h1{
+            font-size: 60px;
+        }
 
     </style>
-    <div id="homeNotAuth">
-        <h1>The way your day sounds !</h1>
+    <div id="homeNotAuth" class="text-center">
+        <h1 class="nopadding">The way your day sounds !</h1>
         <div>
             <div>
-                <a href="{{ path('fos_user_security_login') }}">sign in </a>
+                <a class="btn btn-success" href="{{ path('fos_user_security_login') }}">sign in</a>
             </div>
             <div>
-                <a href="{{ path('fos_user_registration_register') }}">sign up</a>
+                <a class="btn btn-warning" href="{{ path('fos_user_registration_register') }}">sign up</a>
             </div>
         </div>
     </div>
