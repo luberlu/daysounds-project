@@ -20,7 +20,7 @@ gu.appendChild(img);
             reader.onload = function (e) {
                 console.log(img);
                 img.src=e.target.result;
-            }
+            };
 
             reader.readAsDataURL(input.files[0]);
         }
