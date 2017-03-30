@@ -294,7 +294,7 @@ class PlaylistController extends DefaultController
                     // sound do not exist, add is possible
                     $playlist->addSound($sound);
                     // add sound to "All sounds" Playlist
-                    $allSounds = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->findOneBy(array('isDefault'=> true));
+                    $allSounds = $this->getDoctrine()->getRepository('ProjectBundle:Playlist')->findOneBy(array('isDefault'=> true, 'user' => $this->getUser()));
                     $allSounds->addSound($sound);
 
                     $em->persist($sound);
@@ -351,6 +351,12 @@ class PlaylistController extends DefaultController
                     foreach ( $listSounds as $sound ) {
 
                         if ( $sound == $soundToRemove ) {
+
+                            // mettre l'id du son dans la table sound_trashs si pas deja dedans
+
+                            //$soundToRemove->getTrashs
+                            //$soundToRemove->addTrash($this->getUser());
+
                             $playlistFound->removeSound( $soundToRemove );
 
                         }
@@ -361,6 +367,7 @@ class PlaylistController extends DefaultController
 
             } else {
 
+                //$soundToRemove->addTrash($this->getUser());
                 $playlist->removeSound( $soundToRemove );
             }
 
