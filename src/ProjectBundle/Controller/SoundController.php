@@ -15,12 +15,13 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class SoundController extends DefaultController {
 
     /**
-     * @Route("/playlist/{playlist_id}/add/{sound_id}", name="add_sound_to_this_playlist", requirements={"sound_id" = "\d+"})
+     * @Route("/playlist/{playlist_id}/add/{sound_id}/{isDayli}", name="add_sound_to_this_playlist", requirements={"sound_id" = "\d+"})
      * @param $playlist_id
      * @param $sound_id
+     * @param $isDayli
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function addSoundPlaylist($playlist_id, $sound_id){
+    public function addSoundPlaylist($playlist_id, $sound_id, $isDayli){
 
         if($this->getUser()) {
             $user = $this->getUser();
@@ -60,6 +61,17 @@ class SoundController extends DefaultController {
             }
 
             if(!$alreadyInPlaylistDefault){
+
+                // Check if it come to dayli sounds
+                if($isDayli == true){
+                    // find Dayliplaylist from user
+                    $dayliPlaylistFromUser = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")
+                        ->findOneBy(array("user" => $this->getUser(), "isDayli" => true));
+
+                    $dayliPlaylistFromUser->removeSound($sound);
+
+                }
+
                 $playlist_default->addSound($sound);
                 $em->persist($playlist_default);
             }
