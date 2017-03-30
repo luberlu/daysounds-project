@@ -49,7 +49,7 @@ remplir la database
 generer les assets
 > php bin/console assets:install
 
-se connecter a l'adresse 127.0.0.1:port   port->port configurer dans mamp pour mac et wamp64 pour windows
+se connecter a l'adresse 127.0.0.1:8000
 
 login as username :username 1 / password : root
 
