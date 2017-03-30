@@ -3,7 +3,7 @@ Projet IESA Multimedia
 
 Concept Owner : @edouardthieffry
 
-> cloner le projet
+cloner le projet
 
 > composer install/update
 
