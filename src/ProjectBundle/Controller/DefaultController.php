@@ -19,7 +19,10 @@ class DefaultController extends Controller
         if($this->getUser()){
             return $this->redirect($this->generateUrl('stream'));
         }
-        return $this->render('ProjectBundle:Default:index.html.twig');
+        else{
+            return $this->render('ProjectBundle:Default:home.html.twig');
+
+        }
     }
 
     /**
