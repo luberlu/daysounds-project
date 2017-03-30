@@ -105,7 +105,6 @@ class PlaylistController extends DefaultController
                     ->getFlashBag()
                     ->add('success', 'New playlist has been saved!');
 
-                //return $this->redirect($this->generateUrl('user-profil',array('slug_username'=>$slug_username)));
                 return $this->redirect(
                     $this->generateUrl(
                         'add_sound_to_playlist',
@@ -128,8 +127,9 @@ class PlaylistController extends DefaultController
 
     /**
      * @Route("/users/{slug_username}/playlists/delete/{id}", requirements={"id" = "\d+"}, name="delete_playlist")
+     * @param $id
      * @param $slug_username
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
 
     public function deletePlaylistAction($id, $slug_username)
@@ -167,7 +167,7 @@ class PlaylistController extends DefaultController
         $this->loadDatas($slug_username);
 
         if(!$this->datas["actions"])
-            return $this->redirect($this->generateUrl('user-profil', array("slug_username" => $slug_username)));
+            return $this->redirect($this->generateUrl('user-profil', array("slug_username" => $slug_username)       ));
 
         $em = $this->getDoctrine()->getManager();
         $playlist = $em->getRepository('ProjectBundle:Playlist')
@@ -347,10 +347,14 @@ class PlaylistController extends DefaultController
             $thisSoundTrashsUser = $this->getUser()->getTrashs();
 
             foreach ($thisSoundTrashsUser as $soundTrashed) {
+
                 if ($soundTrashed != $soundToRemove) {
                     $soundToRemove->addTrash($this->getUser());
+                    break;
                 }
             }
+
+            //die;
 
             if ( $playlist->getIsDefault() ) {
 
@@ -376,7 +380,6 @@ class PlaylistController extends DefaultController
 
             } else {
 
-                //$soundToRemove->addTrash($this->getUser());
                 $playlist->removeSound( $soundToRemove );
             }
 

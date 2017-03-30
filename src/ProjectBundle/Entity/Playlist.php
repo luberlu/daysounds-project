@@ -74,7 +74,7 @@ class Playlist
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Sound", orphanRemoval=true, inversedBy="playlists")
+     * @ORM\ManyToMany(targetEntity="Sound", inversedBy="playlists")
      * @ORM\JoinTable(name="playlist_sounds",
      *                 joinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id")},
      *                 inverseJoinColumns={@ORM\JoinColumn(name="sound_id", referencedColumnName="id")}
