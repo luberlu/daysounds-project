@@ -14,15 +14,25 @@ vérifiez que vous utilisez bien php 7
 dans le dossier app/config/parameters.yml (pour mac)
 
 parameters:
+
     database_host: 127.0.0.1
+    
     database_port:  8889
+    
     database_name: daysounds
+    
     database_user: root
+    
     database_password: root
+    
     mailer_transport: smtp
+    
     mailer_host: 127.0.0.1
+    
     mailer_user: null+
+    
     mailer_password: null
+    
     secret: ThisTokenIsNotSoSecretChangeIt
 
 
