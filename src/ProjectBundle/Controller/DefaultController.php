@@ -168,10 +168,26 @@ class DefaultController extends Controller
 
     }
 
+    private function checkIfAlreadyInAPlaylist($soundToCheck){
+
+        $allPlaylists = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")
+            ->findBy(array("user" => $this->getUser()));
+
+        foreach($allPlaylists as $playlist){
+            foreach($playlist->getSounds() as $sound){
+                if($sound == $soundToCheck){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
+    }
+
     // retrieve 1 sound per follow to dayliPlaylist
     private function cronToDayliPlaylist(){
 
-        //$soundsPerFollows = [];
         $em = $this->getDoctrine()->getManager();
 
         $his_dayli_sound_playlist = $this->getDoctrine()->getRepository("ProjectBundle:Playlist")
@@ -193,7 +209,6 @@ class DefaultController extends Controller
             }
 
             foreach ($follows as $follow) {
-
                 $soundToAddToPlaylistId = $this->findSoundToAdd($follow);
 
                 // S'il y a au moins un son qui n'a pas été pushé encore dans Dayliplaylist
@@ -202,7 +217,23 @@ class DefaultController extends Controller
                     $soundToAddToPlaylist = $this->getDoctrine()
                         ->getRepository("ProjectBundle:Sound")->findOneById($soundToAddToPlaylistId);
 
-                    $his_dayli_sound_playlist->addSound($soundToAddToPlaylist);
+                    $authorizeAdd = true;
+                    // check sound_trash if already inside
+                    // user trash sounds
+                    $thisSoundTrashsUser = $this->getUser()->getTrashs();
+
+                    foreach ($thisSoundTrashsUser as $soundTrashed) {
+                        if ($soundTrashed == $soundToAddToPlaylist) {
+                            $authorizeAdd = false;
+                        }
+                    }
+
+                    if($this->checkIfAlreadyInAPlaylist($soundToAddToPlaylist) == true){
+                        $authorizeAdd = false;
+                    }
+
+                    if($authorizeAdd)
+                        $his_dayli_sound_playlist->addSound($soundToAddToPlaylist);
                 }
 
             }
@@ -210,6 +241,8 @@ class DefaultController extends Controller
             $em->flush();
 
         }
+
+        return false;
 
     }
 
