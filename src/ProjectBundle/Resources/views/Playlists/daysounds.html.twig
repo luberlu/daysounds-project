@@ -25,7 +25,7 @@
                             {% for list in datas.listPlaylists %}
                                 <div>
                                     <a  href="{{ path('add_sound_to_this_playlist',
-                                    {'playlist_id': list.id, 'sound_id':sound.id}) }}">{{ list.name }}</a>
+                                    {'playlist_id': list.id, 'sound_id':sound.id, 'isDayli': true}) }}">{{ list.name }}</a>
                                 </div>
                             {% endfor %}
                         </div>
