@@ -1,12 +1,16 @@
 {% extends "ProjectBundle:Default:index.html.twig" %}
 
 {% block settingsBlock %}
-<ul class="list-group fos_user_user_show">
-    <li class="list-group-item">
-        username : {{ user.username }}
-    </li>
-    <li class="list-group-item">
-       email :  {{ user.email }}
-    </li>
-</ul>
+    <h1 class="btn-primary text-center"> account informations</h1>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">username : {{ user.username }}</div>
+        <div class="panel-body">
+            email :  {{ user.email }}
+        </div>
+        <div class="panel-heading">
+            <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}">
+        </div>
+    </div>
 {% endblock %}

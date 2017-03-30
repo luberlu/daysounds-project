@@ -117,6 +117,8 @@ class PlaylistController extends DefaultController
             }
         }
 
+        $this->datas["isFirst"] = true;
+
         $this->loadDatas($slug_username);
         $this->datas["form"] = $form->createView();
 

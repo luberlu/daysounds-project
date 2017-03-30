@@ -1,11 +1,16 @@
 {% extends "@ProjectBundle/Resources/views/Default/profil.html.twig" %}
 
 {% block form %}
-    {#{% form_theme AddPlaylistType 'bootstrap_3_layout.html.twig' %}#}
 
-    <h1 class="btn-primary text-center">Create new playlist</h1>
+        {% set formPlay = datas.form %}
+    {% form_theme formPlay 'bootstrap_3_layout.html.twig' %}
+
+
+    <h1 class="btn-primary text-center" style="margin-top: 0;padding: 10px;">Create new playlist</h1>
+
     {{ form_start(datas.form) }}
         {{ form_widget(datas.form) }}
         <p><input class="btn btn-lg btn-success" type="submit" value="Add playlist"></p>
     {{ form_end(datas.form) }}
+
 {% endblock %}
