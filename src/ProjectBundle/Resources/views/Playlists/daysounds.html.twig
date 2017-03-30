@@ -3,14 +3,21 @@
         <h4 class="text-center btn-warning" style="margin-top: 0 !important;"> Follow users to have dayli sounds suggestions !</h4>
      {% else %}
         {% for sound in datas.dayliSounds %}
-            <div class="list-group margin-bottom: 29px;">
+            <div class="list-group dayli-sounds-playlist">
                 <div class="list-group-item">
                     <h4 class="sound-name text-center">{{ sound.name }}</h4>
                 </div>
                 <!-- iframe integration -->
                 {% include "@ProjectBundle/Resources/views/Playlists/sound-iframe.html.twig" %}
                 <div class="actions-sound">
-                    <div class="dropdown">
+                    <div class="dropdown clearfix">
+
+                        <a href="{{ path("delete_sound_from_playlist", {
+                            "id_playlist": datas.dayliPlaylist.id, "id_sound": sound.id
+                        }) }}"
+
+                           class="btn btn-lg btn-warning">Add to trash</a>
+
                         <a style="float:left;" href="#" class="dropdown-toggle btn btn-lg btn-success"
                            data-toggle="dropdown" role="button" aria-expanded="false">Add sound to playlist <span class="caret"></span>
                         </a>

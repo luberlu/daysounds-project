@@ -41,6 +41,7 @@ class DefaultController extends Controller
             $dayliPlaylist = $this->getDoctrine()
                 ->getRepository('ProjectBundle:Playlist')->findOneBy(array("user" => $user, "isDayli" => true));
             $this->datas["dayliSounds"] = $dayliPlaylist->getSounds();
+            $this->datas["dayliPlaylist"] = $dayliPlaylist;
 
             $this->datas["listPlaylists"] = $this->getDoctrine()
                 ->getRepository('ProjectBundle:Playlist')->findBy(array(
