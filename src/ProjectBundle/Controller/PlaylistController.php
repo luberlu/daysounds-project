@@ -143,6 +143,32 @@ class PlaylistController extends DefaultController
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository('ProjectBundle:Playlist');
         $delete = $repository->find($id);
+
+        // mettre l'id du son dans la table sound_trashs si pas deja dedans
+        // toutes les sons à la poubelle de l'user
+
+        $thisSoundTrashsUser = $this->getUser()->getTrashs();
+
+        // all sounds in this playlists
+        $inTrash = false;
+
+        $allSoundsToPlaylistDeleted = $repository->findOneById($id)->getSounds();
+
+        foreach($allSoundsToPlaylistDeleted as $soundToTrash) {
+
+            // check first if it is not already in trash
+
+            foreach ($thisSoundTrashsUser as $soundTrashed) {
+                if ($soundTrashed == $soundToTrash) {
+                    $inTrash = true;
+                    break;
+                }
+            }
+
+            if(!$inTrash)
+                $soundToTrash->addTrash($this->getUser());
+        }
+
         $em->remove($delete);
         $em->flush();
 

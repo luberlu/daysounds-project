@@ -20,77 +20,8 @@
     </main>
 
     <div class="container profil">
-
-     {#   {% if datas.actions %}
-
-
         <div class="row">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <a href="/">Edit the profil</a>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                <a href="/">Add music</a>
-            </div>
-        </div>
-
-        {%  endif %}#}
-        <div class="row">
-      {#      <section class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Profil
-                <div class="row">
-                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">
-                        <img class="profil-img" src="{{ vich_uploader_asset(datas.user, 'imageFile') }}" alt="#">
-                        <span>{{ datas.user.username }}</span>
-
-                        {% if app.user != datas.user %}
-                            {% if datas.tofollow == 0 %}
-                                 <span>Followed by you</span>
-                            {% elseif datas.tofollow == 1 %}
-                                 <a href="{{ path('add_follow',{'slug_username':datas.user.slug}) }}">Follow it >></a>
-                            {% endif %}
-                        {% endif %}
-
-                    </div>
-                </div>
-                <div class="row">
-                    <ul class="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">
-                        <li><a href="{{ path('list_followers',{'slug_username':datas.user.slug}) }}">Followers</a></li>
-                        <li><a href="{{ path('list_follows',{'slug_username':datas.user.slug}) }}">Follows</a></li>
-                    </ul>
-                </div>
-                <div class="row">
-                    <ul class="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">
-                        {% if datas.actions %}
-                            <li>
-                                <a href="{{ path('add_playlist',{'slug_username':datas.slugUserName}) }}">create playlist</a>
-                            </li>
-                        {% endif %}
-                        {% for playlist in datas.listePlaylist %}
-                            {% if playlist.isDefault %}
-                                <li>
-                                    <a  href="{{ path('playlist_sounds', {'slug_username': datas.user.slug, 'playlist_slug': playlist.slug }) }}">{{ playlist.name }}</a>
-                                </li>
-                            {% elseif playlist.isDayli %}
-
-                            {% else %}
-                                <li>
-                                    <a  href="{{ path('playlist_sounds', {'slug_username': datas.user.slug, 'playlist_slug': playlist.slug }) }}">{{ playlist.name }}</a>
-                                </li>
-                                {% if datas.actions %}
-                                    <ul class="action">
-                                        <li><a href="{{ path('delete_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">Delete</a></li>
-                                        <li><a href="{{ path('edit_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}">edit</a></li>
-                                        <li><a href="{{ path('add_sound_to_playlist', {'slug_username':datas.slugUserName, 'playlist_slug': playlist.slug }) }}">add sound</a></li>
-                                    </ul>
-                                {% endif %}
-                            {% endif %}
-
-                        {% endfor %}
-                    </ul>
-                </div>
-            </section>
-#}
             <section class="col-xs-3 col-sm-3 col-md-3 col-lg-3 btn-default nopadding profil-section-left">
-
 
                     <a href="{{ path("user-profil", {"slug_username": datas.user.slug}) }}" class="list-group nopadding  ">
                         <figure class="list-group">
@@ -98,7 +29,6 @@
                         </figure>
                         <figcaption class="text-center  nohover"><h5 class="username-profil">{{ datas.user.username }}</h5></figcaption>
                     </a>
-
 
                 {% if app.user != datas.user %}
                 <div class="list-group-item text-center">
@@ -161,10 +91,12 @@
 
                                     </a>
                                 {% if datas.actions %}
+                                    {% if playlist.isDefault == false %}
                                     <button type="button" class="close" aria-label="Close"><a href="{{ path('delete_playlist', {'id': playlist.id,'slug_username':datas.slugUserName }) }}"><span aria-hidden="true">×</span>
                                         </a>
 
                                     </button>
+                                        {% endif %}
                                 {% endif %}
 
                                 </li>
