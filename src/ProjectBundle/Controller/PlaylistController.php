@@ -388,8 +388,12 @@ class PlaylistController extends DefaultController
                  ->getFlashBag()
                  ->add('success', 'Sound has been deleted to ' . $playlist->getName());
 
-            return $this->redirect($this->generateUrl('playlist_sounds',
-                array('slug_username' => $this->getUser()->getSlug(), 'playlist_slug' => $playlist->getSlug())));
+            if($playlist->getIsDayli()) {
+                return $this->redirect($this->generateUrl("stream"));
+            } else {
+                return $this->redirect($this->generateUrl('playlist_sounds',
+                    array('slug_username' => $this->getUser()->getSlug(), 'playlist_slug' => $playlist->getSlug())));
+            }
 
         }
 

@@ -210,6 +210,26 @@ span.already-follow {
 .profil-section-left a.list-group-item:hover {
     background-color: #485563;
 }
+
+.list-group.dayli-sounds-playlist .actions-sound .dropdown a {
+    float: left;
+    width: 50%;
+}
+
+.actions-to-sound-dayli .dropdown-menu {
+    width: 100%;
+}
+
+.actions-to-sound-dayli .dropdown-menu>li>a {
+    font-size: 17px;
+    border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    width: 100% !important;
+}
+
+
+
+
 /* END LUCIEN */
 
 figure.list-group{
